@@ -1,0 +1,272 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+li {
+    text-decoration: none;
+    font-style: normal;
+    list-style: none;
+}
+
+html {
+    background-color: #f1f2f3
+}
+
+body {
+    width: 100hw;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+/* 版心 */
+.w {
+    width: 95%;
+    margin: 0 auto;
+}
+
+/* 初始化完成 */
+
+/* header样式 */
+header {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background-color: pink;
+}
+
+header .logo {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+header .headNav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+header .headNav .leftNav {
+    flex: 0 0 40%;
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: red;
+}
+
+header .headNav .rightNav {
+    flex: 0 0 30%;
+    display: flex;
+    align-items: end;
+    flex-flow: row nowrap;
+    background-color: rgba(0, 0, 255, 0.323);
+}
+
+header .headNav .rightNav li {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+/* 头部导航样式结束 */
+
+/* 中间分区导航 */
+.centerNav {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 50px auto;
+    height: 80px;
+}
+
+.centerNav .leftCenterNav {
+    display: flex;
+    flex: 0 0 10%;
+    flex-flow: row nowrap;
+}
+
+.centerNav .leftCenterNav section li {
+    background-color: #ccd0d4;
+}
+
+.centerNav .leftCenterNav section li a {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.centerNav .partition {
+    display: flex;
+    flex: 0 0 70%;
+    flex-flow: column nowrap;
+}
+
+.centerNav .partition ul {
+    display: flex;
+}
+
+.centerNav .partition ul li {
+    background-color: #d3d7db;
+}
+
+.centerNav .rightCenterNav {
+    display: flex;
+    flex-flow: column nowrap;
+    border-left: 1px #ccc solid;
+}
+
+.centerNav .rightCenterNav ul {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.content {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+}
+
+
+.content .ready {
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+/* 预设加载动画 */
+.content .loading {
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+
+}
+
+.content .loading div {
+    width: 100%;
+    height: 64%;
+    margin: 0;
+    background-color: #f1f2f3;
+    border-radius: 5px;
+}
+
+.content .loading #a {
+    display: block;
+    width: 90%;
+    height: 7%;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #f1f2f3;
+
+}
+
+.content .loading #b {
+    display: block;
+    width: 66%;
+    height: 6%;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #f1f2f3;
+}
+
+.content .loading #c {
+    display: block;
+    width: 43%;
+    height: 6%;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #f1f2f3;
+}
+
+.content .loading::before {
+    content: "";
+    display: block;
+    background: linear-gradient(transparent, white, transparent);
+    width: 200%;
+    height: 80%;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 0px;
+    left: -300px;
+    animation: brighting 1s infinite;
+}
+
+@keyframes brighting {
+    from {
+        left: -300px;
+    }
+
+    to {
+        left: 300px;
+    }
+}
+
+/* 视频预加载样式完成 */
+
+/*首页 视频模块 */
+.content section {
+    width: 18%;
+    height: 290px;
+    margin-bottom: 15px;
+}
+
+
+.ready .video {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+}
+
+.ready video {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.ready>div::after {
+    content: "稍后再看";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.ready>div:hover::after {
+    opacity: 1;
+}
+
+.ready>div::before {
+    position: absolute;
+    content: "1111";
+    padding-left: 10px;
+    display: block;
+    width: 100%;
+    height: 30px;
+    bottom: 0px;
+    color: white;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.73));
+    transition: all 0.1s;
+}
+
+
+
+.ready>div:hover::before {
+    opacity: 0;
+}
+
+.ready .videoTitle {
+    margin-top: 12px;
+    font-size: 20px;
+}
+
+.ready .author {
+    margin-top: 10px;
+    font-size: 18px;
+    color: rgb(141, 141, 141);
+}

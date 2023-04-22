@@ -1,0 +1,587 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+li {
+    text-decoration: none;
+    font-style: normal;
+    list-style: none;
+}
+
+html {
+    background-color: #f1f2f3
+}
+
+body {
+    width: 100hw;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+/* 版心 */
+.w {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* 初始化完成 */
+
+/* header样式 */
+header {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    background-color: pink;
+}
+
+header .logo {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+header .headNav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+header .headNav .leftNav {
+    flex: 0 0 40%;
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: red;
+}
+
+header .headNav .rightNav {
+    flex: 0 0 30%;
+    display: flex;
+    align-items: end;
+    flex-flow: row nowrap;
+    background-color: rgba(0, 0, 255, 0.323);
+}
+
+header .headNav .rightNav li {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+/* 头部导航样式结束 */
+
+/* 内容部分 */
+/* left */
+.content .left {
+    float: left;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 70%;
+    background-color: pink;
+}
+
+.content .left .title {
+    font-size: 38px;
+    margin: 5px 0;
+}
+
+.content .left .info {
+    font-size: 20px;
+    margin-bottom: 40px;
+    color: #9499a0;
+
+}
+
+.content .left .video {
+    width: 99.7%;
+    aspect-ratio: 16/9;
+}
+
+.content .left .video video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: black
+}
+
+/* 发送弹幕栏 */
+.content .left .sendBarrage {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 60px;
+    line-height: 60px;
+}
+
+.content .left .sendBarrage .condition {
+    margin: 0 20px;
+    font-size: 20px;
+    margin-right: 20px;
+    color: #61666d;
+}
+
+.content .left .sendBarrage #barrageSetting {
+    margin: 0 20px;
+}
+
+.content .left .sendBarrage #barrage {
+    width: 60%;
+}
+
+.content .left .sendBarrage #barrageSend {
+    width: 100px;
+}
+
+/* 三连模块 */
+.content .left .subcribe {
+    height: 90px;
+    line-height: 90px;
+    background-color: #fff;
+}
+
+.content .left .subcribe .subLeft {
+    float: left;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.content .left .subcribe .subLeft button {
+    width: 100px;
+    margin-right: 50px;
+}
+
+.content .left .subcribe .subRight {
+    float: right;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.content .left .subcribe .subRight button {
+    width: 100px;
+    margin-left: 20px;
+}
+
+/* 评论模块 */
+.comments .head {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100px;
+    line-height: 100px;
+}
+
+.comments .head p {
+    margin: 0 50px 0 10px;
+}
+
+.comments .sendComments {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+/* right */
+.content .right {
+    float: right;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 28%;
+    background-color: rgb(121, 231, 218);
+}
+
+/* up主部分 */
+.content .right .upInfo {
+    height: 100px;
+}
+
+.content .right .upInfo .infoLeft {
+    float: left;
+    width: 20%;
+    height: 100px;
+    line-height: 100px;
+
+}
+
+.content .right .upInfo .infoLeft .avata {
+    width: 80%;
+    aspect-ratio: 1;
+    border-radius: 90px;
+    background-position: center center;
+    background-size: contain;
+}
+
+.content .right .upInfo .infoRight {
+    float: right;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 79%;
+}
+
+.content .right .upInfo .infoRight .name {
+    font-size: 25px;
+}
+
+.content .right .upInfo .infoRight .description {
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.content .right .upInfo .infoRight .btn {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.content .right .upInfo .infoRight .btn button {
+    width: 48%;
+    height: 37px;
+    border-radius: 8px;
+}
+
+/* 评论模块 */
+.content .left .comments .sendComments {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-left: 70px;
+}
+
+
+.content .left .comments .sendComments .avata {
+    position: absolute;
+    left: -70px;
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 100%;
+}
+
+.content .left .comments .sendComments input {
+    width: 80%;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.content .left .comments .sendComments .commentSend {
+    height: 50px;
+    width: 80px;
+    margin: 10px 0 0 10px;
+}
+
+/* 回复评论模块 */
+/* 评论模块 */
+.content .left .comments .sendReply {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+
+.content .left .comments .sendReply .avata {
+    position: absolute;
+    left: -70px;
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 100%;
+}
+
+.content .left .comments .sendReply input {
+    width: 80%;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.content .left .comments .sendReply .commentSend {
+    height: 50px;
+    width: 80px;
+    margin: 10px 0 0 10px;
+}
+
+/* comment 单条评论 */
+.content .left .comments .commentsList .comment {
+    position: relative;
+    margin-left: 70px;
+    margin-top: 30px;
+
+}
+
+.content .left .comments .commentsList .comment .avata {
+    position: absolute;
+    left: -70px;
+    height: 50px;
+    width: 50px;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 100%;
+}
+
+.content .left .comments .commentsList .comment .name {
+    color: red;
+    font-size: 20px;
+    margin: 10px 0 20px 0;
+}
+
+.content .left .comments .commentsList .comment .detailInfo {
+    font-style: normal;
+    color: #ccc;
+}
+
+.content .left .comments .commentsList .comment .detailInfo .sub {
+    margin: 0 20px;
+}
+
+.content .left .comments .commentsList .comment .detailInfo button {
+    margin: 20px;
+}
+
+/* reply */
+.content .left .comments .commentsList .comment .reComment {
+    position: relative;
+    margin-left: 70px;
+    margin-top: 30px;
+
+}
+
+.content .left .comments .commentsList .comment .reComment .avata {
+    position: absolute;
+    left: -70px;
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 100%;
+}
+
+.content .left .comments .commentsList .comment .reComment .name {
+    color: red;
+    font-size: 20px;
+    margin: 10px 0 20px 0;
+}
+
+.content .left .comments .commentsList .comment .reComment .detailInfo {
+    font-style: normal;
+    color: #ccc;
+}
+
+.content .left .comments .commentsList .comment .reComment .detailInfo .sub {
+    margin: 0 20px;
+}
+
+.content .left .comments .commentsList .comment .reComment .detailInfo button {
+    margin: 20px;
+}
+
+/* 弹幕列表 */
+.content .right .barrageList {
+    height: 50px;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+.content .right .barrageList.active {
+    height: 400px;
+    overflow: auto;
+    transition: all 0.2s ease-in-out;
+}
+
+.content .right .barrageList ul li {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.content .right .barrageList .listHead {
+    background-color: red;
+    height: 50px;
+    line-height: 50px;
+
+}
+
+.content .right .barrageList ul li p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.content .right .barrageList ul li p:nth-of-type(1) {
+    width: 20%;
+}
+
+.content .right .barrageList ul li p:nth-of-type(2) {
+    width: 50%;
+}
+
+.content .right .barrageList ul li p:nth-of-type(3) {
+    width: 30%;
+}
+
+.content .right .barrageList ul li {
+    height: 28px;
+    line-height: 28px;
+
+}
+
+.content .right .barrageList .listFoot {
+    text-align: center;
+}
+
+/* 播放列表 */
+.content .right .videoList .listHead {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.content .right .videoList .listHead .top {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.content .right .videoList .listHead .bottom {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+/* 视频水印 */
+.content .left .video .watermark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: rgba(255, 255, 255, 0.409);
+}
+
+/* 视频控件 */
+
+/* 清除原生控件 */
+video::-webkit-media-controls {
+    display: none !important;
+}
+
+.content .left .video {
+    position: relative;
+    overflow: hidden;
+}
+
+.content .left .video .control {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+
+
+
+.content .left .video .control #follow {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+}
+
+.content .left .video .control #report {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+}
+
+
+
+.content .left .video .control #worktable {
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* 未hover进度条 */
+.content .left .video .progressBar1 {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    transition: all 0.5s;
+}
+
+.content .left .video:hover .progressBar1 {
+    opacity: 0;
+}
+
+.content .left .video .control #progressBar {
+    position: absolute;
+    top: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+}
+
+
+.content .left .video .control .left {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.content .left .video .control .right {
+    display: flex;
+    flex-flow: row nowrap;
+
+}
+
+.content .left .video .control .play {
+    position: absolute;
+    right: 50px;
+    bottom: 100px;
+}
+
+/* 弹幕效果 */
+.content .left .video .runningBarrage {
+    position: absolute;
+    width: 500px;
+    top: 0;
+    right: -500px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.content .left .video .runningBarrage p {
+    position: absolute;
+    padding: 5px 0.5rem;
+    animation-name: barrageMoving;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+    animation-play-state: paused;
+}
+
+.content .left .video .runningBarrage p.special {
+    background-color: rgba(233, 185, 220, 0.4);
+}
+
+@keyframes barrageMoving {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: translate(-3000px);
+    }
+}
+
+@-webkit-keyframes barrageMoving {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: translate(-3000px);
+        display: none;
+    }
+}

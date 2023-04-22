@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>video</title>
+    <link rel="stylesheet" href="./video.css">
+    <style media="(min-width:2020px)">
+        body {
+            width: 1980px;
+        }
+    </style>
+    <style media="(max-width:1020px)">
+        body {
+            width: 1020px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span class="headNav">
+            <ul class="leftNav">
+                <li><a href="#"><i class="iconfont"></i>首页</a></li>
+                <li><a href="#"></a>番剧</li>
+                <li><a href="#"></a>直播</li>
+                <li><a href="#"></a>游戏中心</li>
+                <li><a href="#"></a>会员购</li>
+                <li><a href="#"></a>漫画</li>
+                <li><a href="#"></a>赛事</li>
+                <li><a href="#"></a>春日</li>
+                <li><a href="#"></a><i class="iconfont"></i>下载客户端</li>
+            </ul>
+
+            <form action="search">
+                <input type="text" placeholder="大数据来秀一下吧"><i class="iconfont"></i>
+            </form>
+            <ul class="rightNav">
+                <li><img alt="" srcset="">头像啊</li>
+                <li><i class="iconfont">图标</i><span>大会员</span></li>
+                <li><i class="iconfont">图标</i><span>消息</span></li>
+                <li><i class="iconfont">图标</i><span>动态</span></li>
+                <li><i class="iconfont">图标</i><span>收藏</span></li>
+                <li><i class="iconfont">图标</i><span>历史</span></li>
+                <li><i class="iconfont">图标</i><span>创作中心</span></li>
+                <li><a href="#"><i class="iconfont">图标</i><button>投稿</button></a></li>
+            </ul>
+        </span>
+    </header>
+
+    <div class="content w">
+        <div class="left">
+            <div class="title">title</div>
+            <div class="info">desription</div>
+            <div class="video">
+                <video autoplay src=""></video>
+                <div class="watermark">bilibili</div>
+                <div class="progressBar1"></div>
+                <div class="control">
+                    <div id="follow">关注</div>
+                    <div id="report">举办</div>
+                    <div class="play">播放图标</div>
+                    <div id="worktable">
+                        <div class="left">
+                            <div id="pre">上一个</div>
+                            <div id="playAndPause">播放/暂停</div>
+                            <div id="next">下一个</div>
+                            <div id="timer">时间</div>
+                        </div>
+
+                        <div id="progressBar"></div>
+
+                        <div class="right">
+                            <div id="clarity">清晰度</div>
+                            <div id="speed">倍速</div>
+                            <div id="volume">音量</div>
+                            <div id="setting">设置</div>
+                            <div id="smallWin">小窗</div>
+                            <div id="caption">字幕</div>
+                            <div id="pageFull">网页全屏</div>
+                            <div id="full">全屏</div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <div class="runningBarrage">
+                </div>
+            </div>
+
+            <div class="sendBarrage">
+                <p class="condition">xxx人再开，多少弹幕已经装填</p>
+                <button id="barrageToggle">开启弹幕</button>
+                <button id="barrageSetting">设置弹幕</button>
+                <input type="text" name="barrage" id="barrage">
+                <button id="barrageSend">发送</button>
+            </div>
+            <div class="subcribe">
+                <div class="subLeft">
+                    <button class="subcribe">点赞</button>
+                    <button class="coins">投币</button>
+                    <button class="favorite">收藏</button>
+                    <button class="share">分享</button>
+                </div>
+                <div class="subRight">
+                    <button class="report">举报</button>
+                    <button class="makeNote">记笔记</button>
+                    <button class="more">更多</button>
+                </div>
+
+            </div>
+
+            <div class="details">这里是作者的视频简介</div>
+            <div class="comments">
+                <div class="head">
+                    <h1>评论</h1>
+                    <p>1111</p>
+                    <div class="sorting">
+                        <button>最热</button>
+                        <button>最新</button>
+                    </div>
+                </div>
+                <div class="sendComments">
+                    <div class="avata">头像</div>
+                    <input type="text" id="comments" placeholder="勇敢滴少年快去创造热评~">
+                    <button class="commentSend">发布</button>
+                </div>
+                <div class="commentsList">
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="upInfo">
+                <div class="infoLeft">
+                    <div class="avata"></div>
+                </div>
+                <div class="infoRight">
+                    <p class="name"></p>
+                    <p class="description">up主简介</p>
+                    <div class="btn">
+                        <button id="charge">充电</button>
+                        <button id="follow">关注</button>
+                    </div>
+                </div>
+            </div>
+            <div class="barrageList">
+                <div class="listHead">弹幕列表 <i class="iconfont" id="toggle">?</i></div>
+                <ul>
+                    <li>
+                        <p id="time">时间</p>
+                        <p id="barContent">弹幕内容</p>
+                        <p id="sendTime">发送时间</p>
+                    </li>
+                </ul>
+                <div class="listFoot">查看历史弹幕</div>
+            </div>
+            <div class="videoList">
+                <div class="listHead">
+                    <section class="top">
+                        <div class="name">合集名字</div>
+                        <button>自动连播按钮</button>
+                    </section>
+                    <section class="bottom">
+                        <p class="playAmount">80万播放</p>
+                        <button>订阅合集</button>
+                    </section>
+
+                </div>
+                <ul>
+                    <li class="listedVideo">视频链接</li>
+                    <li class="listedVideo">视频链接</li>
+                    <li class="listedVideo">视频链接</li>
+                    <li class="listedVideo">视频链接</li>
+                </ul>
+            </div>
+            <div class="more">更多的视频</div>
+        </div>
+
+    </div>
+</body>
+<script src="video.js"></script>
+
+</html>
