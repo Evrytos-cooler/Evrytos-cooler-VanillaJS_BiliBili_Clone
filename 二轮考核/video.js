@@ -17,12 +17,17 @@ function refreshVideo(n) {
 refreshVideo(i)
 
 
-// up主模块
+// 渲染up主模块
 const upAvata = document.querySelector('.content .right .upInfo .infoLeft .avata')
 const upName = document.querySelector('.content .right .upInfo .infoRight .name')
 const upDescription = document.querySelector('.content .right .upInfo .infoRight .description')
-upAvata.style.backgroundImage = `url(${response.videos[i].authorAvatarSrc})`
-upName.innerText = response.videos[i].author
+
+function upInfo(n) {
+    upAvata.style.backgroundImage = `url(${response.videos[n].authorAvatarSrc})`
+    upName.innerText = response.videos[n].author
+}
+upInfo(i)
+
 
 
 // 弹幕列表
@@ -472,6 +477,7 @@ videoObj.previous.addEventListener('click', () => {
     else {
         i--
     }
+    upInfo(i)
     refreshVideo(i)
     RefreshVideoList(i)
     barClear()
@@ -485,6 +491,7 @@ videoObj.next.addEventListener('click', () => {
     else {
         i++
     }
+    upInfo(i)
     refreshVideo(i)
     RefreshVideoList(i)
     barClear()
@@ -510,6 +517,7 @@ response.videos.forEach((video, index) => {
 const videoList = document.querySelector('.content .right .videoList ul')
 videoList.addEventListener('click', (e) => {
     i = titleToIndex.indexOf(e.target.innerText)
+    upInfo(i)
     refreshVideo(i)
     RefreshVideoList(i)
     barClear()
