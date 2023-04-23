@@ -1,7 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const response = JSON.parse(urlParams.get('src'));
 let i = urlParams.get('current')
-console.log(response)//直接浏览器url传参，好像不太好样子，
 
 //获取元素
 const title = document.querySelector('.content .left .title')
@@ -12,7 +11,8 @@ const video = document.querySelector('.content .left video')
 
 function refreshVideo(n) {
     title.innerText = response.videos[i].title
-    video.setAttribute('src', `${response.videos[n].videoSrc}`)
+    video.setAttribute('src', response.videos[n].videoSrc)
+
 }
 refreshVideo(i)
 
@@ -23,7 +23,6 @@ const upName = document.querySelector('.content .right .upInfo .infoRight .name'
 const upDescription = document.querySelector('.content .right .upInfo .infoRight .description')
 upAvata.style.backgroundImage = `url(${response.videos[i].authorAvatarSrc})`
 upName.innerText = response.videos[i].author
-console.log(response.videos[i].author)
 
 
 // 弹幕列表
@@ -38,23 +37,22 @@ listHead.addEventListener('click', () => {
 
 //渲染列表内容函数
 function barAddToList(barObjs) {
-    console.log(barObjs)
+
+    // 清空列表重新加载，就算没有也要清空
+    const barList = document.querySelector('.content .right .barrageList ul')
+    let bar = document.querySelectorAll('.content .right .barrageList ul li')
+    bar.forEach(
+        (entry, index) => {
+            if (index != 0) { barList.removeChild(entry) }
+        }
+    )
+
     if (barObjs) {
         //给列表排序
         barObjs.sort(function (pre, next) {
             return (pre.location - next.location)
-
         })
 
-        // 清空列表重新加载
-        const barList = document.querySelector('.content .right .barrageList ul')
-        let bar = document.querySelectorAll('.content .right .barrageList ul li')
-        bar.forEach(
-            (entry, index) => {
-                if (index != 0) { barList.removeChild(entry) }
-
-            }
-        )
 
         //渲染新的列表
         barObjs.forEach((barObj) => {
@@ -147,7 +145,6 @@ function addComment(target, father, isReply = false) {
             // 给新添加的评论的回复绑定事件
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
-                console.log(newComment.parentNode)
                 reply(newComment.parentNode.parentNode, newComment.parentNode.parentNode.index, true)
             })
         }
@@ -327,7 +324,6 @@ sendBarrage.addEventListener('click', () => {
 
 sendBarrage.addEventListener('click', () => {
     barrage = (JSON.parse(localStorage.getItem(`${response.videos[i].title}`))) ? JSON.parse(localStorage.getItem(`${response.videos[i].title}`)) : new Array
-    console.log(response.videos[i].title)
     const content = barrageInput.value
     if (content) {
         barrageInput.value = ''
@@ -345,7 +341,7 @@ sendBarrage.addEventListener('click', () => {
         //创建并写入弹幕对象中
         barrage.push(new BarrageInfo(location, time, content))
         localStorage.setItem(response.videos[i].title, JSON.stringify(barrage))//存储
-        // 写入列表
+        // 写入待发送列表
         barAddToList(JSON.parse(localStorage.getItem(response.videos[i].title)))
         setTimeout(() => {
             creatBarrage(content, true)
@@ -398,7 +394,7 @@ function formation(time) {
 let interval = null;
 function barSending(n) {
     if (interval) { clearInterval(interval) }
-    let barObj = JSON.parse(localStorage.getItem(response.videos[n].title))
+    let barObj = JSON.parse(localStorage.getItem(`${response.videos[n].title}`))
     barAddToList(barObj)
     interval = setInterval(() => {//全局变量
 
@@ -456,16 +452,29 @@ function RefreshVideoList(n) {
 
 RefreshVideoList(i)
 
+//清空当前弹幕
+function barClear() {
+    let barLi = document.querySelector('.runningBarrage')
+    let bar = document.querySelectorAll('.runningBarrage p')
+    bar.forEach(
+        (entry) => {
+            barLi.removeChild(entry)
+        }
+    )
+}
+
 
 //上一个，下一个视频
 videoObj.previous.addEventListener('click', () => {
     if (i === 0) {
         i = response.videos.length - 1
     }
-    else { i-- }
-
+    else {
+        i--
+    }
     refreshVideo(i)
     RefreshVideoList(i)
+    barClear()
     barSending(i)
 })
 
@@ -478,6 +487,7 @@ videoObj.next.addEventListener('click', () => {
     }
     refreshVideo(i)
     RefreshVideoList(i)
+    barClear()
     barSending(i)
 })
 
@@ -486,3 +496,22 @@ videoObj.next.addEventListener('click', () => {
 videoObj.timer.addEventListener('click', () => {
     pOp(videoObj.src)
 })//处理冲突
+
+
+
+// 点击切换视频
+//把title拿出来对应i
+let titleToIndex = new Array()
+response.videos.forEach((video, index) => {
+    titleToIndex.push(video.title)
+})
+
+//事件委托
+const videoList = document.querySelector('.content .right .videoList ul')
+videoList.addEventListener('click', (e) => {
+    i = titleToIndex.indexOf(e.target.innerText)
+    refreshVideo(i)
+    RefreshVideoList(i)
+    barClear()
+    barSending(i)
+})
