@@ -1,6 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const response = JSON.parse(urlParams.get('src'));
-const i = urlParams.get('current')
+let i = urlParams.get('current')
 console.log(response)//直接浏览器url传参，好像不太好样子，
 
 //获取元素
@@ -8,9 +8,13 @@ const title = document.querySelector('.content .left .title')
 const info = document.querySelector('.content .left .info')
 const video = document.querySelector('.content .left video')
 
-//渲染元素
-title.innerText = response.videos[i].title
-video.setAttribute('src', `${response.videos[i].videoSrc}`)
+//渲染视频函数
+
+function refreshVideo(n) {
+    title.innerText = response.videos[i].title
+    video.setAttribute('src', `${response.videos[n].videoSrc}`)
+}
+refreshVideo(i)
 
 
 // up主模块
@@ -31,33 +35,43 @@ listHead.addEventListener('click', () => {
     barrageList.classList.toggle('active')
 })
 
+
 //渲染列表内容函数
 function barAddToList(barObjs) {
-    //给列表排序
-    barObjs.sort((pre, next) => {
-        if (pre.location > next.location) {
-            return 1
-        }
-        if (pre.location < next.location) {
-            return -1
-        }
-        return 0
-    })
-    barObjs.forEach((barObj) => {
-        const element = document.createElement('li')
-        let M = Math.floor(barObj.location / 60)
-        M = (M < 10) ? '0' + M : M
-        let S = barObj.location % 60 + 1
-        S = (S < 10) ? '0' + S : S
-        const location = M + ':' + S
-        element.innerHTML =
-            `
+    console.log(barObjs)
+    if (barObjs) {
+        //给列表排序
+        barObjs.sort(function (pre, next) {
+            return (pre.location - next.location)
+
+        })
+
+        // 清空列表重新加载
+        const barList = document.querySelector('.content .right .barrageList ul')
+        let bar = document.querySelectorAll('.content .right .barrageList ul li')
+        bar.forEach(
+            (entry, index) => {
+                if (index != 0) { barList.removeChild(entry) }
+
+            }
+        )
+
+        //渲染新的列表
+        barObjs.forEach((barObj) => {
+            const element = document.createElement('li')
+            let M = Math.floor(barObj.location / 60)
+            M = (M < 10) ? '0' + M : M
+            let S = barObj.location % 60 + 1
+            S = (S < 10) ? '0' + S : S
+            const location = M + ':' + S
+            element.innerHTML =
+                `
     <p>${location}</p>
     <p>${barObj.content}</p>
     <p>${barObj.time}</p>`
-        document.querySelector('.content .right .barrageList ul').appendChild(element)
-    })
-
+            document.querySelector('.content .right .barrageList ul').appendChild(element)
+        })
+    }
 }
 
 
@@ -299,9 +313,6 @@ function BarrageInfo(location, time, content)//在视频中的定位的时间，
 }
 
 
-barrage = (JSON.parse(localStorage.getItem(`${response.videos[i].title}`))) ? JSON.parse(localStorage.getItem(`${response.videos[i].title}`)) : new Array
-console.log(response.videos[i].title)
-
 
 // 写入弹幕的函数
 const barrageInput = document.querySelector('.content .left .sendBarrage #barrage')
@@ -315,6 +326,8 @@ sendBarrage.addEventListener('click', () => {
 })
 
 sendBarrage.addEventListener('click', () => {
+    barrage = (JSON.parse(localStorage.getItem(`${response.videos[i].title}`))) ? JSON.parse(localStorage.getItem(`${response.videos[i].title}`)) : new Array
+    console.log(response.videos[i].title)
     const content = barrageInput.value
     if (content) {
         barrageInput.value = ''
@@ -331,7 +344,9 @@ sendBarrage.addEventListener('click', () => {
         const time = `${M}-${d} ${h}:${m}`
         //创建并写入弹幕对象中
         barrage.push(new BarrageInfo(location, time, content))
-        localStorage.setItem(`${response.videos[i].title}`, JSON.stringify(barrage))
+        localStorage.setItem(response.videos[i].title, JSON.stringify(barrage))//存储
+        // 写入列表
+        barAddToList(JSON.parse(localStorage.getItem(response.videos[i].title)))
         setTimeout(() => {
             creatBarrage(content, true)
         }, 500);
@@ -360,28 +375,52 @@ function creatBarrage(content, special = false) {
     const setTime = Math.floor(Math.random() * 3 + 16) + 's'
     bar.style.animationDuration = setTime
     bar.style.animationPlayState = 'running'
-    bar.style.top = (Math.random() * 16) + 'rem'
+    bar.style.top = (Math.floor(Math.random() * 16 + 1)) + 'rem'
     setTimeout(() => {
         observer.observe(bar)
     }, 100);
     //何时删掉这个弹幕？
 }
 
+
+//封装格式化时间的函数
+function formation(time) {
+    let M = Math.floor(time / 60)
+    M = (M < 10) ? '0' + M : M
+    let S = Math.floor(time) + 1
+    S = (S < 10) ? '0' + S : S
+    const formationTime = M + ':' + S
+    return formationTime
+}
+
 //拿出弹幕并准备发送的函数
-(function (barObj) {
+//顺便改视频时间
+let interval = null;
+function barSending(n) {
+    if (interval) { clearInterval(interval) }
+    let barObj = JSON.parse(localStorage.getItem(response.videos[n].title))
     barAddToList(barObj)
-    setInterval(() => {
+    interval = setInterval(() => {//全局变量
+
+        //更改视频播放时间
+        videoObj.timer.innerText = `
+    ${formation(videoObj.src.currentTime)}/${formation(videoObj.src.duration)}`
+
         if (!videoObj.src.paused) {
-            const _bar = barObj.filter((target) => {
-                return target.location + 1 === Math.floor(videoObj.src.currentTime)
-            }).forEach(element => {
-                creatBarrage(element.content)
-            })
+            if (barObj) {
+                const _bar = barObj.filter((target) => {
+                    return target.location + 1 === Math.floor(videoObj.src.currentTime)
+                }).forEach(element => {
+                    creatBarrage(element.content)
+                })
+            }
+
         }
 
     }, 1000);
+}
 
-})(JSON.parse(localStorage.getItem(`${response.videos[i].title}`)));//立刻执行函数
+barSending(i)
 
 //暂停弹幕的函数
 function barPause(isToPasue = true) {
@@ -394,6 +433,56 @@ function barPause(isToPasue = true) {
     )
 }
 
+//视频列表
+function RefreshVideoList(n) {
+    const videoList = document.querySelector('.content .right .videoList ul')
+    //先清空再创建
+    let li = document.querySelectorAll('.content .right .videoList ul li')
+    li.forEach(
+        (entry) => {
+            videoList.removeChild(entry)
+        }
+    )
+    response.videos.forEach((video) => {
+        const li = document.createElement('li')
+        if (video.title === response.videos[n].title) {
+            li.classList.add('playingVideo')
+        }
+        li.classList.add('listedVideo')
+        li.innerText = `${video.title}`
+        videoList.appendChild(li)
+    })
+}
+
+RefreshVideoList(i)
 
 
+//上一个，下一个视频
+videoObj.previous.addEventListener('click', () => {
+    if (i === 0) {
+        i = response.videos.length - 1
+    }
+    else { i-- }
 
+    refreshVideo(i)
+    RefreshVideoList(i)
+    barSending(i)
+})
+
+videoObj.next.addEventListener('click', () => {
+    if (i === response.videos.length - 1) {
+        i = 0
+    }
+    else {
+        i++
+    }
+    refreshVideo(i)
+    RefreshVideoList(i)
+    barSending(i)
+})
+
+//视频播放的时间
+
+videoObj.timer.addEventListener('click', () => {
+    pOp(videoObj.src)
+})//处理冲突

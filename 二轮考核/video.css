@@ -24,6 +24,18 @@ body {
     background-color: #fff;
 }
 
+/* 滚动条美化 */
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+}
+
+
+
 /* 版心 */
 .w {
     width: 90%;
@@ -445,6 +457,14 @@ header .headNav .rightNav li {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+}
+
+.content .right .videoList .listedVideo {
+    background-color: #fff;
+}
+
+.content .right .videoList .playingVideo {
+    background-color: #ccc;
 }
 
 /* 视频水印 */
