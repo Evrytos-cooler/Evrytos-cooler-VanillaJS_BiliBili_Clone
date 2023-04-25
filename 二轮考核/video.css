@@ -544,6 +544,20 @@ video::-webkit-media-controls {
     background-color: #fff;
 }
 
+.content .left .video .progressBar1 div {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    background-color: rgb(255, 118, 118);
+}
+
+.content .left .video .control #progressBar div {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    background-color: rgb(255, 118, 118);
+}
+
 
 .content .left .video .control .left {
     display: flex;

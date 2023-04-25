@@ -215,6 +215,7 @@ videoObj.next = document.querySelector('#next')
 videoObj.playAndPuase = document.querySelector('#playAndPause')//这个不用绑定点击，而是改变图标
 videoObj.timer = document.querySelector('#timer')
 videoObj.progressBar = document.querySelector('#progressBar')
+videoObj.progressBar1 = document.querySelector('.progressBar1')
 videoObj.clarity = document.querySelector('#clarity')
 videoObj.speed = document.querySelector('#speed')
 videoObj.volume = document.querySelector('#volume')
@@ -223,6 +224,8 @@ videoObj.smallWin = document.querySelector('#smallWin')
 videoObj.caption = document.querySelector('#caption')
 videoObj.pageFull = document.querySelector('#pageFull')
 videoObj.full = document.querySelector('#full')
+videoObj.barChild = videoObj.progressBar.firstElementChild
+videoObj.barChild1 = videoObj.progressBar1.firstElementChild
 
 
 // 播放暂停
@@ -403,10 +406,10 @@ function barSending(n) {
     barAddToList(barObj)
     interval = setInterval(() => {//全局变量
 
-        //更改视频播放时间
+        //更改视频播放时间和进度条
         videoObj.timer.innerText = `
     ${formation(videoObj.src.currentTime)}/${formation(videoObj.src.duration)}`
-
+        refreshProcessingBar()
         if (!videoObj.src.paused) {
             if (barObj) {
                 const _bar = barObj.filter((target) => {
@@ -523,3 +526,9 @@ videoList.addEventListener('click', (e) => {
     barClear()
     barSending(i)
 })
+
+//进度获取进度条
+function refreshProcessingBar() {
+    videoObj.barChild.style.width = (videoObj.src.currentTime / videoObj.src.duration) * 100 + '%'
+    videoObj.barChild1.style.width = (videoObj.src.currentTime / videoObj.src.duration) * 100 + '%'
+}
