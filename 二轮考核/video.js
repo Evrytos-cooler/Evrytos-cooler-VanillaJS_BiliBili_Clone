@@ -1,6 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const response = JSON.parse(urlParams.get('src'));
-let i = urlParams.get('current')
+let i = +urlParams.get('current')
 
 //获取元素
 const title = document.querySelector('.content .left .title')
@@ -474,25 +474,37 @@ function barClear() {
 
 //上一个，下一个视频
 videoObj.previous.addEventListener('click', () => {
+
     if (i === 0) {
-        i = response.videos.length - 1
+        pOp(videoObj.src)
+        return;
+        // i = response.videos.length - 1
+        // 已经没有视频了，这里要改变颜色按键
     }
     else {
         i--
+        if (i === 0) {
+            //改变按键颜色
+        }
     }
     upInfo(i)
     refreshVideo(i)
     RefreshVideoList(i)
     barClear()
     barSending(i)
+
 })
 
 videoObj.next.addEventListener('click', () => {
     if (i === response.videos.length - 1) {
-        i = 0
+        pOp(videoObj.src)
+        return;
     }
     else {
         i++
+        if (i === response.videos.length - 1) {
+            //改变按键颜色
+        }
     }
     upInfo(i)
     refreshVideo(i)
@@ -532,3 +544,23 @@ function refreshProcessingBar() {
     videoObj.barChild.style.width = (videoObj.src.currentTime / videoObj.src.duration) * 100 + '%'
     videoObj.barChild1.style.width = (videoObj.src.currentTime / videoObj.src.duration) * 100 + '%'
 }
+
+
+//视频播放完之后连播
+videoObj.src.addEventListener('ended', () => {
+    if (i === response.videos.length - 1) {
+        //这里显示播放完成的界面
+        return;
+    }
+    else {
+        i++
+        if (i === response.videos.length - 1) {
+            //改变按键颜色
+        }
+    }
+    upInfo(i)
+    refreshVideo(i)
+    RefreshVideoList(i)
+    barClear()
+    barSending(i)
+})
