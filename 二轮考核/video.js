@@ -78,133 +78,6 @@ function barAddToList(barObjs) {
 }
 
 
-
-
-
-
-//评论模块
-const commentsList = document.querySelector('.content .left .comments .commentsList')
-const writeComment = document.querySelector('.content .left .comments .sendComments #comments')
-const sendComment = document.querySelector('.content .left .comments .sendComments button')
-
-
-sendComment.addEventListener("click", () => {
-    addComment(writeComment, commentsList)
-})
-
-let n = 0;
-//添加评论结点的函数
-function addComment(target, father, isReply = false) {
-    const content = target.value
-    if (!isReply) {
-        // 添加评论
-        if (content.trim()) {
-            const date = new Date()
-            const time = date.toLocaleDateString()
-            target.value = ''
-            const newComment = document.createElement('section')
-            newComment.classList.add('comment')
-            newComment.innerHTML = `<div class="avata">头像</div>
-        <div class="name">name</div>
-        <span>${content}
-        </span>
-        <div class="detailInfo">
-        <i class="time">${time}</i>
-        <i class="sub">good</i>
-        <i class="dis">bad</i>
-        <button>回复</button>
-        </div>
-        <div class="reply">`
-            father.appendChild(newComment)
-            newComment.index = n
-            n += 1
-            // 给新添加的评论的回复绑定事件
-            newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
-                //调用添加函数
-                reply(newComment.parentNode, newComment.index)
-            })
-        }
-    }
-
-    // 添加回复
-    else {
-        if (content.trim()) {
-            const date = new Date()
-            const time = date.toLocaleDateString()
-            target.value = ''
-            const newComment = document.createElement('section')
-            newComment.classList.add('comment')
-            newComment.innerHTML = `<div class="avata">头像</div>
-        <div class="name">name</div>
-        <span>${content}
-        </span>
-        <div class="detailInfo">
-        <i class="time">${time}</i>
-        <i class="sub">good</i>
-        <i class="dis">bad</i>
-        <button>回复</button>
-        </div>
-        <div class="reply">`
-            father.appendChild(newComment)
-
-            // 给新添加的评论的回复绑定事件
-            newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
-                //调用添加函数
-                reply(newComment.parentNode.parentNode, newComment.parentNode.parentNode.index, true)
-            })
-        }
-    }
-
-}
-
-//点击回复
-isOnReply = false
-function reply(target, index, isReply = false) {
-    //创建新的回复栏
-    if (!isReply) {
-        const newReply = document.createElement('div')
-        if (!isOnReply) {
-            newReply.classList.add('sendReply')
-            newReply.innerHTML = `                
-    <div class="avata">头像</div>
-    <input type="text" id="comments" placeholder="勇敢滴少年快去创造热评~">
-    <button class="commentSend">发布</button>
-    `
-            target.children[index].appendChild(newReply)
-            isOnReply = true
-            const btn = newReply.childNodes[5]
-            btn.addEventListener('click', () => {
-                //n是第几个评论的意思，是对应评论的id，值唯一
-                addComment(newReply.childNodes[3], target.children[index].children[4], true)
-                target.children[index].removeChild(newReply)
-                isOnReply = false
-            })
-        }
-    }
-    else {
-        const newReply = document.createElement('div')
-        if (!isOnReply) {
-            newReply.classList.add('sendReply')
-            newReply.innerHTML = `                
-<div class="avata">头像</div>
-<input type="text" id="comments" placeholder="勇敢滴少年快去创造热评~">
-<button class="commentSend">发布</button>
-`
-            target.appendChild(newReply)
-            isOnReply = true
-            const btn = newReply.childNodes[5]
-            btn.addEventListener('click', () => {
-                //n是第几个评论的意思，是对应评论的id，值唯一
-                addComment(newReply.childNodes[3], target.children[4], true)
-                target.removeChild(newReply)
-                isOnReply = false
-            })
-        }
-    }
-
-}
-
-
 // 绑定视频控件
 const control = document.querySelector('.content .left .video .control')
 const videoObj = new Object()
@@ -564,3 +437,168 @@ videoObj.src.addEventListener('ended', () => {
     barClear()
     barSending(i)
 })
+
+
+
+
+//评论模块 需要进行重构，有问题，还挺大
+const commentsList = document.querySelector('.content .left .comments .commentsList')
+const writeComment = document.querySelector('.content .left .comments .sendComments #comments')
+const sendComment = document.querySelector('.content .left .comments .sendComments button')
+
+//保存评论的JSON对象
+function commentInfo(avata, uname, time, content, reply) {
+    this.avata = avata
+    this.uname = uname
+    this.time = time
+    this.content = content
+    this.reply = []
+}
+
+sendComment.addEventListener("click", () => {
+    addComment(writeComment, commentsList)
+})
+
+//添加评论结点的函数
+function addComment(target, father, isReply = false) {
+    const content = target.value
+    if (!isReply) {
+        // 添加评论
+        if (content.trim()) {
+            const date = new Date()
+            const time = date.toLocaleString()
+            target.value = ''
+            const newComment = document.createElement('section')
+            newComment.classList.add('comment')
+            newComment.innerHTML = `<div class="avata">头像</div>
+        <div class="name">name</div>
+        <span>${content}
+        </span>
+        <div class="detailInfo">
+        <i class="time">${time}</i>
+        <i class="sub">good</i>
+        <i class="dis">bad</i>
+        <button>回复</button>
+        </div>
+        <div class="reply">`
+            father.appendChild(newComment)
+            // 给新添加的评论的回复绑定事件
+            newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
+                //调用添加函数
+                reply(newComment)
+
+            })
+
+
+            // 保存评论
+            //如果真的产生了评论，那么就保存,这里是评论不是回复
+            if (!localStorage.getItem(response.videos[i].title + ' comments'))//第一次创建评论 ,要产生新的对象放进去，如果不是第一次就可以直接拿出来用
+            {
+                list = new Array()
+            }
+            else {
+                list = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
+            }
+            commentSave = new commentInfo()
+            commentSave.avata = '头像地址'
+            commentSave.uname = '获取名字'
+            commentSave.time = time
+            commentSave.content = content
+            list.push(commentSave)//添加到列表里
+            localStorage.setItem(response.videos[i].title + ' comments', JSON.stringify(list))
+
+        }
+    }
+
+    // 添加回复
+    else {
+        if (content.trim()) {
+            const date = new Date()
+            const time = date.toLocaleString()
+            target.value = ''
+            const newComment = document.createElement('section')
+            newComment.classList.add('comment')
+            newComment.innerHTML = `<div class="avata">头像</div>
+        <div class="name">name</div>
+        <span>@name${content}
+        </span>
+        <div class="detailInfo">
+        <i class="time">${time}</i>
+        <i class="sub">good</i>
+        <i class="dis">bad</i>
+        <button>回复</button>
+        </div>
+        <div class="reply">`
+            father.appendChild(newComment)
+
+            // 给新添加的评论的回复绑定事件
+            newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
+                //调用添加函数
+                reply(newComment.parentNode, true)
+            })
+
+            //保存评论
+            list = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
+            commentSave = new commentInfo()
+            commentSave.avata = '头像地址'
+            commentSave.uname = '获取名字'
+            commentSave.time = time
+            commentSave.content = content
+            list.forEach((target) => {
+                if (target.time === father.parentNode.querySelector('.detailInfo').querySelector('.time').innerText) {
+                    target.reply.push(commentSave)//这里的判断条件要修改严谨一点
+                }
+            })//这里要吧这个评论保存到对应的数组下面,问题是如何找到父元素的在localStroage里面的位置。
+            //利用同一个时间，同一个人只能发同一个评论来区分（名字和时间都对的上）
+            localStorage.setItem(response.videos[i].title + ' comments', JSON.stringify(list))
+        }
+    }
+
+}
+
+//点击回复，创建新的回复栏
+isOnReply = false
+function reply(target, isReply = false) {
+    //创建新的回复栏
+    if (!isReply) {
+        const newReply = document.createElement('div')
+        if (!isOnReply) {
+            newReply.classList.add('sendReply')
+            newReply.innerHTML = `                
+    <div class="avata">头像</div>
+    <input type="text" id="comments" placeholder="勇敢滴少年快去创造热评~">
+    <button class="commentSend">发布</button>
+    `
+            target.appendChild(newReply)
+            isOnReply = true
+            const btn = newReply.childNodes[5]
+            btn.addEventListener('click', () => {
+                //n是第几个评论的意思，是对应评论的id，值唯一
+                addComment(newReply.childNodes[3], target.children[4], true)
+                target.removeChild(newReply)
+                isOnReply = false
+            })
+        }
+    }
+    else {
+        const newReply = document.createElement('div')
+        if (!isOnReply) {
+            newReply.classList.add('sendReply')
+            newReply.innerHTML = `                
+<div class="avata">头像</div>
+<input type="text" id="comments" placeholder="勇敢滴少年快去创造热评~">
+<button class="commentSend">发布</button>
+`
+            target.parentNode.appendChild(newReply)
+            isOnReply = true
+            const btn = newReply.childNodes[5]
+            btn.addEventListener('click', () => {
+                //n是第几个评论的意思，是对应评论的id，值唯一
+                addComment(newReply.childNodes[3], target.parentNode.children[4], true)
+                target.parentNode.removeChild(newReply)
+                isOnReply = false
+            })
+        }
+    }
+
+}
