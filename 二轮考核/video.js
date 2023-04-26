@@ -365,6 +365,7 @@ videoObj.previous.addEventListener('click', () => {
     RefreshVideoList(i)
     barClear()
     barSending(i)
+    refreshComments(i)
 
 })
 
@@ -384,6 +385,7 @@ videoObj.next.addEventListener('click', () => {
     RefreshVideoList(i)
     barClear()
     barSending(i)
+    refreshComments(i)
 })
 
 //视频播放的时间
@@ -410,6 +412,7 @@ videoList.addEventListener('click', (e) => {
     RefreshVideoList(i)
     barClear()
     barSending(i)
+    refreshComments(i)
 })
 
 //进度获取进度条
@@ -436,6 +439,7 @@ videoObj.src.addEventListener('ended', () => {
     RefreshVideoList(i)
     barClear()
     barSending(i)
+    refreshComments(i)
 })
 
 
@@ -602,3 +606,62 @@ function reply(target, isReply = false) {
     }
 
 }
+
+//显示（刷新0）评论的函数
+function refreshComments(i) {
+    const father = document.querySelector('.commentsList')
+    //初始化一下
+    father.innerHTML = ''
+    if (JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))) {
+
+        const commentObj = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
+        commentObj.forEach(comment => {
+            const newComment = document.createElement('section')
+            newComment.classList.add('comment')
+            newComment.innerHTML = `<div class="avata">头像</div>
+        <div class="name">name</div>
+        <span>@name${comment.content}
+        </span>
+        <div class="detailInfo">
+        <i class="time">${comment.time}</i>
+        <i class="sub">good</i>
+        <i class="dis">bad</i>
+        <button>回复</button>
+        </div>
+        <div class="reply">`
+            father.appendChild(newComment)
+
+            //对里面的reply迭代
+            comment.reply.forEach(reply => {
+                const _newComment = document.createElement('section')
+                _newComment.classList.add('comment')
+                _newComment.innerHTML = `<div class="avata">头像</div>
+                <div class="name">name</div>
+                <span>@name${reply.content}
+                </span>
+                <div class="detailInfo">
+                <i class="time">${reply.time}</i>
+                <i class="sub">good</i>
+                <i class="dis">bad</i>
+                <button>回复</button>
+                </div>
+                <div class="reply">`
+
+                newComment.appendChild(_newComment)
+                _newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
+                    //调用添加函数
+                    reply(_newComment, true)
+                })
+
+            })
+
+            //绑定按键
+            newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
+                //调用添加函数
+                reply(newComment)
+            })
+        })
+    }
+}
+
+refreshComments(i)
