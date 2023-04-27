@@ -451,12 +451,12 @@ const writeComment = document.querySelector('.content .left .comments .sendComme
 const sendComment = document.querySelector('.content .left .comments .sendComments button')
 
 //保存评论的JSON对象
-function commentInfo(avata, uname, time, content, reply) {
+function commentInfo(avata, uname, time, content, _reply) {
     this.avata = avata
     this.uname = uname
     this.time = time
     this.content = content
-    this.reply = []
+    this._reply = []
 }
 
 sendComment.addEventListener("click", () => {
@@ -635,7 +635,7 @@ function refreshComments(i) {
             comment.reply.forEach(reply => {
                 const _newComment = document.createElement('section')
                 _newComment.classList.add('comment')
-                _newComment.innerHTML = `<div class="avata">头像</div>
+                _newComment.innerHTML = `<div cl    ass="avata">头像</div>
                 <div class="name">name</div>
                 <span>@name${reply.content}
                 </span>

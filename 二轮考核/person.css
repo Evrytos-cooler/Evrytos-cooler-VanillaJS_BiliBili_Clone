@@ -1,0 +1,68 @@
+header {
+    height: auto;
+}
+
+.headImg {
+    position: relative;
+    height: 180px;
+    background-color: pink;
+}
+
+.headImg .personalInfo {
+    display: flex;
+    flex-flow: row nowrap;
+    position: absolute;
+    background-color: rgba(155, 8, 8, 0.12);
+    left: 0;
+    bottom: 0;
+}
+
+.headImg .personalInfo .avata {
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin: 10px;
+    background-color: red;
+}
+
+.headImg .personalInfo .info .uname {
+    margin: 10px 0;
+}
+
+/* 结束最上方的图片 */
+
+/* 选择栏 */
+.menuBar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.menuBar ul li {
+    display: inline;
+}
+
+/* 收藏的内容 */
+.collections .collectionList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+}
+
+.collections .collectionList .collection {
+    width: 19%;
+
+    margin: 0.5%;
+    background-color: rgba(0, 0, 0, 0.298);
+}
+
+.collections .collectionList .collection .video {
+    background-color: rgba(177, 237, 189, 0.781);
+    width: 100%;
+    aspect-ratio: 16/9;
+}
+
+.collections .collectionList .collection .video video {
+    width: 100%;
+}
