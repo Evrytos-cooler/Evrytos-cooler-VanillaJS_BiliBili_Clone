@@ -310,6 +310,13 @@ function barPause(isToPasue = true) {
     )
 }
 
+
+//开启和关闭弹幕
+const barBtn = document.querySelector('.content .left .sendBarrage #barrageToggle')
+barBtn.addEventListener('click', (e) => {
+    runningBarrage.classList.toggle('close')
+})
+
 //视频列表
 function refreshVideoList(n) {
     const videoList = document.querySelector('.content .right .videoList ul')

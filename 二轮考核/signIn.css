@@ -1,0 +1,72 @@
+.signInBox {
+    display: flex;
+    flex-flow: column nowrap;
+    position: fixed;
+    width: 500px;
+    height: 400px;
+    left: calc(50% - 250px);
+    top: calc(50% - 200px);
+    background-color: #fff;
+}
+
+.signInMask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(43, 38, 38, 0.411);
+}
+
+.signInBox .option {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0 auto;
+}
+
+.signInBox .input {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.signInBox .input div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    border: 1px #ccc solid;
+}
+
+.signInBox .input div input {
+    width: 80%;
+    outline: none;
+    border: none;
+}
+
+.signInBox .input div input:focus::placeholder {
+    color: black;
+}
+
+.signInBox .input div input.error::placeholder {
+    color: red;
+}
+
+
+.signInBox .btn {
+    width: 60%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+
+.signInBox .btn button {
+    flex-grow: 1;
+}
+
+.signInBox .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

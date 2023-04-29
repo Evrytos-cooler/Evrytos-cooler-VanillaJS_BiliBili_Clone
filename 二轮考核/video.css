@@ -545,6 +545,10 @@ video::-webkit-media-controls {
     opacity: 0.8;
 }
 
+.content .left .video .runningBarrage.close {
+    display: none;
+}
+
 .content .left .video .runningBarrage p {
     position: absolute;
     padding: 5px 0.5rem;
