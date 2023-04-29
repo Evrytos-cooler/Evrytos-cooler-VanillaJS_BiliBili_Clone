@@ -311,7 +311,7 @@ function barPause(isToPasue = true) {
 }
 
 //视频列表
-function RefreshVideoList(n) {
+function refreshVideoList(n) {
     const videoList = document.querySelector('.content .right .videoList ul')
     //先清空再创建
     let li = document.querySelectorAll('.content .right .videoList ul li')
@@ -331,7 +331,7 @@ function RefreshVideoList(n) {
     })
 }
 
-RefreshVideoList(i)
+refreshVideoList(i)
 
 //清空当前弹幕
 function barClear() {
@@ -362,7 +362,7 @@ videoObj.previous.addEventListener('click', () => {
     }
     upInfo(i)
     refreshVideo(i)
-    RefreshVideoList(i)
+    refreshVideoList(i)
     barClear()
     barSending(i)
     refreshComments(i)
@@ -382,7 +382,7 @@ videoObj.next.addEventListener('click', () => {
     }
     upInfo(i)
     refreshVideo(i)
-    RefreshVideoList(i)
+    refreshVideoList(i)
     barClear()
     barSending(i)
     refreshComments(i)
@@ -409,7 +409,7 @@ videoList.addEventListener('click', (e) => {
     i = titleToIndex.indexOf(e.target.innerText)
     upInfo(i)
     refreshVideo(i)
-    RefreshVideoList(i)
+    refreshVideoList(i)
     barClear()
     barSending(i)
     refreshComments(i)
@@ -436,7 +436,7 @@ videoObj.src.addEventListener('ended', () => {
     }
     upInfo(i)
     refreshVideo(i)
-    RefreshVideoList(i)
+    refreshVideoList(i)
     barClear()
     barSending(i)
     refreshComments(i)
@@ -451,12 +451,12 @@ const writeComment = document.querySelector('.content .left .comments .sendComme
 const sendComment = document.querySelector('.content .left .comments .sendComments button')
 
 //保存评论的JSON对象
-function commentInfo(avata, uname, time, content, _reply) {
+function commentInfo(avata, uname, time, content, reply) {
     this.avata = avata
     this.uname = uname
     this.time = time
     this.content = content
-    this._reply = []
+    this.reply = []
 }
 
 sendComment.addEventListener("click", () => {
@@ -489,7 +489,7 @@ function addComment(target, father, isReply = false) {
             // 给新添加的评论的回复绑定事件
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
-                reply(newComment)
+                replying(newComment)
 
             })
 
@@ -538,7 +538,7 @@ function addComment(target, father, isReply = false) {
             // 给新添加的评论的回复绑定事件
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
-                reply(newComment.parentNode, true)
+                replying(newComment.parentNode, true)
             })
 
             //保存评论
@@ -562,7 +562,7 @@ function addComment(target, father, isReply = false) {
 
 //点击回复，创建新的回复栏
 isOnReply = false
-function reply(target, isReply = false) {
+function replying(target, isReply = false) {
     //创建新的回复栏
     if (!isReply) {
         const newReply = document.createElement('div')
@@ -635,7 +635,7 @@ function refreshComments(i) {
             comment.reply.forEach(reply => {
                 const _newComment = document.createElement('section')
                 _newComment.classList.add('comment')
-                _newComment.innerHTML = `<div cl    ass="avata">头像</div>
+                _newComment.innerHTML = `<div class="avata">头像</div>
                 <div class="name">name</div>
                 <span>@name${reply.content}
                 </span>
@@ -650,7 +650,7 @@ function refreshComments(i) {
                 newComment.appendChild(_newComment)
                 _newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                     //调用添加函数
-                    reply(_newComment, true)
+                    replying(_newComment, true)
                 })
 
             })
@@ -658,7 +658,7 @@ function refreshComments(i) {
             //绑定按键
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
-                reply(newComment)
+                replying(newComment)
             })
         })
     }

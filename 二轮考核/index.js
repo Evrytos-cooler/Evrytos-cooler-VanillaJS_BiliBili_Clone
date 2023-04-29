@@ -87,7 +87,9 @@ function askForVideo(sections) {//参数是要请求加载的视频列表
                 const uuid = response.videos[i].uuid
                 const authorAvatarSrc = response.videos[i].authorAvatarSrc
                 entry.target.innerHTML =
-                    `        <div class='video' muted="true"><video src="${src}"></video></div>
+                    `<div class='video' muted="true"><video src="${src}"></video>
+                    <div class='runningBarrage'></div>
+                    </div>
                 <p class="videoTitle">${title}</p>
                 <p class="author">${author}</p>`
                 entry.target.classList.remove('loading')
@@ -95,6 +97,10 @@ function askForVideo(sections) {//参数是要请求加载的视频列表
                 observer.unobserve(entry.target)
                 replaceUrl(entry.target.firstElementChild, 'video.html?' + "src=" + `${JSON.stringify(response)}` + '&current=' + `${i}`)
                 mouseenterPlay(entry.target.firstElementChild.firstElementChild)
+                // 显示视频的时间
+                entry.target.querySelector('.video').querySelector("video").addEventListener('loadedmetadata', (e) => {
+                    entry.target.querySelector('.video').setAttribute('data-before', formation(Math.floor(e.target.duration)))
+                })
                 i = (i === 9) ? 0 : i + 1
                 // 加载完之后把类名改ready，并取消观察,添加点击跳转事件,添加悬停播放事件
             })
@@ -114,14 +120,72 @@ function replaceUrl(target, url) {
         window.open(url)
     })
 }
-
-//鼠标悬停播放视频
+//鼠标悬停播放视频，弹幕
 function mouseenterPlay(target) {//target是个media标签
     target.addEventListener('mouseenter', () => {
         target.muted = true
         target.play()
+        barSending(target)
+        runningBarrage.style.display = 'block'
     })
     target.addEventListener('mouseleave', () => {
         target.pause()
+        runningBarrage.style.display = 'none'
+
     })
+}
+
+
+//悬停播放弹幕定义函数
+//选出弹幕的函数
+function barSending(target) {//传进来的target是media
+    runningBarrage = target.parentNode.parentNode.querySelector('.runningBarrage') //全局变量，每次mouseenter一个视频就会更改
+    try { clearInterval(interval) } catch { }
+    let barObj = JSON.parse(localStorage.getItem(target.parentNode.parentNode.querySelector('.videoTitle').innerText))
+    interval = setInterval(() => {//全局变量
+        if (barObj) {
+            const _bar = barObj.filter((targetBar) => {
+                return targetBar.location === Math.floor(target.currentTime)
+            }).forEach(element => {
+                creatBarrage(element.content, target)
+            })
+        }
+    }, 1000);
+}
+
+
+//将弹幕发送的函数
+function creatBarrage(content, target) {
+    const bar = document.createElement('p')
+    bar.innerText = content
+    runningBarrage.appendChild(bar)
+    const setTime = Math.floor(Math.random() * 3 + 25) + 's'
+    bar.style.animationDuration = setTime
+    bar.style.animationPlayState = 'running'
+    bar.style.top = (Math.floor(Math.random() * 5 + 1)) + 'rem'
+
+    //视频作为父盒子的交叉观察对象
+    const observer = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) {
+            runningBarrage.removeChild(entries[0].target)
+            observer.unobserve(entries[0].target)
+        }
+    }, {
+        root: target.parentNode,
+        threshold: 0
+    })
+
+    setTimeout(() => {
+        observer.observe(bar)
+    }, 100);
+    //何时删掉这个弹幕:和盒子没有交叉的时候，就可以删除了
+}
+
+function formation(time) {
+    let M = Math.floor(time / 60)
+    M = (M < 10) ? '0' + M : M
+    let S = Math.floor(time) + 1
+    S = (S < 10) ? '0' + S : S
+    const formationTime = M + ':' + S
+    return formationTime
 }

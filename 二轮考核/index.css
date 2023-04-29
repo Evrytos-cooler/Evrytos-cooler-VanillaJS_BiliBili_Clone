@@ -167,7 +167,7 @@
 
 .ready>div::before {
     position: absolute;
-    content: "1111";
+    content: attr(data-before);
     padding-left: 10px;
     display: block;
     width: 100%;
@@ -193,4 +193,44 @@
     margin-top: 10px;
     font-size: 18px;
     color: rgb(141, 141, 141);
+}
+
+/* 弹幕效果 */
+.content .ready .video .runningBarrage {
+    position: absolute;
+    width: 100px;
+    top: 0;
+    right: -100px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.content .ready .video .runningBarrage p {
+    position: absolute;
+    padding: 5px 0.5rem;
+    animation-name: barrageMoving;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+    animation-play-state: paused;
+}
+
+@keyframes barrageMoving {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: translate(-3000px);
+    }
+}
+
+@-webkit-keyframes barrageMoving {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: translate(-3000px);
+        display: none;
+    }
 }
