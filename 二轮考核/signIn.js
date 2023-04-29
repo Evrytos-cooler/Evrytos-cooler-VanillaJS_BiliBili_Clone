@@ -98,9 +98,10 @@ function signInBox() {
             UserList = JSON.parse(localStorage.getItem('UserList'))
         }
 
-        if (UserList.find(item => {
-            return item.uname = user.uname
-        }).pwd === user.pwd) {
+        const key = UserList.find(item => {
+            return item.uname === user.uname
+        }).pwd
+        if (key === user.pwd) {//密码可以加密
             success(user.uname)
         }
         else {
@@ -128,7 +129,7 @@ function removeBox() {
 function success(user) {
     localStorage.setItem('login', 'true')
     // 登录成功的话要显示登录当前的人的信息，在发弹幕或者评论收藏的时候要用到
-    localStorager.setItem('loginUser', user)
+    localStorage.setItem('loginUser', user)
     //刷新页面，加载那些登陆后才能显示的东西
 
 }

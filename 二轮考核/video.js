@@ -452,7 +452,6 @@ videoObj.src.addEventListener('ended', () => {
 
 
 
-//评论模块 需要进行重构，有问题，还挺大
 const commentsList = document.querySelector('.content .left .comments .commentsList')
 const writeComment = document.querySelector('.content .left .comments .sendComments #comments')
 const sendComment = document.querySelector('.content .left .comments .sendComments button')
@@ -472,7 +471,8 @@ sendComment.addEventListener("click", () => {
 
 //添加评论结点的函数
 function addComment(target, father, isReply = false) {
-    const content = target.value
+    let content = target.value
+    const uname = localStorage.getItem('loginUser')
     if (!isReply) {
         // 添加评论
         if (content.trim()) {
@@ -482,7 +482,7 @@ function addComment(target, father, isReply = false) {
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
             newComment.innerHTML = `<div class="avata">头像</div>
-        <div class="name">name</div>
+        <div class="name">${uname}</div>
         <span>${content}
         </span>
         <div class="detailInfo">
@@ -512,7 +512,7 @@ function addComment(target, father, isReply = false) {
             }
             commentSave = new commentInfo()
             commentSave.avata = '头像地址'
-            commentSave.uname = '获取名字'
+            commentSave.uname = uname
             commentSave.time = time
             commentSave.content = content
             list.push(commentSave)//添加到列表里
@@ -524,14 +524,15 @@ function addComment(target, father, isReply = false) {
     // 添加回复
     else {
         if (content.trim()) {
+            content = `@原来人的名字` + content
             const date = new Date()
             const time = date.toLocaleString()
             target.value = ''
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
             newComment.innerHTML = `<div class="avata">头像</div>
-        <div class="name">name</div>
-        <span>@name${content}
+        <div class="name">${uname}</div>
+        <span>${content}
         </span>
         <div class="detailInfo">
         <i class="time">${time}</i>
@@ -552,7 +553,7 @@ function addComment(target, father, isReply = false) {
             list = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
             commentSave = new commentInfo()
             commentSave.avata = '头像地址'
-            commentSave.uname = '获取名字'
+            commentSave.uname = uname
             commentSave.time = time
             commentSave.content = content
             list.forEach((target) => {
@@ -584,7 +585,6 @@ function replying(target, isReply = false) {
             isOnReply = true
             const btn = newReply.childNodes[5]
             btn.addEventListener('click', () => {
-                //n是第几个评论的意思，是对应评论的id，值唯一
                 addComment(newReply.childNodes[3], target.children[4], true)
                 target.removeChild(newReply)
                 isOnReply = false
@@ -625,9 +625,11 @@ function refreshComments(i) {
         commentObj.forEach(comment => {
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
+
+            //其中的content包括了@谁
             newComment.innerHTML = `<div class="avata">头像</div>
-        <div class="name">name</div>
-        <span>@name${comment.content}
+        <div class="name">${comment.uname}</div>
+        <span>${comment.content} 
         </span>
         <div class="detailInfo">
         <i class="time">${comment.time}</i>
@@ -643,8 +645,8 @@ function refreshComments(i) {
                 const _newComment = document.createElement('section')
                 _newComment.classList.add('comment')
                 _newComment.innerHTML = `<div class="avata">头像</div>
-                <div class="name">name</div>
-                <span>@name${reply.content}
+                <div class="name">${reply.uname}</div>
+                <span>${reply.content}
                 </span>
                 <div class="detailInfo">
                 <i class="time">${reply.time}</i>
