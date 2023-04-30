@@ -129,6 +129,10 @@ body {
     margin-right: 50px;
 }
 
+.content .left .subcribe .subLeft button.done {
+    background-color: red;
+}
+
 .content .left .subcribe .subRight {
     float: right;
     display: flex;

@@ -7,11 +7,20 @@ let i = +urlParams.get('current')
 const title = document.querySelector('.content .left .title')
 const info = document.querySelector('.content .left .info')
 const video = document.querySelector('.content .left video')
+const favoriteBtn = document.querySelector('.content .left .subcribe .subLeft .favorite')
 
-//渲染视频函数
+//渲染视频函数 顺便实现按钮状态的判断，
 function refreshVideo(n) {
     title.innerText = response.videos[i].title
     video.setAttribute('src', response.videos[n].videoSrc)
+    favoriteBtn.classList.remove('done')
+    if (JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))) {
+        JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)).find((target) => {
+            if (target.uuid === response.videos[i].uuid) {
+                favoriteBtn.classList.add('done')
+            }
+        })
+    }
 
 }
 refreshVideo(i)
@@ -689,16 +698,16 @@ async function refreshComments(i) {
 
 refreshComments(i)
 
-//获取头像的函数，（用户名，头像盒子）
-// async function getAvata(uname) {
-//     //发送ajax请求
-//     const response = await fetch(`https://frontend.exam.aliyun.topviewclub.cn/api/getAvatar?username=${uname}`, {
-//         method: 'POST',
-//     })
-//     const blob = await response.blob()
-//     const url = URL.createObjectURL(blob)
-//     return url
-// }
+// 获取头像的函数，（用户名，）
+async function getAvata(uname) {
+    //发送ajax请求
+    const response = await fetch(`https://frontend.exam.aliyun.topviewclub.cn/api/getAvatar?username=${uname}`, {
+        method: 'POST',
+    })
+    const blob = await response.blob()
+    const url = URL.createObjectURL(blob)
+    return url
+}
 
 //优化，当视频不可见的时候自动暂停
 const videoObserver = new IntersectionObserver((entries) => {
@@ -711,3 +720,36 @@ const videoObserver = new IntersectionObserver((entries) => {
     threshold: 0.7
 })
 videoObserver.observe(control)
+
+// 收藏模块
+// const favoriteBtn = document.querySelector('.content .left .subcribe .subLeft .favorite')前置？
+favoriteBtn.addEventListener('click', (e) => {
+    let list = JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))
+    if (list === null) {
+        list = new Array()
+    }
+    //首先拿出了原来的数据
+
+    if (e.target.classList.contains('done'))//如果已经点击过了
+    {
+        e.target.classList.remove('done')
+        if (list.length === 1) {
+            list = new Array
+        } else {
+            list = list.splice(list.indexOf(list.find((target) => {
+                console.log(target.uuid === response.videos[i].uuid)
+                return target.uuid === response.videos[i].uuid
+            })), 1)
+        }
+
+
+    }
+    else {    //添加数据
+        list.push(response.videos[i])
+        //已经收藏
+        e.target.classList.add('done')
+    }
+
+    //保存数据
+    localStorage.setItem(`${localStorage.getItem('loginUser')}Info`, JSON.stringify(list))
+})

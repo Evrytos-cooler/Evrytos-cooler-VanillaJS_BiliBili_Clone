@@ -118,8 +118,10 @@ function signInBox() {
 
     })
 }
+if (localStorage.getItem('login') === 'false') {
+    signInBox()
+}
 
-signInBox()
 
 function removeBox() {
     document.querySelector('.signInBox').style.display = 'none'
@@ -134,13 +136,4 @@ function success(user) {
 
 }
 
-//获取头像的函数
-async function getAvata(uname) {
-    //发送ajax请求
-    const response = await fetch(`https://frontend.exam.aliyun.topviewclub.cn/api/getAvatar?username=${uname}`, {
-        method: 'POST',
-    })
-    const blob = await response.blob()
-    const url = URL.createObjectURL(blob)
-    return url
-}
+

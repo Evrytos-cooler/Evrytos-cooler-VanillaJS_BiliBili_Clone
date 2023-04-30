@@ -23,7 +23,6 @@ header {
     height: 50px;
     border-radius: 100%;
     margin: 10px;
-    background-color: red;
 }
 
 .headImg .personalInfo .info .uname {
@@ -52,7 +51,6 @@ header {
 
 .collections .collectionList .collection {
     width: 19%;
-
     margin: 0.5%;
     background-color: rgba(0, 0, 0, 0.298);
 }
@@ -64,5 +62,34 @@ header {
 }
 
 .collections .collectionList .collection .video video {
+    width: 100%;
+}
+
+/* 头像 */
+.avata {
+    background-position: center center;
+    background-size: cover;
+}
+
+.collections .myVideos {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+}
+
+/* 上传的视频 */
+.collections .myVideos .myVideo {
+    width: 19%;
+    margin: 0.5%;
+    background-color: rgba(0, 0, 0, 0.298);
+}
+
+.collections .myVideos .myVideo .video {
+    background-color: rgba(177, 237, 189, 0.781);
+    width: 100%;
+    aspect-ratio: 16/9;
+}
+
+.collections .myVideos .myVideo .video video {
     width: 100%;
 }
