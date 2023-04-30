@@ -133,3 +133,14 @@ function success(user) {
     //刷新页面，加载那些登陆后才能显示的东西
 
 }
+
+//获取头像的函数
+async function getAvata(uname) {
+    //发送ajax请求
+    const response = await fetch(`https://frontend.exam.aliyun.topviewclub.cn/api/getAvatar?username=${uname}`, {
+        method: 'POST',
+    })
+    const blob = await response.blob()
+    const url = URL.createObjectURL(blob)
+    return url
+}

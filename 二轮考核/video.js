@@ -1,3 +1,4 @@
+//获取视频参数
 const urlParams = new URLSearchParams(window.location.search);
 const response = JSON.parse(urlParams.get('src'));
 let i = +urlParams.get('current')
@@ -8,7 +9,6 @@ const info = document.querySelector('.content .left .info')
 const video = document.querySelector('.content .left video')
 
 //渲染视频函数
-
 function refreshVideo(n) {
     title.innerText = response.videos[i].title
     video.setAttribute('src', response.videos[n].videoSrc)
@@ -264,7 +264,7 @@ function creatBarrage(content, special = false) {
 function formation(time) {
     let M = Math.floor(time / 60)
     M = (M < 10) ? '0' + M : M
-    let S = Math.floor(time) + 1
+    let S = Math.floor(time) % 60 + 1
     S = (S < 10) ? '0' + S : S
     const formationTime = M + ':' + S
     return formationTime
@@ -455,6 +455,13 @@ videoObj.src.addEventListener('ended', () => {
 const commentsList = document.querySelector('.content .left .comments .commentsList')
 const writeComment = document.querySelector('.content .left .comments .sendComments #comments')
 const sendComment = document.querySelector('.content .left .comments .sendComments button')
+const commentAvata = document.querySelector('.content .left .comments .sendComments .avata');
+
+(async () => {
+    const mainAvata = await getAvata(localStorage.getItem("loginUser"))
+    commentAvata.style = `background-image: url(${mainAvata})`
+})();
+
 
 //保存评论的JSON对象
 function commentInfo(avata, uname, time, content, reply) {
@@ -470,9 +477,11 @@ sendComment.addEventListener("click", () => {
 })
 
 //添加评论结点的函数
-function addComment(target, father, isReply = false) {
+async function addComment(target, father, isReply = false, btn) {
     let content = target.value
     const uname = localStorage.getItem('loginUser')
+    const avataUrl = await getAvata(uname)
+
     if (!isReply) {
         // 添加评论
         if (content.trim()) {
@@ -481,7 +490,7 @@ function addComment(target, father, isReply = false) {
             target.value = ''
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
-            newComment.innerHTML = `<div class="avata">头像</div>
+            newComment.innerHTML = `<div class="avata" style='background-image: url(${avataUrl})'></div>
         <div class="name">${uname}</div>
         <span>${content}
         </span>
@@ -496,7 +505,7 @@ function addComment(target, father, isReply = false) {
             // 给新添加的评论的回复绑定事件
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
-                replying(newComment)
+                replying(newComment, false, e.target)
 
             })
 
@@ -511,7 +520,7 @@ function addComment(target, father, isReply = false) {
                 list = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
             }
             commentSave = new commentInfo()
-            commentSave.avata = '头像地址'
+            commentSave.avata = avataUrl
             commentSave.uname = uname
             commentSave.time = time
             commentSave.content = content
@@ -524,13 +533,16 @@ function addComment(target, father, isReply = false) {
     // 添加回复
     else {
         if (content.trim()) {
-            content = `@原来人的名字` + content
+            if (content != btn.parentNode.parentNode.parentNode.querySelector(".name").innerText) {
+                content = '@' + btn.parentNode.parentNode.querySelector('.name').innerText + content
+            }
+
             const date = new Date()
             const time = date.toLocaleString()
             target.value = ''
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
-            newComment.innerHTML = `<div class="avata">头像</div>
+            newComment.innerHTML = `<div class="avata" style='background-image: url(${avataUrl})'></div>
         <div class="name">${uname}</div>
         <span>${content}
         </span>
@@ -546,13 +558,13 @@ function addComment(target, father, isReply = false) {
             // 给新添加的评论的回复绑定事件
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
-                replying(newComment.parentNode, true)
+                replying(newComment.parentNode, true, e.target)
             })
 
             //保存评论
             list = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
             commentSave = new commentInfo()
-            commentSave.avata = '头像地址'
+            commentSave.avata = avataUrl
             commentSave.uname = uname
             commentSave.time = time
             commentSave.content = content
@@ -569,15 +581,16 @@ function addComment(target, father, isReply = false) {
 }
 
 //点击回复，创建新的回复栏
-isOnReply = false
-function replying(target, isReply = false) {
+let isOnReply = false
+async function replying(target, isReply = false, fatherBtn) {
     //创建新的回复栏
+    const avataUrl = await getAvata(localStorage.getItem('loginUser'))
     if (!isReply) {
         const newReply = document.createElement('div')
         if (!isOnReply) {
             newReply.classList.add('sendReply')
             newReply.innerHTML = `                
-    <div class="avata">头像</div>
+    <div class="avata" style='background-image: url(${avataUrl})'></div>
     <input type="text" id="comments" placeholder="勇敢滴少年快去创造热评~">
     <button class="commentSend">发布</button>
     `
@@ -585,7 +598,7 @@ function replying(target, isReply = false) {
             isOnReply = true
             const btn = newReply.childNodes[5]
             btn.addEventListener('click', () => {
-                addComment(newReply.childNodes[3], target.children[4], true)
+                addComment(newReply.childNodes[3], target.children[4], true, fatherBtn)
                 target.removeChild(newReply)
                 isOnReply = false
             })
@@ -596,7 +609,7 @@ function replying(target, isReply = false) {
         if (!isOnReply) {
             newReply.classList.add('sendReply')
             newReply.innerHTML = `                
-<div class="avata">头像</div>
+<div class="avata" style='background-image: url(${avataUrl})'></div>
 <input type="text" id="comments" placeholder="勇敢滴少年快去创造热评~">
 <button class="commentSend">发布</button>
 `
@@ -605,7 +618,7 @@ function replying(target, isReply = false) {
             const btn = newReply.childNodes[5]
             btn.addEventListener('click', () => {
                 //n是第几个评论的意思，是对应评论的id，值唯一
-                addComment(newReply.childNodes[3], target.parentNode.children[4], true)
+                addComment(newReply.childNodes[3], target.parentNode.children[4], true, fatherBtn)
                 target.parentNode.removeChild(newReply)
                 isOnReply = false
             })
@@ -615,8 +628,9 @@ function replying(target, isReply = false) {
 }
 
 //显示（刷新0）评论的函数
-function refreshComments(i) {
+async function refreshComments(i) {
     const father = document.querySelector('.commentsList')
+    const avataUrl = await getAvata(localStorage.getItem('loginUser'))
     //初始化一下
     father.innerHTML = ''
     if (JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))) {
@@ -627,7 +641,7 @@ function refreshComments(i) {
             newComment.classList.add('comment')
 
             //其中的content包括了@谁
-            newComment.innerHTML = `<div class="avata">头像</div>
+            newComment.innerHTML = `<div class="avata" style='background-image: url(${avataUrl})'></div>
         <div class="name">${comment.uname}</div>
         <span>${comment.content} 
         </span>
@@ -644,7 +658,7 @@ function refreshComments(i) {
             comment.reply.forEach(reply => {
                 const _newComment = document.createElement('section')
                 _newComment.classList.add('comment')
-                _newComment.innerHTML = `<div class="avata">头像</div>
+                _newComment.innerHTML = `<div class="avata" style='background-image: url(${avataUrl})'></div>
                 <div class="name">${reply.uname}</div>
                 <span>${reply.content}
                 </span>
@@ -659,7 +673,7 @@ function refreshComments(i) {
                 newComment.appendChild(_newComment)
                 _newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                     //调用添加函数
-                    replying(_newComment, true)
+                    replying(_newComment, true, e.target)
                 })
 
             })
@@ -667,10 +681,33 @@ function refreshComments(i) {
             //绑定按键
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
-                replying(newComment)
+                replying(newComment, false, e.target)
             })
         })
     }
 }
 
 refreshComments(i)
+
+//获取头像的函数，（用户名，头像盒子）
+// async function getAvata(uname) {
+//     //发送ajax请求
+//     const response = await fetch(`https://frontend.exam.aliyun.topviewclub.cn/api/getAvatar?username=${uname}`, {
+//         method: 'POST',
+//     })
+//     const blob = await response.blob()
+//     const url = URL.createObjectURL(blob)
+//     return url
+// }
+
+//优化，当视频不可见的时候自动暂停
+const videoObserver = new IntersectionObserver((entries) => {
+    const entry = entries[0]
+    if (entry.intersectionRatio < 0.7) {
+        videoObj.src.pause()
+    }
+    else { videoObj.src.play() }
+}, {
+    threshold: 0.7
+})
+videoObserver.observe(control)

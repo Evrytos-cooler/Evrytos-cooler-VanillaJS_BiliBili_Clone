@@ -99,7 +99,7 @@ function askForVideo(sections) {//参数是要请求加载的视频列表
                 mouseenterPlay(entry.target.firstElementChild.firstElementChild)
                 // 显示视频的时间
                 entry.target.querySelector('.video').querySelector("video").addEventListener('loadedmetadata', (e) => {
-                    entry.target.querySelector('.video').setAttribute('data-before', formation(Math.floor(e.target.duration)))
+                    entry.target.querySelector('.video').setAttribute('data-before', formation(e.target.duration))
                 })
                 i = (i === 9) ? 0 : i + 1
                 // 加载完之后把类名改ready，并取消观察,添加点击跳转事件,添加悬停播放事件
@@ -184,7 +184,7 @@ function creatBarrage(content, target) {
 function formation(time) {
     let M = Math.floor(time / 60)
     M = (M < 10) ? '0' + M : M
-    let S = Math.floor(time) + 1
+    let S = Math.floor(time) % 60 + 1
     S = (S < 10) ? '0' + S : S
     const formationTime = M + ':' + S
     return formationTime

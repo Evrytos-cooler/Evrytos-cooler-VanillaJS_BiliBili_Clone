@@ -44,6 +44,12 @@ body {
 
 /* 初始化完成 */
 
+/* 头像 */
+.avata {
+    background-position: center center;
+    background-size: contain;
+}
+
 
 /* 内容部分 */
 /* left */

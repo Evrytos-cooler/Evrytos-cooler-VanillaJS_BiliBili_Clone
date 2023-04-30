@@ -71,4 +71,13 @@ header .headNav .rightNav li {
     flex-flow: column nowrap;
 }
 
+header .headNav .rightNav li .avata {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 100%;
+    background-position: center center;
+    background-size: cover;
+}
+
 /* 头部导航样式结束 */
