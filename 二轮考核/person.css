@@ -25,6 +25,24 @@ header {
     margin: 10px;
 }
 
+/* 更换头像点击 */
+.headImg .personalInfo .avata::after {
+    display: block;
+    content: '更换头像';
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 12px;
+    background-color: rgba(0, 0, 0, 0.388);
+    opacity: 0;
+    transition: all 0.2s;
+}
+
+.headImg .personalInfo .avata:hover::after {
+    opacity: 1;
+}
+
 .headImg .personalInfo .info .uname {
     margin: 10px 0;
 }

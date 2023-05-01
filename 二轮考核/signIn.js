@@ -136,4 +136,8 @@ function success(user) {
 
 }
 
-
+function logOut() {
+    localStorage.setItem('login', 'false')//默认是不登陆的
+    localStorage.removeItem('loginUser')
+}
+// logOut()

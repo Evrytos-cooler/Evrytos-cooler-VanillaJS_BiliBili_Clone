@@ -27,3 +27,31 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
     });
 }
 refreshCollection(JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)))//传入初始数组
+
+
+// 更换头像
+const changeAvataBtn = document.querySelector('.headImg .personalInfo .avata')
+changeAvataBtn.addEventListener('click', async () => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.click()//模拟点击input，打开系统的资源管理器
+    input.addEventListener('change', async () => {
+        if (input.files.length === 0) {
+            alert('请选择头像图片')
+            return false
+        }
+        else {
+            data = new FormData()
+            data.append('avatarFile', input.files[0])
+            data.append('username', `${localStorage.getItem('loginUser')
+                }`)
+
+            const response = await fetch('https://frontend.exam.aliyun.topviewclub.cn/api/changeAvatar', {
+                method: 'POST',
+                body: data
+            })
+            if (response.ok === true && response.status === 200) location.reload();
+            else console.warn(response.status);
+        }
+    })
+})

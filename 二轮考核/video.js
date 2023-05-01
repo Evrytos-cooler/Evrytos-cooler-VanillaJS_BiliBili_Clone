@@ -490,6 +490,7 @@ async function addComment(target, father, isReply = false, btn) {
     let content = target.value
     const uname = localStorage.getItem('loginUser')
     const avataUrl = await getAvata(uname)
+    console.log(avataUrl)
 
     if (!isReply) {
         // 添加评论
@@ -508,6 +509,7 @@ async function addComment(target, father, isReply = false, btn) {
         <i class="sub">good</i>
         <i class="dis">bad</i>
         <button>回复</button>
+        <button>删除</button>
         </div>
         <div class="reply">`
             father.appendChild(newComment)
@@ -515,7 +517,12 @@ async function addComment(target, father, isReply = false, btn) {
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
                 replying(newComment, false, e.target)
+            })
+            //绑定删除事件
 
+            newComment.children[3].children[4].addEventListener('click', (e) => {
+                //调用添加函数
+                deleteComment(e.target)
             })
 
 
@@ -542,8 +549,8 @@ async function addComment(target, father, isReply = false, btn) {
     // 添加回复
     else {
         if (content.trim()) {
-            if (content != btn.parentNode.parentNode.parentNode.querySelector(".name").innerText) {
-                content = '@' + btn.parentNode.parentNode.querySelector('.name').innerText + content
+            if (btn.parentNode.parentNode.querySelector(".name").innerText != father.parentNode.querySelector(".name").innerText) {
+                content = '@' + btn.parentNode.parentNode.querySelector('.name').innerText + ' ' + content
             }
 
             const date = new Date()
@@ -560,6 +567,7 @@ async function addComment(target, father, isReply = false, btn) {
         <i class="sub">good</i>
         <i class="dis">bad</i>
         <button>回复</button>
+        <button>删除</button>
         </div>
         <div class="reply">`
             father.appendChild(newComment)
@@ -568,6 +576,12 @@ async function addComment(target, father, isReply = false, btn) {
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
                 replying(newComment.parentNode, true, e.target)
+            })
+
+            //添加删除函数
+            newComment.children[3].children[4].addEventListener('click', (e) => {
+                //调用添加函数
+                deleteComment(e.target)
             })
 
             //保存评论
@@ -639,13 +653,14 @@ async function replying(target, isReply = false, fatherBtn) {
 //显示（刷新0）评论的函数
 async function refreshComments(i) {
     const father = document.querySelector('.commentsList')
-    const avataUrl = await getAvata(localStorage.getItem('loginUser'))
     //初始化一下
     father.innerHTML = ''
     if (JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))) {
 
         const commentObj = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
-        commentObj.forEach(comment => {
+        commentObj.forEach(async comment => {
+            //获取每个评论的头像，在comment 这个local对象中是有bolb url的,也可以直接从服务器取下来
+            let avataUrl = await getAvata(comment.uname)
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
 
@@ -664,8 +679,9 @@ async function refreshComments(i) {
             father.appendChild(newComment)
 
             //对里面的reply迭代
-            comment.reply.forEach(reply => {
+            comment.reply.forEach(async reply => {
                 const _newComment = document.createElement('section')
+                const avataUrl = await getAvata(reply.uname)
                 _newComment.classList.add('comment')
                 _newComment.innerHTML = `<div class="avata" style='background-image: url(${avataUrl})'></div>
                 <div class="name">${reply.uname}</div>
@@ -685,6 +701,16 @@ async function refreshComments(i) {
                     replying(_newComment, true, e.target)
                 })
 
+                if (reply.uname === localStorage.getItem('loginUser')) {
+                    const del = document.createElement('button')
+                    del.innerText = "删除"
+                    _newComment.querySelector('.detailInfo').appendChild(del)
+                    del.addEventListener('click', (e) => {
+                        //调用添加函数
+                        deleteComment(e.target)
+                    })
+                }
+
             })
 
             //绑定按键
@@ -692,6 +718,18 @@ async function refreshComments(i) {
                 //调用添加函数
                 replying(newComment, false, e.target)
             })
+
+            // 如果当前登录的是发送评论的本人，那么就可以删除
+            if (comment.uname === localStorage.getItem('loginUser')) {
+                const del = document.createElement('button')
+                del.innerText = "删除"
+                newComment.querySelector('.detailInfo').appendChild(del)
+                del.addEventListener('click', (e) => {
+                    //调用添加函数
+                    deleteComment(e.target)
+                })
+            }
+
         })
     }
 }
@@ -753,3 +791,17 @@ favoriteBtn.addEventListener('click', (e) => {
     //保存数据
     localStorage.setItem(`${localStorage.getItem('loginUser')}Info`, JSON.stringify(list))
 })
+
+
+function deleteComment(btn) {
+    //在dom中删除
+    btn.parentNode.parentNode.parentNode.removeChild(btn.parentNode.parentNode)
+    //在localstorage中删除
+    const commentObj = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
+    commentObj.splice(commentObj.indexOf(commentObj.find(comment => {
+        const result = (btn.parentNode.parentNode.children[1].innerText === comment.uname) &&
+            (btn.parentNode.children[0].innerText === comment.time)
+        return result
+    })), 1);
+    localStorage.setItem(response.videos[i].title + ' comments', JSON.stringify(commentObj))
+}
