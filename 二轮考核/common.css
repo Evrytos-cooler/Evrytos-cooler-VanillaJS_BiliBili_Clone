@@ -21,7 +21,7 @@ html {
 body {
     width: 100hw;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
 }
 
 /* 版心 */
