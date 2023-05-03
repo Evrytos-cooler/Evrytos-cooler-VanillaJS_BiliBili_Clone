@@ -64,6 +64,7 @@ header {
 /* 左右两栏 */
 .content {
     display: flex;
+    min-width: 900px;
     flex-flow: row nowrap;
     justify-content: space-between;
 }
@@ -76,7 +77,6 @@ header {
 
 .content .collections {
     width: 0;
-    min-width: 700px;
     /* 添加width：0让这个盒子的宽度由flex决定 */
     flex-basis: 80%;
     flex-grow: 0;
@@ -185,4 +185,26 @@ header {
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+
+/* 编辑收藏夹区域 */
+.content .edit {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.content .edit .addList {
+    flex-basis: 40px;
+    line-height: 40px;
+}
+
+.content .edit ul {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.content .edit ul li {
+    flex-basis: 40px;
+    line-height: 40px;
 }

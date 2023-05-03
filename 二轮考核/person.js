@@ -111,7 +111,8 @@ submmitBtn.addEventListener('click', async (e) => {
                 const describe = box.querySelector('.describe input').value
                 const author = localStorage.getItem('loginUser')
                 const authorAvatarSrc = await getAvata(author)
-                const videoSrc = input.value
+                // 获取临时url,记得要清除缓存,这里传的是视频，不是url方便清理在视频加载完的时候清理缓存
+                const videoSrc = URL.createObjectURL(input.files[0])
 
                 let myList = null
                 if (localStorage.getItem(`${author}\`s video`) != null) {
@@ -139,9 +140,11 @@ function MyVideo(author, authorAvatarSrc, describe, title, videoSrc) {
     this.videoSrc = videoSrc
 }
 
-// 显示投稿的功能
+// 显示投稿的功能,必须有服务端的支持才能显示
 function displayMyVideo(videoList) {//传入待渲染数据的数组
+    if (videoList === null) return
     const collectList = document.querySelector('.myVideo.content .collections .collectionList')
+    collectList.innerHTML = ''
     videoList.forEach(videoTarget => {
         const newCollection = document.createElement('div')
         newCollection.classList.add('collection')
@@ -155,6 +158,11 @@ function displayMyVideo(videoList) {//传入待渲染数据的数组
     </div>
     `
         collectList.appendChild(newCollection)
+        //清理缓存
+        // newCollection.querySelector('.video video').onload = () => {
+        //     URL.revokeObjectURL(videoTarget.videoSrc)
+        // }
+        console.log(newCollection.querySelector('.video video'))
     });
 }
 
@@ -171,3 +179,17 @@ async function getAvata(uname) {
     const url = URL.createObjectURL(blob)
     return url
 }
+
+// 编辑栏拖动排序
+let dragList = document.querySelector('.content .edit ul')
+let draggedElement;
+let draggedOrder;
+dragList.addEventListener('dragstart', (e) => {
+    draggedElement = e.target
+    draggedOrder = Array.from(draggedElement.parentNode.children).indexOf(draggedElement)
+})
+
+dragList.addEventListener('dragenter', (e) => {
+    let order = Array.from(e.target.parentNode.children).indexOf(e.target)
+    console.log(order)
+})
