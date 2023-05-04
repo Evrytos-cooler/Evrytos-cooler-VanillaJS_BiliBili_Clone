@@ -98,6 +98,8 @@ videoObj.playAndPuase = document.querySelector('#playAndPause')//这个不用绑
 videoObj.timer = document.querySelector('#timer')
 videoObj.progressBar = document.querySelector('#progressBar')
 videoObj.progressBar1 = document.querySelector('.progressBar1')
+videoObj.barChild = videoObj.progressBar.firstElementChild
+videoObj.barChild1 = videoObj.progressBar1.firstElementChild
 videoObj.clarity = document.querySelector('#clarity')
 videoObj.speed = document.querySelector('#speed')
 videoObj.volume = document.querySelector('#volume')
@@ -106,8 +108,6 @@ videoObj.smallWin = document.querySelector('#smallWin')
 videoObj.caption = document.querySelector('#caption')
 videoObj.pageFull = document.querySelector('#pageFull')
 videoObj.full = document.querySelector('#full')
-videoObj.barChild = videoObj.progressBar.firstElementChild
-videoObj.barChild1 = videoObj.progressBar1.firstElementChild
 
 
 // 播放暂停
@@ -437,6 +437,36 @@ function refreshProcessingBar() {
     videoObj.barChild1.style.width = (videoObj.src.currentTime / videoObj.src.duration) * 100 + '%'
 }
 
+//可点击进度条实现
+videoObj.progressBar.addEventListener('click', (mouse) => {
+    const deltaX = mouse.clientX - videoObj.barChild.getBoundingClientRect().left
+    const length = videoObj.progressBar.offsetWidth
+    videoObj.src.currentTime = deltaX / length * videoObj.src.duration
+    refreshProcessingBar()
+})
+//可拖动进度条实现
+let isMouseDownInPB = false
+
+videoObj.progressBar.addEventListener('mousedown', () => {
+    isMouseDownInPB = true
+})
+
+window.addEventListener('mouseup', () => {
+    if (isMouseDownInPB) {
+        pOp(videoObj.src)
+        isMouseDownInPB = false
+    }
+})
+
+window.addEventListener('mousemove', (mouse) => {
+    if (isMouseDownInPB) {
+        const deltaX = mouse.clientX - videoObj.barChild.getBoundingClientRect().left
+        const length = videoObj.progressBar.offsetWidth
+        videoObj.src.currentTime = deltaX / length * videoObj.src.duration
+        refreshProcessingBar()
+    }
+
+})
 
 //视频播放完之后连播
 videoObj.src.addEventListener('ended', () => {
