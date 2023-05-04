@@ -207,4 +207,36 @@ header {
 .content .edit ul li {
     flex-basis: 40px;
     line-height: 40px;
+    cursor: pointer;
+}
+
+/* 拖动排序动画 */
+@keyframes dragSortingDown {
+    form {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(40px);
+    }
+}
+
+@keyframes dragSortingUp {
+    form {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-40px);
+    }
+}
+
+.dragSortingDown {
+    animation: dragSortingDown .05s linear;
+    animation-iteration-count: 1;
+}
+
+.dragSortingUp {
+    animation: dragSortingUp .05s linear;
+    animation-iteration-count: 1;
 }

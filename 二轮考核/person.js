@@ -162,7 +162,6 @@ function displayMyVideo(videoList) {//传入待渲染数据的数组
         // newCollection.querySelector('.video video').onload = () => {
         //     URL.revokeObjectURL(videoTarget.videoSrc)
         // }
-        console.log(newCollection.querySelector('.video video'))
     });
 }
 
@@ -181,15 +180,82 @@ async function getAvata(uname) {
 }
 
 // 编辑栏拖动排序
-let dragList = document.querySelector('.content .edit ul')
+let dragList = document.querySelector('.content .edit ul')//还有一个所以要再来一次
 let draggedElement;
 let draggedOrder;
+let animation = false;//标记做动画的过程，在这个过程中不能再次触发动画了
 dragList.addEventListener('dragstart', (e) => {
     draggedElement = e.target
     draggedOrder = Array.from(draggedElement.parentNode.children).indexOf(draggedElement)
 })
 
-dragList.addEventListener('dragenter', (e) => {
+dragList.addEventListener('dragenter', (e) => {//只有进入的时候会执行   
+    e.preventDefault()
     let order = Array.from(e.target.parentNode.children).indexOf(e.target)
-    console.log(order)
+    //判断先后，执行动画，调换位置：
+    if (e.target !== draggedElement && !animation) {
+        if ((order > draggedOrder)) {
+            animation = true
+            draggedElement.classList.add("dragSortingDown")
+            e.target.classList.add("dragSortingUp")
+            e.target.addEventListener("animationend", () => {
+                dragList.insertBefore(e.target, draggedElement)
+                e.target.classList.remove("dragSortingUp")
+                draggedElement.classList.remove("dragSortingDown")
+                animation = false
+                //更新拖动元素的下标
+                draggedOrder = Array.from(e.target.parentNode.children).indexOf(draggedElement)
+
+                return;
+            })
+        }
+        else if ((order < draggedOrder)) {
+            animation = true
+            e.target.classList.add("dragSortingDown")
+            draggedElement.classList.add("dragSortingUp")
+            e.target.addEventListener("animationend", () => {
+                dragList.insertBefore(draggedElement, e.target)
+                e.target.classList.remove("dragSortingDown")
+                draggedElement.classList.remove("dragSortingUp")
+                animation = false
+                //更新拖动元素的下标
+                draggedOrder = Array.from(e.target.parentNode.children).indexOf(draggedElement)
+
+                return;
+            })
+        }
+    }
+})
+
+dragList.addEventListener('dragover', (e) => {
+    e.preventDefault()
+})
+
+
+//给另一个界面的也帮顶一下 ------------------------------
+let _dragList = document.querySelectorAll('.content .edit ul')[1]//还有一个所以要再来一次
+let _draggedElement;
+let _draggedOrder;
+_dragList.addEventListener('dragstart', (e) => {
+    _draggedElement = e.target
+    _draggedOrder = Array.from(_draggedElement.parentNode.children).indexOf(_draggedElement)
+})
+
+_dragList.addEventListener('dragenter', (e) => {//只有进入的时候会执行   
+    e.preventDefault()
+    let order = Array.from(e.target.parentNode.children).indexOf(e.target)
+    //判断先后，调换位置：
+    if (order > _draggedOrder) {
+        _dragList.insertBefore(e.target, _draggedElement)
+    }
+    else {
+        _dragList.insertBefore(_draggedElement, e.target)
+
+    }
+    //更新拖动元素的下标
+    _draggedOrder = Array.from(e.target.parentNode.children).indexOf(_draggedElement)
+})
+
+_dragList.addEventListener('dragover', (e) => {
+    e.preventDefault()
 })
