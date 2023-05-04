@@ -24,6 +24,12 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
     </div>
     `
         collectList.appendChild(newCollection)
+
+        //绑定点击事件
+        const videoObj = {
+            videos: videoList
+        }
+        replaceUrl(newCollection, 'video.html?' + "src=" + `${JSON.stringify(videoObj)}` + '&current=' + `${videoList.indexOf(videoTarget)}`)
     });
 }
 refreshCollection(JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)))//传入初始数组
@@ -121,11 +127,11 @@ submmitBtn.addEventListener('click', async (e) => {
                 else {
                     myList = new Array()
                 }
-
-                myList.push(new MyVideo(author, authorAvatarSrc, describe, title, videoSrc))
+                const newVideo = new MyVideo(author, authorAvatarSrc, describe, title, videoSrc)
+                myList.push(newVideo)
                 localStorage.setItem(`${author}\`s video`, JSON.stringify(myList))
                 displayMyVideo(myList)
-            })//返回一个视频对象
+            })
         }
     })
 })
@@ -162,6 +168,12 @@ function displayMyVideo(videoList) {//传入待渲染数据的数组
         // newCollection.querySelector('.video video').onload = () => {
         //     URL.revokeObjectURL(videoTarget.videoSrc)
         // }
+
+        //绑定点击事件
+        const videoObj = {
+            videos: videoList
+        }
+        replaceUrl(newCollection, 'video.html?' + "src=" + `${JSON.stringify(videoObj)}` + '&current=' + `${videoList.indexOf(videoTarget)}`)
     });
 }
 
@@ -232,10 +244,11 @@ dragList.addEventListener('dragover', (e) => {
 })
 
 
-//给另一个界面的也帮顶一下 ------------------------------
-let _dragList = document.querySelectorAll('.content .edit ul')[1]//还有一个所以要再来一次
+//给另一个界面的也绑定一下 ------------------------------
+let _dragList = document.querySelectorAll('.content .edit ul')[1]
 let _draggedElement;
 let _draggedOrder;
+let _animation = false;//标记做动画的过程，在这个过程中不能再次触发动画了
 _dragList.addEventListener('dragstart', (e) => {
     _draggedElement = e.target
     _draggedOrder = Array.from(_draggedElement.parentNode.children).indexOf(_draggedElement)
@@ -244,18 +257,50 @@ _dragList.addEventListener('dragstart', (e) => {
 _dragList.addEventListener('dragenter', (e) => {//只有进入的时候会执行   
     e.preventDefault()
     let order = Array.from(e.target.parentNode.children).indexOf(e.target)
-    //判断先后，调换位置：
-    if (order > _draggedOrder) {
-        _dragList.insertBefore(e.target, _draggedElement)
-    }
-    else {
-        _dragList.insertBefore(_draggedElement, e.target)
+    //判断先后，执行动画，调换位置：
+    if (e.target !== _draggedElement && !_animation) {
+        if ((order > _draggedOrder)) {
+            _animation = true
+            _draggedElement.classList.add("dragSortingDown")
+            e.target.classList.add("dragSortingUp")
+            e.target.addEventListener("animationend", () => {
+                _dragList.insertBefore(e.target, _draggedElement)
+                e.target.classList.remove("dragSortingUp")
+                _draggedElement.classList.remove("dragSortingDown")
+                _animation = false
+                //更新拖动元素的下标
+                _draggedOrder = Array.from(e.target.parentNode.children).indexOf(_draggedElement)
 
+                return;
+            })
+        }
+        else if ((order < _draggedOrder)) {
+            _animation = true
+            e.target.classList.add("dragSortingDown")
+            _draggedElement.classList.add("dragSortingUp")
+            e.target.addEventListener("animationend", () => {
+                _dragList.insertBefore(_draggedElement, e.target)
+                e.target.classList.remove("dragSortingDown")
+                _draggedElement.classList.remove("dragSortingUp")
+                _animation = false
+                //更新拖动元素的下标
+                _draggedOrder = Array.from(e.target.parentNode.children).indexOf(_draggedElement)
+
+                return;
+            })
+        }
     }
-    //更新拖动元素的下标
-    _draggedOrder = Array.from(e.target.parentNode.children).indexOf(_draggedElement)
 })
 
 _dragList.addEventListener('dragover', (e) => {
     e.preventDefault()
 })
+
+
+//给每个视频绑定点击跳转事件
+function replaceUrl(target, url) {
+    target.addEventListener('click', () => {
+        window.open(url)
+    })
+}
+
