@@ -1,29 +1,3 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-
-a {
-    text-decoration: none;
-    color: #000;
-}
-
-li {
-    text-decoration: none;
-    font-style: normal;
-    list-style: none;
-}
-
-html {
-    background-color: #f1f2f3
-}
-
-body {
-    width: 100hw;
-    margin: 0 auto;
-    background-color: #fff;
-}
-
 /* 滚动条美化 */
 *::-webkit-scrollbar {
     width: 10px;
@@ -50,8 +24,17 @@ body {
     background-size: contain;
 }
 
+header {
+    position: fixed;
+    width: 100%;
+    max-width: 2560px;
+}
 
 /* 内容部分 */
+.content {
+    padding-top: 70px;
+}
+
 /* left */
 .content .left {
     float: left;
@@ -115,7 +98,6 @@ body {
 .content .left .subcribe {
     height: 90px;
     line-height: 90px;
-    background-color: #fff;
 }
 
 .content .left .subcribe .subLeft {

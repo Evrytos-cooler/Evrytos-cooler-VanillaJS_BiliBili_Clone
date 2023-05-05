@@ -19,3 +19,5 @@ async function getAvata(uname) {
     const url = URL.createObjectURL(blob)
     return url
 }
+
+

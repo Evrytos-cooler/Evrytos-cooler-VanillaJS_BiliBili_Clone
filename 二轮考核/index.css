@@ -1,3 +1,21 @@
+header {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: url(http://localhost:5500/二轮考核/image/header.webp) no-repeat;
+    background-size: cover;
+}
+
+header #logo {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+    height: 100px;
+    width: 200px;
+    background: url(http://localhost:5500/二轮考核/image/logo.png) center center no-repeat;
+    z-index: 100;
+}
+
 /* 中间分区导航 */
 .centerNav {
     display: flex;
@@ -145,14 +163,14 @@
     border-radius: 10px;
 }
 
-.ready video {
+.ready .video video {
     width: 100%;
     height: 100%;
     background-color: black;
 }
 
-.ready>div::after {
-    content: "稍后再看";
+/* 稍后再看 */
+.ready .video .laterView {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -161,32 +179,48 @@
     transition: 0.2s;
 }
 
-.ready>div:hover::after {
+.ready>div:hover .laterView {
     opacity: 1;
 }
 
-.ready>div::before {
+/* 视频时长 */
+.ready>div .videoCard {
     position: absolute;
-    content: attr(data-before);
-    padding-left: 10px;
-    display: block;
-    width: 100%;
-    height: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 92%;
+    height: 20px;
     bottom: 0px;
     color: white;
+    opacity: 1;
+    padding: 10px;
     background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.73));
-    transition: all 0.1s;
+    transition: all 0.3s;
 }
 
+.ready>div .videoCard p:nth-child(3) {
+    margin-left: auto;
+}
 
+.ready>div .videoCard p:nth-child(1) {
+    margin-right: 20px;
+}
 
-.ready>div:hover::before {
+.ready>div:hover .videoCard {
     opacity: 0;
+    transition: all 0.3s;
 }
+
 
 .ready .videoTitle {
     margin-top: 12px;
     font-size: 20px;
+    height: 2.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .ready .author {

@@ -12,7 +12,7 @@
 
     <style media="(min-width:2020px)">
         body {
-            width: 1980px;
+            width: 2560px;
         }
     </style>
     <style media="(max-width:1020px)">
@@ -26,7 +26,8 @@
     <header>
         <span class="headNav">
             <ul class="leftNav">
-                <li><a href="#"><i class="iconfont"></i>首页</a></li>
+                <li class="hidden iconfont" style="display: none;">&#xe600;</li>
+                <li><a href="#"><i class="iconfont">&#xe601;</i>首页</a></li>
                 <li><a href="#"></a>番剧</li>
                 <li><a href="#"></a>直播</li>
                 <li><a href="#"></a>游戏中心</li>
@@ -34,23 +35,24 @@
                 <li><a href="#"></a>漫画</li>
                 <li><a href="#"></a>赛事</li>
                 <li><a href="#"></a>春日</li>
-                <li><a href="#"></a><i class="iconfont"></i>下载客户端</li>
+                <li><a href="#"></a><i class="iconfont">&#xe611;
+                    </i>下载客户端</li>
             </ul>
 
             <form action="search">
-                <input type="text" placeholder="大数据来秀一下吧"><i class="iconfont"></i>
+                <input type="text" placeholder="大数据来秀一下吧"><i class="iconfont">&#xe8d6;</i>
             </form>
             <ul class="rightNav">
                 <li>
                     <div class="avata"></div>
                 </li>
-                <li><i class="iconfont">图标</i><span>大会员</span></li>
-                <li><i class="iconfont">图标</i><span>消息</span></li>
-                <li><i class="iconfont">图标</i><span>动态</span></li>
-                <li><i class="iconfont">图标</i><span>收藏</span></li>
-                <li><i class="iconfont">图标</i><span>历史</span></li>
-                <li><i class="iconfont">图标</i><span>创作中心</span></li>
-                <li><a href="#"><i class="iconfont">图标</i><button>投稿</button></a></li>
+                <li><i class="iconfont">&#xe6c3;</i><span>大会员</span></li>
+                <li><i class="iconfont">&#xe6eb;</i><span>消息</span></li>
+                <li><i class="iconfont">&#xe827;</i><span>动态</span></li>
+                <li><i class="iconfont">&#xe617;</i><span>收藏</span></li>
+                <li><i class="iconfont">&#xe616;</i><span>历史</span></li>
+                <li><i class="iconfont">&#xe856;</i><span>创作中心</span></li>
+                <li><a href="#"><i class="iconfont">&#xe6b1;</i><button>投稿</button></a></li>
             </ul>
         </span>
     </header>
@@ -58,7 +60,12 @@
     <div class="content w">
         <div class="left">
             <div class="title">title</div>
-            <div class="info">desription</div>
+            <div class="info">
+                <span class="playAmount"><i class="iconfont">&#xe70a;</i>播放量</span>
+                <span class="barAmount"><i class="iconfont">&#xe665;</i>弹幕数量</span>
+                <span class="uploadTime"><i class="iconfont">&#xe8c4;</i>上传时间</span>
+                <span class="condition"><i class="iconfont">&#xe61e;</i>未经作者授权，禁止转载</span>
+            </div>
             <div class="video">
                 <video autoplay src=""></video>
                 <div class="watermark">bilibili</div>
@@ -104,7 +111,7 @@
             <div class="sendBarrage">
                 <p class="condition">xxx人再开，多少弹幕已经装填</p>
                 <button id="barrageToggle">开启弹幕</button>
-                <button id="barrageSetting">设置弹幕</button>
+                <button id="barrageSetting"><i class="iconfont">&#xe608;</i></button>
                 <input type="text" name="barrage" id="barrage">
                 <button id="barrageSend">发送</button>
             </div>
@@ -152,8 +159,8 @@
                     <p class="name"></p>
                     <p class="description">up主简介</p>
                     <div class="btn">
-                        <button id="charge">充电</button>
-                        <button id="follow">关注</button>
+                        <button id="charge"><i class="iconfont">&#xe60d;</i>充电</button>
+                        <button id="follow"><i class="iconfont">&#xeaf3;</i>关注</button>
                     </div>
                 </div>
             </div>

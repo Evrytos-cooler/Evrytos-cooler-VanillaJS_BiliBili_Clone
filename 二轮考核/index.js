@@ -1,3 +1,18 @@
+//头部导航栏行为
+const headNav = document.querySelector('header .headNav')
+const leftNav = headNav.querySelector('.leftNav')
+//这里要节流但是有点问题
+let active = true
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+        headNav.classList.add('fixed')
+        leftNav.querySelector('li').style.display = 'block'
+    }
+    else {
+        headNav.classList.remove('fixed')
+        leftNav.querySelector('li').style.display = 'none'
+    }
+})
 //实现无限加载
 //节流
 let timer = null
@@ -89,9 +104,15 @@ function askForVideo(sections) {//参数是要请求加载的视频列表
                 entry.target.innerHTML =
                     `<div class='video' muted="true"><video src="${src}"></video>
                     <div class='runningBarrage'></div>
+                    <div class='laterView iconfont'>&#xe8a3;</div>
+                    <div class='videoCard'>
+                     <p><i class='iconfont'>&#xe70a;</i>2</p>
+                     <p><i class='iconfont'>&#xe665;</i>2</p>
+                     <p>时长</p>
+                    </div>
                     </div>
                 <p class="videoTitle">${title}</p>
-                <p class="author">${author}</p>`
+                <p class="author"><i class='iconfont'>&#xe666;</i>${author}</p>`
                 entry.target.classList.remove('loading')
                 entry.target.classList.add('ready')
                 observer.unobserve(entry.target)
@@ -99,7 +120,7 @@ function askForVideo(sections) {//参数是要请求加载的视频列表
                 mouseenterPlay(entry.target.firstElementChild.firstElementChild)
                 // 显示视频的时间
                 entry.target.querySelector('.video').querySelector("video").addEventListener('loadedmetadata', (e) => {
-                    entry.target.querySelector('.video').setAttribute('data-before', formation(e.target.duration))
+                    entry.target.querySelector('.video .videoCard p:nth-of-type(3)').innerText = formation(e.target.duration)
                 })
                 i = (i === 9) ? 0 : i + 1
                 // 加载完之后把类名改ready，并取消观察,添加点击跳转事件,添加悬停播放事件

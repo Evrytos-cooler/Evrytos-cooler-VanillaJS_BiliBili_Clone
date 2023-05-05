@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('font_4051284_enhj9prvuri/iconfont.woff2') format('woff2'),
+        url('font_4051284_enhj9prvuri/iconfont.woff') format('woff'),
+        url('font_4051284_enhj9prvuri/iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -24,31 +39,31 @@ body {
     background-color: rgb(255, 255, 255);
 }
 
+
 /* 版心 */
+/* 媒体查询 */
 .w {
-    width: 95%;
+    width: 85%;
     margin: 0 auto;
 }
 
 /* 初始化完成 */
 /* header样式 */
-header {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    background-color: pink;
-}
 
-header .logo {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-}
 
 header .headNav {
+    position: absolute;
+    width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    z-index: 100;
+}
+
+header .headNav.fixed {
+    position: fixed;
+    max-width: 2560px;
+    background-color: #fff;
 }
 
 header .headNav .leftNav {
