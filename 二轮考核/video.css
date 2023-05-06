@@ -28,11 +28,12 @@ header {
     position: fixed;
     width: 100%;
     max-width: 2560px;
+    z-index: 2;
 }
 
 /* 内容部分 */
 .content {
-    padding-top: 70px;
+    padding-top: 64px;
 }
 
 /* left */
@@ -436,6 +437,7 @@ video::-webkit-media-controls {
 .content .left .video {
     position: relative;
     overflow: hidden;
+    z-index: 0;
 }
 
 .content .left .video .control {

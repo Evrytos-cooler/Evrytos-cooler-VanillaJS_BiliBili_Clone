@@ -1,9 +1,11 @@
 //个人信息
 const barUname = document.querySelector('.headImg .personalInfo .info .uname')
-const barAvata = document.querySelector('.headImg .personalInfo .avata');
+const barAvata = document.querySelector('.headImg .personalInfo .avata')
+const hiddenBarAvata = document.querySelector('.hiddenMenu .hiddenAvata');
 // 获取头像
 (async () => {
     barAvata.style.backgroundImage = `url(${await getAvata(localStorage.getItem('loginUser'))})`
+    hiddenBarAvata.style.backgroundImage = `url(${await getAvata(localStorage.getItem('loginUser'))})`
 })()
 barUname.innerHTML = localStorage.getItem('loginUser')
 
@@ -17,10 +19,18 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
         newCollection.innerHTML = `
     <div class="video">
     <video src="${videoTarget.videoSrc}"></video>
+    <div class="mask">
+    <p>播放: 20.2万</p>
+    <p>收藏: 10万</p>
+    <p>UP主: ${videoTarget.author}</p>
+    <p>投稿: 5-1 </p>
+    <i class='iconfont'>&#xe8c4;</i>
+    </div>
     </div>
     <div class="description">
     <p>${videoTarget.title}</p>
     <p>${videoTarget.author}</p>
+    <i class='iconfont more'>&#xe78d;</i>
     </div>
     `
         collectList.appendChild(newCollection)
@@ -157,6 +167,12 @@ function displayMyVideo(videoList) {//传入待渲染数据的数组
         newCollection.innerHTML = `
     <div class="video">
     <video src="${videoTarget.videoSrc}"></video>
+    <div class="mask">
+    <p>播放: 20.2万</p>
+    <p>收藏: 10万</p>
+    <p>UP主: ${videoTarget.author}</p>
+    <p>投稿: 5-1 </p>
+    </div>
     </div>
     <div class="description">
     <p>${videoTarget.title}</p>
@@ -303,4 +319,19 @@ function replaceUrl(target, url) {
         window.open(url)
     })
 }
+
+
+// 下滑导航栏
+const hiddenMenu = document.querySelector('.hiddenMenu');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+        console.log(window.scrollY)
+        hiddenMenu.style.top = '0';
+    }
+    else {
+        hiddenMenu.style.top = '-80px';
+
+    }
+})
 

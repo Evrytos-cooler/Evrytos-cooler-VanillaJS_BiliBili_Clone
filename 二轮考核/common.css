@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'iconfont';
-    src: url('font_4051284_enhj9prvuri/iconfont.woff2') format('woff2'),
-        url('font_4051284_enhj9prvuri/iconfont.woff') format('woff'),
-        url('font_4051284_enhj9prvuri/iconfont.ttf') format('truetype');
+    src: url('font_4051284_h93c5up9kl/iconfont.woff2') format('woff2'),
+        url('font_4051284_h93c5up9kl/iconfont.woff') format('woff'),
+        url('font_4051284_h93c5up9kl/iconfont.ttf') format('truetype');
 }
 
 .iconfont {
@@ -16,6 +16,7 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 a {
@@ -34,7 +35,6 @@ html {
 }
 
 body {
-    width: 100hw;
     margin: 0 auto;
     background-color: rgb(255, 255, 255);
 }
@@ -48,51 +48,203 @@ body {
 }
 
 /* 初始化完成 */
+
 /* header样式 */
-
-
 header .headNav {
     position: absolute;
     width: 100%;
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    z-index: 100;
+    max-width: 2560px;
+    z-index: 1000;
+    color: #fff;
 }
 
-header .headNav.fixed {
-    position: fixed;
-    max-width: 2560px;
-    background-color: #fff;
-}
 
 header .headNav .leftNav {
-    flex: 0 0 40%;
+    flex: 1 auto;
     display: flex;
     flex-flow: row nowrap;
-    background-color: red;
 }
 
+header .headNav .leftNav li {
+    margin-left: 20px;
+}
+
+header .headNav .leftNav li a {
+    font-size: 15px;
+    color: #fff;
+}
+
+header .headNav .leftNav li:nth-child(n+3):hover {
+    animation: leaping .2s ease-in-out 1;
+}
+
+header .headNav .leftNav li .iconfont {
+    margin-right: 7px;
+}
+
+
+/* 右侧 */
 header .headNav .rightNav {
-    flex: 0 0 30%;
+    flex: 1 auto;
     display: flex;
+    justify-content: end;
     align-items: end;
     flex-flow: row nowrap;
-    background-color: rgba(0, 0, 255, 0.323);
+    font-size: 12px;
+    cursor: pointer;
 }
 
-header .headNav .rightNav li {
+header .headNav .rightNav li:nth-child(n+2) {
+    margin-right: 15px;
     display: flex;
     flex-flow: column nowrap;
+    height: 100%;
+    line-height: 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+header .headNav .rightNav li:nth-child(n+2):nth-child(-n+7):hover i {
+    animation: leaping .2s ease-in-out 1;
 }
 
 header .headNav .rightNav li .avata {
-    width: 50px;
-    height: 50px;
+    width: 38px;
+    height: 38px;
     margin: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #fff;
     border-radius: 100%;
     background-position: center center;
     background-size: cover;
 }
 
-/* 头部导航样式结束 */
+
+/* 按钮 */
+header .headNav .rightNav li a button {
+    width: 90px;
+    height: 34px;
+    border-radius: 8px;
+    border: none;
+    background-color: #fb7299;
+    color: #fff;
+}
+
+header .headNav .rightNav li a button:hover {
+    background-color: #fc8eae;
+
+}
+
+header .headNav form {
+    position: relative;
+    width: 100%;
+    height: 64px;
+    line-height: 64px;
+    flex: 1 0 20%;
+    justify-content: space-around;
+
+}
+
+header .headNav form .input {
+    width: 90%;
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+    background-color: #ffffffc4;
+    border: none;
+    border-radius: 8px;
+    padding-left: 10px;
+    margin-top: 12px;
+    box-shadow: 0px 0px 2px rgb(249, 247, 247);
+}
+
+header .headNav form input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 13px;
+    caret-color: #ccc;
+}
+
+header .headNav form i {
+    position: absolute;
+    right: 12%;
+    top: 12px;
+    color: #000;
+}
+
+/* 弹出头部导航栏 */
+header .headNav.fixed {
+    position: fixed;
+    max-width: 2560px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(204, 204, 204, 0.492);
+}
+
+header .headNav.fixed form .input {
+    background-color: #f2f3f4;
+    border: 1px solid #cfcfcf5f;
+}
+
+
+
+header .headNav.fixed .leftNav .hidden.iconfont {
+    font-size: 25px;
+    color: #00aeec;
+}
+
+header .headNav.fixed .leftNav li,
+header .headNav.fixed .leftNav li a {
+    color: #000;
+}
+
+header .headNav .leftNav li a i.iconfont#expand {
+    display: none;
+}
+
+header .headNav.fixed .leftNav li a {
+    position: relative
+}
+
+header .headNav.fixed .leftNav li:nth-child(2) a {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+header .headNav.fixed .leftNav li a i.iconfont#expand {
+    display: block;
+    padding-left: 7px;
+}
+
+header .headNav.fixed .leftNav li a i.iconfont#xds {
+    display: none;
+}
+
+header .headNav.fixed .rightNav li {
+    color: #000;
+}
+
+/* 头部导航样式结束 
+
+/* 跳跃 */
+@keyframes leaping {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

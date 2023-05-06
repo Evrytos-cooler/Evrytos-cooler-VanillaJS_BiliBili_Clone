@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4051284 */
-  src: url('iconfont.woff2?t=1683285660726') format('woff2'),
-       url('iconfont.woff?t=1683285660726') format('woff'),
-       url('iconfont.ttf?t=1683285660726') format('truetype');
+  src: url('iconfont.woff2?t=1683361061460') format('woff2'),
+       url('iconfont.woff?t=1683361061460') format('woff'),
+       url('iconfont.ttf?t=1683361061460') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,54 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shoucangxuanzhong:before {
+  content: "\e602";
+}
+
+.icon-daohangshoucangyishoucang:before {
+  content: "\e627";
+}
+
+.icon-dongtai:before {
+  content: "\e612";
+}
+
+.icon-zhuye:before {
+  content: "\e650";
+}
+
+.icon-shezhi:before {
+  content: "\e60e";
+}
+
+.icon-bxs-videos:before {
+  content: "\e6e9";
+}
+
+.icon-videolist:before {
+  content: "\e695";
+}
+
+.icon-tousujubao:before {
+  content: "\e626";
+}
+
+.icon-qizi_icon:before {
+  content: "\e661";
+}
+
+.icon-24gf-next:before {
+  content: "\ea7f";
+}
+
+.icon-24gf-previous:before {
+  content: "\ea88";
+}
+
+.icon-biji:before {
+  content: "\e635";
 }
 
 .icon-androidgengduo:before {

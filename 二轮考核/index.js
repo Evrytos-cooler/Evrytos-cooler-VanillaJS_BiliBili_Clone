@@ -28,7 +28,7 @@ function throttle(fn, t) {
 }
 
 //滚动产生新的盒子
-window.addEventListener("scroll", throttle(() => {
+window.addEventListener("scroll", throttle(async () => {
     //回调函数
     //如果页面划到了距离最下面有一定距离的地方，就渲染新的数据
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop//文档的滚动高度
@@ -37,29 +37,31 @@ window.addEventListener("scroll", throttle(() => {
     //逻辑或是为了兼容性
     if (scrollTop + clientHeight >= scrollHeight - 100) {//视窗高度加滚动高度接近总高度了
         //渲染新的html
-        addVideo()
+        await addVideo()
         //请求视频
         const sections = document.querySelectorAll('.content .loading')
         askForVideo(sections)
     }
-}, 500))
+}, 500));
 
 
-    //但这个函数必须滚动起来才能触发，如果没有滚动,屏幕比较长，但是视频也没有加载好，就有问题
-    //于是打开页面先判断够不够长，不够长就继续渲染
-    (function checking() {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-        const clientHeight = document.documentElement.clientHeight || window.innerHeight
-        if (scrollHeight <= clientHeight) {
-            addVideo()//添加html
-            const sections = document.querySelectorAll('.content .loading')
-            askForVideo(sections)//请求视频
-            return checking()
-        }
-        else return
-    }());//立刻执行函数记得加分号
+//但这个函数必须滚动起来才能触发，如果没有滚动,屏幕比较长，但是视频也没有加载好，就有问题
+//于是打开页面先判断够不够长，不够长就继续渲染
+function checking() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight
+    if (scrollHeight <= clientHeight) {
+        addVideo()//添加html
+        const sections = document.querySelectorAll('.content .loading')
+        askForVideo(sections)//请求视频
+        return checking()
+    }
+    else return
+}
+checking()
 
+window.addEventListener('resize', checking)
 
 //添加新的视频盒子
 function addVideo() {
@@ -78,10 +80,10 @@ function addVideo() {
 
 //ajax放在外面会不会好一点？
 // 懒加载ajax 用intersection observer
-function askForVideo(sections) {//参数是要请求加载的视频列表
-    let observer = new IntersectionObserver((entries) => {
+async function askForVideo(sections) {//参数是要请求加载的视频列表
+    let observer = new IntersectionObserver(async (entries) => {
         //先发送ajax请求然后再forEach渲染
-        fetch('https://frontend.exam.aliyun.topviewclub.cn/api/getHomePageVideo',
+        await fetch('https://frontend.exam.aliyun.topviewclub.cn/api/getHomePageVideo',
             {
                 method: "GET"
             }

@@ -17,51 +17,103 @@ header #logo {
 }
 
 /* 中间分区导航 */
+/* 中部导航栏（动态开头的那个)*/
 .centerNav {
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-between;
     margin: 50px auto;
     height: 80px;
+    font-size: 13px;
 }
 
 .centerNav .leftCenterNav {
     display: flex;
-    flex: 0 0 10%;
+    flex: 0 10%;
     flex-flow: row nowrap;
 }
 
-.centerNav .leftCenterNav section li {
-    background-color: #ccd0d4;
-}
-
-.centerNav .leftCenterNav section li a {
+.centerNav .leftCenterNav section a {
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 5px;
     display: flex;
     flex-flow: column nowrap;
 }
+
+.centerNav .leftCenterNav section a .svg {
+    width: 46px;
+    height: 46px;
+    text-align: center;
+    line-height: 59px;
+    border-radius: 100%;
+    margin-bottom: 5px;
+}
+
+.centerNav .leftCenterNav section:nth-of-type(1) a .svg {
+    background-color: #ff9212;
+}
+
+.centerNav .leftCenterNav section:nth-of-type(2) a .svg {
+    background-color: #f07775;
+}
+
+.centerNav .leftCenterNav section:nth-of-type(3) a .svg {
+    background-color: #59ca73;
+}
+
 
 .centerNav .partition {
     display: flex;
-    flex: 0 0 70%;
+    flex: 1 67%;
     flex-flow: column nowrap;
+    justify-content: space-around;
 }
 
 .centerNav .partition ul {
+    flex-grow: 1;
     display: flex;
+    justify-content: space-around;
+    height: 35px;
+    line-height: 30px;
+    margin-right: 20px;
 }
 
 .centerNav .partition ul li {
-    background-color: #d3d7db;
+    flex-grow: 1;
+    text-align: center;
+    border-radius: 7px;
+    margin: 5px 3px;
+    background-color: #f6f7f8;
 }
+
+/* 右边 */
 
 .centerNav .rightCenterNav {
     display: flex;
+    flex-grow: 1;
     flex-flow: column nowrap;
+    justify-content: space-between;
     border-left: 1px #ccc solid;
+    color: #61666d;
 }
 
 .centerNav .rightCenterNav ul {
+    flex-grow: 1;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.centerNav .rightCenterNav ul li {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.centerNav .rightCenterNav ul li i.iconfont {
+    margin-right: 3px;
 }
 
 .content {
@@ -183,19 +235,25 @@ header #logo {
     opacity: 1;
 }
 
-/* 视频时长 */
+/* 视频时长 videoCard */
 .ready>div .videoCard {
     position: absolute;
+    bottom: 0px;
     display: flex;
     flex-flow: row nowrap;
-    width: 92%;
-    height: 20px;
-    bottom: 0px;
+
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+
     color: white;
     opacity: 1;
-    padding: 10px;
     background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.73));
     transition: all 0.3s;
+}
+
+.ready>div .videoCard p i.iconfont {
+    margin-right: 5px;
 }
 
 .ready>div .videoCard p:nth-child(3) {

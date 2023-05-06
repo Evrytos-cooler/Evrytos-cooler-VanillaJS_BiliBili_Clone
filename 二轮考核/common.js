@@ -21,3 +21,12 @@ async function getAvata(uname) {
 }
 
 
+// 搜索栏行为
+const search = document.querySelector('header .headNav.fixed form .input input')
+search.addEventListener('focus', () => {
+    search.parentNode.style.backgroundColor = 'transparent'
+})
+
+search.addEventListener('blur', () => {
+    search.parentNode.style.backgroundColor = '#f2f3f4'
+})

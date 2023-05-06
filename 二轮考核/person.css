@@ -60,6 +60,36 @@ header {
     display: inline;
 }
 
+/* 隐藏选择栏 */
+.hiddenMenu {
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    min-width: 800px;
+    transform: translateX(-50%);
+    z-index: 100;
+    background-color: blue;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    transition: all 0.5s;
+}
+
+.hiddenMenu ul li {
+    display: inline;
+}
+
+.hiddenMenu .hiddenAvata {
+    display: block;
+    height: 50px;
+    width: 50px;
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden;
+    border-radius: 100%;
+    margin: 10px;
+}
 
 /* 左右两栏 */
 .content {
@@ -109,7 +139,6 @@ header {
 .collections .collectionList .collection {
     width: 19%;
     margin: 0.5%;
-    background-color: rgba(0, 0, 0, 0.298);
 }
 
 .collections .collectionList .collection .video {
@@ -117,12 +146,69 @@ header {
     overflow: hidden;
     width: 100%;
     aspect-ratio: 16/9;
+    border-radius: 5px;
 }
 
 .collections .collectionList .collection .video video {
     background-color: rgba(0, 0, 0, 0.781);
     height: 100%;
     aspect-ratio: 16/9;
+}
+
+.collections .collectionList .collection .video .mask {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 10px;
+    color: aliceblue;
+    background-color: rgba(36, 35, 35, 0.57);
+    opacity: 0;
+    transition: all 0.2s;
+}
+
+.collections .collectionList .collection .video .mask i {
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.collections .collectionList .collection .video:hover .mask {
+    opacity: 1;
+}
+
+/* 描述文字 */
+.collections .collectionList .collection .description {
+    position: relative;
+    padding: 5px 5px;
+}
+
+.collections .collectionList .collection .description .more {
+    position: absolute;
+    right: 0px;
+    bottom: 5px;
+    color: rgba(74, 54, 54, 0.549);
+
+}
+
+.collections .collectionList .collection .description p:nth-of-type(1) {
+    height: 2.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.collections .collectionList .collection .description p:nth-of-type(2) {
+    color: rgba(74, 54, 54, 0.549);
+    font-size: 15px;
 }
 
 /* 头像 */
