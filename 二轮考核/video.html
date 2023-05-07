@@ -143,7 +143,7 @@
         </span>
     </header>
 
-    <div class="content w">
+    <div class="content w clearfix">
         <div class="left">
             <div class="title">title</div>
             <div class="info">
@@ -502,8 +502,13 @@
                     </i>
                 </div>
                 <div id="barrageSetting"><i class="iconfont">&#xe608;</i></div>
-                <input type="text" name="barrage" id="barrage">
-                <button id="barrageSend">发送</button>
+                <div class="barInput">
+                    <i class="iconfont">&#xe854;</i>
+                    <input placeholder="发个友善的弹幕见证当下" type="text" name="barrage" id="barrage">
+                    <button id="barrageSend">发送</button>
+                    <i class="polite">弹幕礼仪<i class="iconfont">&#xe62a;</i></i>
+                </div>
+
             </div>
             <div class="subcribe">
                 <div class="subLeft">
@@ -513,7 +518,7 @@
                     <button class="share">分享</button>
                 </div>
                 <div class="subRight">
-                    <div class="report"><i class="iconfont">&#xe626;</i>举报</div>
+                    <div class="report"><i class="iconfont">&#xe626;</i>投稿投诉</div>
                     <div class="makeNote"><i class="iconfont">&#xe635;</i>记笔记</div>
                     <div class="more"><i class="iconfont">&#xe78d;</i></div>
                 </div>
@@ -555,7 +560,10 @@
                 </div>
             </div>
             <div class="barrageList">
-                <div class="listHead">弹幕列表 <i class="iconfont" id="toggle">?</i></div>
+                <div class="listHead">弹幕列表
+                    <i class="iconfont" id="toggle">&#xe78d;</i>
+                    <i class="iconfont">&#xe62a;</i>
+                </div>
                 <ul>
                     <li>
                         <p id="time">时间</p>

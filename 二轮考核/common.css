@@ -39,6 +39,19 @@ body {
     background-color: rgb(255, 255, 255);
 }
 
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
 
 /* 版心 */
 /* 媒体查询 */

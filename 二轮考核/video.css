@@ -10,10 +10,16 @@
 
 
 
+
 /* 版心 */
+body {
+    height: auto;
+}
+
 .w {
     width: 90%;
     margin: 0 auto;
+    background-color: #fff;
 }
 
 /* 初始化完成 */
@@ -34,6 +40,7 @@ header {
 /* 内容部分 */
 .content {
     padding-top: 64px;
+
 }
 
 /* left */
@@ -42,7 +49,6 @@ header {
     display: flex;
     flex-flow: column nowrap;
     width: 70%;
-    background-color: pink;
 }
 
 .content .left .title {
@@ -60,6 +66,8 @@ header {
 .content .left .video {
     width: 99.7%;
     aspect-ratio: 16/9;
+    box-shadow: 0px -1px 10px rgb(204, 204, 204);
+
 }
 
 .content .left .video video {
@@ -72,13 +80,19 @@ header {
 .content .left .sendBarrage {
     display: flex;
     flex-flow: row nowrap;
-    height: 60px;
-    line-height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    height: 46px;
+    line-height: 46px;
+    margin-bottom: 10px;
+    margin-right: 4px;
+    background-color: #fff;
+    box-shadow: 0px 1px 8px rgba(204, 204, 204, 0.609);
 }
 
 .content .left .sendBarrage .condition {
     margin: 0 20px;
-    font-size: 20px;
+    font-size: 18px;
     margin-right: 20px;
     color: #61666d;
 }
@@ -87,18 +101,63 @@ header {
     margin: 0 20px;
 }
 
-.content .left .sendBarrage #barrage {
-    width: 60%;
+.content .left .sendBarrage .barInput {
+    position: relative;
+    flex: 1 55%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 10px;
+
+    overflow: hidden;
+    border-radius: 8px;
 }
 
-.content .left .sendBarrage #barrageSend {
-    width: 100px;
+.content .left .sendBarrage .barInput #barrage {
+    flex: 1 auto;
+    padding-left: 35px;
+    outline: none;
+    border: none;
+    background-color: #f1f2f3;
 }
+
+.content .left .sendBarrage .barInput #barrageSend {
+    width: 70px;
+    border: none;
+    color: #fff;
+    background-color: #00aeec;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* 前后图标 */
+.content .left .sendBarrage .barInput>.iconfont {
+    position: absolute;
+    left: 10px;
+    color: #6b6f76;
+}
+
+.content .left .sendBarrage .barInput .polite {
+    position: absolute;
+    right: 85px;
+    color: rgb(182, 182, 182);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.content .left .sendBarrage .barInput .polite .iconfont {
+    transform: rotateX(45deg)
+}
+
 
 /* 三连模块 */
 .content .left .subcribe {
-    height: 90px;
-    line-height: 90px;
+    height: 70px;
+    line-height: 70px;
+    border-bottom: 1px solid #ccc;
 }
 
 .content .left .subcribe .subLeft {
@@ -122,9 +181,32 @@ header {
     flex-flow: row nowrap;
 }
 
+.content .left .subcribe .subRight div {
+    padding-left: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.content .left .subcribe .subRight div:hover .iconfont,
+.content .left .subcribe .subRight div:hover {
+    color: #00aeec !important;
+}
+
+.content .left .subcribe .subRight div .iconfont {
+    font-size: 22px;
+    font-weight: 700;
+    color: #999999;
+    padding-right: 5px;
+}
+
 .content .left .subcribe .subRight button {
     width: 100px;
     margin-left: 20px;
+}
+
+/* 简介 */
+.content .left .details {
+    margin-top: 20px;
 }
 
 /* 评论模块 */
@@ -150,7 +232,6 @@ header {
     display: flex;
     flex-flow: column nowrap;
     width: 28%;
-    background-color: rgb(121, 231, 218);
 }
 
 /* up主部分 */
@@ -159,6 +240,8 @@ header {
 }
 
 .content .right .upInfo .infoLeft {
+    display: flex;
+    align-items: center;
     float: left;
     width: 20%;
     height: 100px;
@@ -182,10 +265,12 @@ header {
 }
 
 .content .right .upInfo .infoRight .name {
-    font-size: 25px;
+    font-size: 18px;
+    color: #ff6699;
 }
 
 .content .right .upInfo .infoRight .description {
+    font-size: 16px;
     margin-bottom: 10px;
     color: #ccc;
 }
@@ -196,10 +281,36 @@ header {
     justify-content: space-between;
 }
 
-.content .right .upInfo .infoRight .btn button {
-    width: 48%;
+.content .right .upInfo .infoRight .btn #charge {
+    width: 45%;
     height: 37px;
+    border: 2px solid #ff6699;
+    color: #ff6699;
     border-radius: 8px;
+    transition: all 0.5s;
+    font-weight: 400;
+    background-color: #fff;
+}
+
+.content .right .upInfo .infoRight .btn #charge:hover {
+    background-color: #ffecf1;
+    transition: all 0.5s;
+
+}
+
+.content .right .upInfo .infoRight .btn #follow {
+    width: 53%;
+    height: 37px;
+    color: #fff;
+    background-color: #00aeec;
+    border-radius: 8px;
+    border: none;
+    transition: all 0.5s;
+}
+
+.content .right .upInfo .infoRight .btn #follow:hover {
+    background-color: #00adecb6;
+    transition: all 0.5s;
 }
 
 /* 评论模块 */
@@ -345,24 +456,57 @@ header {
     height: 50px;
     overflow: hidden;
     transition: all 0.2s ease-in-out;
+    margin-top: 26px;
+    background-color: #fff;
 }
 
 .content .right .barrageList.active {
-    height: 400px;
-    overflow: auto;
+    height: 500px;
+    overflow: hidden;
     transition: all 0.2s ease-in-out;
+}
+
+.content .right .barrageList .listHead .iconfont:nth-child(2) {
+    transition: all 0.2s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.content .right .barrageList.active .listHead .iconfont:nth-child(2) {
+    transform: rotate(180deg);
+    transition: all 0.2s;
+}
+
+.content .right .barrageList ul {
+    overflow: auto;
 }
 
 .content .right .barrageList ul li {
     display: flex;
     flex-flow: row nowrap;
+    font-size: 13px;
 }
 
 .content .right .barrageList .listHead {
-    background-color: red;
+    position: relative;
+    background-color: #f1f2f3;
     height: 50px;
     line-height: 50px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
 
+.content .right .barrageList .listHead .iconfont:nth-child(1) {
+    padding-left: 5px;
+}
+
+.content .right .barrageList .listHead .iconfont:nth-child(2) {
+    position: absolute;
+    right: 10px;
+}
+
+.content .right .barrageList ul li {
+    padding-left: 10px;
 }
 
 .content .right .barrageList ul li p {
@@ -390,33 +534,75 @@ header {
 }
 
 .content .right .barrageList .listFoot {
+    background-color: #f1f2f3;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+    padding-left: 10px;
     text-align: center;
 }
 
 /* 播放列表 */
+.content .right .videoList {
+    margin-top: 20px;
+    padding-top: 10px;
+    background-color: #f1f2f3;
+    border-radius: 8px;
+    height: 250px;
+}
+
+.content .right .videoList ul {
+    height: 150px;
+    overflow: auto;
+    margin-top: 20px;
+}
+
 .content .right .videoList .listHead {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: space-between;
+    height: 69px;
 }
 
 .content .right .videoList .listHead .top {
+    flex: 1 auto;
     display: flex;
+    align-items: center;
     flex-flow: row nowrap;
     justify-content: space-between;
+    padding: 5px 15px;
 }
 
 .content .right .videoList .listHead .bottom {
+    flex: 1 auto;
     display: flex;
+    align-items: center;
     flex-flow: row nowrap;
     justify-content: space-between;
+    padding: 5px 0 15px;
+    color: #999999;
+    border-bottom: 1px #ccc solid;
+    margin: 0 15px 10px;
+}
+
+.content .right .videoList .listHead .bottom button {
+    background-color: transparent;
+    border: 1px solid #00aeec;
+    border-radius: 3px;
+    padding: 2px 5px;
+    color: #00aeec;
+    cursor: pointer;
 }
 
 .content .right .videoList .listedVideo {
-    background-color: #fff;
+    padding-left: 15px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
 }
 
 .content .right .videoList .playingVideo {
-    background-color: #ccc;
+    color: #00aeec;
 }
 
 /* 视频水印 */

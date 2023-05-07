@@ -22,11 +22,44 @@ async function getAvata(uname) {
 
 
 // 搜索栏行为
-const search = document.querySelector('header .headNav.fixed form .input input')
+// const headNav = document.querySelector('header .headNav')
+const search = document.querySelector('header .headNav form .input input')
+let searchFocus = false
+
+search.addEventListener('mouseenter', () => {
+    if (!searchFocus) {
+        if (headNav.classList.contains('fixed')) {
+            search.parentNode.style.backgroundColor = 'transparent'
+        }
+        else {
+            search.parentNode.style.backgroundColor = '#fff'
+        }
+    }
+
+})
+search.addEventListener('mouseleave', () => {
+    if (!searchFocus) {
+        if (headNav.classList.contains('fixed')) {
+            search.parentNode.style.backgroundColor = '#f2f3f4'
+        }
+        else {
+            search.parentNode.style.backgroundColor = '#ffffffc4'
+        }
+    }
+})
+
 search.addEventListener('focus', () => {
-    search.parentNode.style.backgroundColor = 'transparent'
+    search.parentNode.style.backgroundColor = '#e3e5e7'
+    searchFocus = true
 })
 
 search.addEventListener('blur', () => {
-    search.parentNode.style.backgroundColor = '#f2f3f4'
+    if (headNav.classList.contains('fixed')) {
+        search.parentNode.style.backgroundColor = '#f2f3f4'
+    }
+    else {
+        search.parentNode.style.backgroundColor = '#ffffffc4'
+    }
+    searchFocus = false
 })
+

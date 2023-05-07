@@ -43,9 +43,16 @@ upInfo(i)
 const listHead = document.querySelector('.content .right .barrageList .listHead')
 const barrageList = document.querySelector('.content .right .barrageList')
 const barrageListContent = document.querySelector('.content .right .barrageList ul')
-
+const _barBox = document.querySelector('.content .left .sendBarrage')
 listHead.addEventListener('click', () => {
     barrageList.classList.toggle('active')
+    if (barrageList.classList.contains('active')) {
+        barrageList.style.height = control.clientHeight + _barBox.clientHeight + 'px';
+        barrageList.querySelector('ul').style.height = control.clientHeight + _barBox.clientHeight - 100 + 'px';
+    }
+    else {
+        barrageList.style.height = '50px'
+    }
 })
 
 
