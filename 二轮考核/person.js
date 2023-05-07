@@ -33,7 +33,12 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
     <i class='iconfont more'>&#xe78d;</i>
     </div>
     `
+
         collectList.appendChild(newCollection)
+        //获取视频的时间
+        newCollection.querySelector('.video video').addEventListener('loadedmetadata', (e) => {
+            newCollection.querySelector('.video').setAttribute('time-data', formation(e.target.duration))
+        })
 
         //绑定点击事件
         const videoObj = {
@@ -121,12 +126,12 @@ submmitBtn.addEventListener('click', async (e) => {
                 document.querySelector('body').removeChild(mask)
             })
             //提交按钮
-            box.querySelector('button').addEventListener('click', async () => {
+            box.querySelector('button').addEventListener('click', () => {
                 //获取数据
                 const title = box.querySelector('.title input').value
                 const describe = box.querySelector('.describe input').value
                 const author = localStorage.getItem('loginUser')
-                const authorAvatarSrc = await getAvata(author)
+                const authorAvatarSrc = getAvata(author)
                 // 获取临时url,记得要清除缓存,这里传的是视频，不是url方便清理在视频加载完的时候清理缓存
                 const videoSrc = URL.createObjectURL(input.files[0])
 
@@ -165,7 +170,7 @@ function displayMyVideo(videoList) {//传入待渲染数据的数组
         const newCollection = document.createElement('div')
         newCollection.classList.add('collection')
         newCollection.innerHTML = `
-    <div class="video">
+    <div class="video" time-data="${videoTarget.duration}">
     <video src="${videoTarget.videoSrc}"></video>
     <div class="mask">
     <p>播放: 20.2万</p>
@@ -184,6 +189,10 @@ function displayMyVideo(videoList) {//传入待渲染数据的数组
         // newCollection.querySelector('.video video').onload = () => {
         //     URL.revokeObjectURL(videoTarget.videoSrc)
         // }
+
+        newCollection.querySelector('.video video').addEventListener('loadedmetadata', (e) => {
+            newCollection.querySelector('.video').setAttribute('time-data', formation(e.target.duration))
+        })
 
         //绑定点击事件
         const videoObj = {
@@ -335,3 +344,38 @@ window.addEventListener('scroll', () => {
     }
 })
 
+//收藏栏编辑样式
+const editExpend = document.querySelector('.content .edit .myCreating .name i')
+const edit = document.querySelector('.content .edit .myCreating')
+let editHeight = edit.clientHeight + 5 + 'px'
+edit.style.height = editHeight
+
+editExpend.addEventListener('click', () => {
+    if (editExpend.classList.contains('fold')) {
+        edit.style.height = editHeight
+    }
+    else {
+        edit.style.height = '60px'
+    }
+    editExpend.classList.toggle('fold')
+})
+
+//点击变色效果
+const editUl = document.querySelector('.content .edit .myCreating ul')
+const editLi = editUl.querySelectorAll('li')
+
+editUl.addEventListener('click', (e) => {
+    editLi.forEach(target => {
+        target.classList.remove('active')
+    })
+    e.target.classList.add('active')
+})
+
+function formation(time) {
+    let M = Math.floor(time / 60)
+    M = (M < 10) ? '0' + M : M
+    let S = Math.floor(time) % 60 + 1
+    S = (S < 10) ? '0' + S : S
+    const formationTime = M + ':' + S
+    return formationTime
+}

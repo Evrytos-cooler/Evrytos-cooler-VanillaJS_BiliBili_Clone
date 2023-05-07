@@ -1,27 +1,57 @@
+body {
+    background-color: #f4f5f7;
+}
+
+.w {
+    width: 90%;
+}
+
 header {
     height: auto;
 }
 
+header .headNav {
+    background-color: #fff;
+    color: black !important;
+}
+
+header .headNav ul li a {
+    color: black !important;
+}
+
+header .headNav form .input {
+    background-color: #f2f3f4;
+    border: 1px solid rgba(204, 204, 204, 0.505) !important;
+}
+
+header .headNav form .input:hover {
+    background: #fff;
+}
+
 .headImg {
     position: relative;
-    height: 180px;
+    height: 200px;
     background-color: pink;
+    background: url(http://localhost:5500/二轮考核/image/personHead.webp) no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
 
 .headImg .personalInfo {
     display: flex;
     flex-flow: row nowrap;
     position: absolute;
-    background-color: rgba(155, 8, 8, 0.12);
-    left: 0;
-    bottom: 0;
+    left: 10px;
+    bottom: 10px;
+    color: #fff;
 }
 
 .headImg .personalInfo .avata {
     overflow: hidden;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.626);
     margin: 10px;
 }
 
@@ -45,6 +75,11 @@ header {
 
 .headImg .personalInfo .info .uname {
     margin: 10px 0;
+    font-weight: 700;
+}
+
+.headImg .personalInfo .info .description {
+    font-size: 14px;
 }
 
 /* 结束最上方的图片 */
@@ -54,10 +89,124 @@ header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
+    height: 66px;
+    line-height: 66px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px rgba(204, 204, 204, 0.429) solid;
+    background-color: #fff;
 }
 
-.menuBar ul li {
-    display: inline;
+.menuBar ul {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.menuBar ul.option {
+    flex: 1 40%;
+}
+
+.menuBar ul.option li {
+    margin-left: 18px;
+}
+
+.menuBar ul.option li:hover {
+    color: #02b5da;
+}
+
+.menuBar ul.option li .iconfont {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.menuBar ul.option li:nth-of-type(1) .iconfont {
+    font-size: 18px;
+    color: #00c091;
+}
+
+.menuBar ul.option li:nth-of-type(2) .iconfont {
+    font-size: 22px;
+    color: #fb7299;
+}
+
+.menuBar ul.option li:nth-of-type(3) .iconfont {
+    color: #02b5da;
+}
+
+.menuBar ul.option li:nth-of-type(4) .iconfont {
+    color: #23c9ed;
+}
+
+.menuBar ul.option li:nth-of-type(5) .iconfont {
+    font-size: 22px;
+    color: #f3a034;
+}
+
+.menuBar ul.option li:nth-of-type(6) .iconfont {
+    color: #ff5d47;
+}
+
+.menuBar ul.option li:nth-of-type(7) .iconfont {
+    font-size: 22px;
+    color: #23c9ed;
+}
+
+.menuBar .input {
+    position: relative;
+    flex: 1 10%;
+    height: 30px;
+    line-height: 20px;
+    border: 2px rgba(204, 204, 204, 0.478) solid;
+    border-radius: 15px;
+    margin-right: 150px;
+}
+
+.menuBar .input input {
+    height: 100%;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    padding-left: 10px;
+}
+
+.menuBar .input input::placeholder {
+    color: rgb(174, 174, 174);
+}
+
+.menuBar .input i {
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    color: rgb(174, 174, 174);
+    font-size: 18px;
+}
+
+.menuBar .dataView ul {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    flex: 1 35%;
+    margin-right: 10px;
+}
+
+.menuBar .dataView ul li {
+    height: 66px;
+    line-height: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    margin-right: 22px;
+}
+
+.menuBar .dataView ul li span {
+    flex: 0 20px;
+    font-size: 15px;
+}
+
+.menuBar .dataView ul li span:first-child {
+    color: rgb(117, 117, 117);
 }
 
 /* 隐藏选择栏 */
@@ -72,7 +221,7 @@ header {
 
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: end;
     transition: all 0.5s;
 }
 
@@ -97,11 +246,85 @@ header {
     min-width: 900px;
     flex-flow: row nowrap;
     justify-content: space-between;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px rgba(204, 204, 204, 0.429) solid;
 }
 
+/* 左侧收藏夹管理 */
 .content .edit {
     flex-basis: 20%;
     flex-grow: 0.2;
+    margin-right: 20px;
+    border-right: 1px rgba(204, 204, 204, 0.646) solid;
+}
+
+.content .edit .myCreating {
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    border-bottom: 1px rgba(204, 204, 204, 0.646) solid;
+}
+
+
+.content .edit .myCreating .name {
+    position: relative;
+    margin: 20px;
+    color: #a09f9f;
+}
+
+.content .edit .myCreating .name i {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.content .edit .myCreating .name i {
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.content .edit .myCreating .name i.fold {
+    transform: rotate(180deg);
+}
+
+.content .edit .myCreating .addList {
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.content .edit .myCreating .addList i {
+    color: #a09f9fac;
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.content .edit .myCreating .addList i:hover {
+    color: #a09f9ffd;
+
+}
+
+.content .edit .myCreating ul li {
+    padding-left: 20px;
+    transition: all 0.3s;
+}
+
+.content .edit .myCreating ul li.active {
+    background-color: #00a1d6;
+    color: #fff;
+}
+
+.content .edit .myCreating ul li.active i {
+    color: #fff;
+}
+
+.content .edit .myCreating ul li i {
+    padding-right: 10px;
+    color: #a09f9f;
+    font-size: 20px;
+    transition: all 0.3s;
 
 }
 
@@ -119,6 +342,8 @@ header {
 .collections .default {
     display: flex;
     flex-flow: row nowrap;
+    margin-right: 20px;
+    border-bottom: 1px rgba(204, 204, 204, 0.646) solid;
 }
 
 .collections .default .box {
@@ -147,6 +372,17 @@ header {
     width: 100%;
     aspect-ratio: 16/9;
     border-radius: 5px;
+}
+
+.collections .collectionList .collection .video::after {
+    content: attr(time-data);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 5px;
+    border-top-left-radius: 5px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.419);
 }
 
 .collections .collectionList .collection .video video {

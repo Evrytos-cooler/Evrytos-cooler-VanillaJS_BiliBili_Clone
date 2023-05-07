@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人主页</title>
-    <link rel="stylesheet" href="./person.css">
     <link rel="stylesheet" href="./common.css">
+    <link rel="stylesheet" href="./person.css">
     <link rel="stylesheet" href="./signIn.css">
     <style media="(min-width:2560px)">
         body {
@@ -24,9 +24,9 @@
 
 <body>
     <header>
-        <span class="headNav">
+        <span class="headNav fixed" style="position: relative;">
             <ul class="leftNav">
-                <li class="hidden iconfont" style="display: none;">&#xe600;</li>
+                <li class="hidden iconfont">&#xe600;</li>
                 <li><a href="#">
                         <i class="iconfont" id="xds">&#xe601;</i>
                         首页
@@ -161,14 +161,18 @@
             <li><i class="iconfont">&#xe627;</i>订阅</li>
             <li><i class="iconfont">&#xe60e;</i>设置</li>
         </ul>
-        <input type="text" class="search" placeholder="搜索收藏">
+        <div class="input">
+            <input type="text" class="search" placeholder="搜索收藏">
+            <i class="iconfont">&#xe8d6;</i>
+        </div>
+
         <div class="dataView">
             <ul>
-                <li>关注数</li>
-                <li>粉丝数</li>
-                <li>或赞数</li>
-                <li>播放次数</li>
-                <li>阅读数</li>
+                <li><span>关注数</span><span>1254</span></li>
+                <li><span>粉丝数</span><span>0</span></li>
+                <li><span>获赞数</span><span>0</span></li>
+                <li><span>播放次数</span><span>0</span></li>
+                <li><span>阅读数</span><span>0</span></li>
             </ul>
         </div>
     </div>
@@ -199,13 +203,16 @@
 
     <div class="myClt content w">
         <div class="edit">
-            <div class="addList">添加收藏夹</div>
-            <ul>
-                <li draggable="true"><i class="iconfont">&#xe695;</i>默认收藏夹</li>
-                <li draggable="true"><i class="iconfont">&#xe695;</i>1</li>
-                <li draggable="true"><i class="iconfont">&#xe695;</i>2</li>
-                <li draggable="true"><i class="iconfont">&#xe695;</i>3</li>
-            </ul>
+            <div class="myCreating">
+                <div class="name">我的创建<i class="iconfont">&#xe62a;</i></div>
+                <div class="addList"><i class="iconfont">&#xe604;</i>添加收藏夹</div>
+                <ul>
+                    <li draggable="true" class="active"><i class="iconfont">&#xe695;</i>默认收藏夹</li>
+                    <li draggable="true"><i class="iconfont">&#xe695;</i>1</li>
+                    <li draggable="true"><i class="iconfont">&#xe695;</i>2</li>
+                    <li draggable="true"><i class="iconfont">&#xe695;</i>3</li>
+                </ul>
+            </div>
         </div>
         <div class="collections">
             <div class="default">
@@ -231,13 +238,19 @@
 
     <div class="myVideo content w">
         <div class="edit">
-            <div class="addList">添加收藏夹</div>
-            <ul>
-                <li draggable="true">默认收藏夹</li>
-                <li draggable="true">1</li>
-                <li draggable="true">2</li>
-                <li draggable="true">3</li>
-            </ul>
+            <div class="myCreating">
+                <div class="name">我的创建<i class="iconfont">&#xe62a;</i></div>
+                <div class="addList"><i class="iconfont">&#xe604;</i>添加收藏夹</div>
+                <ul>
+                    <li draggable="true">
+                        <i class="iconfont">&#xe695;</i>
+                        默认收藏夹
+                    </li>
+                    <li draggable="true" class="active"><i class="iconfont">&#xe695;</i>1</li>
+                    <li draggable="true"><i class="iconfont">&#xe695;</i>2</li>
+                    <li draggable="true"><i class="iconfont">&#xe695;</i>3</li>
+                </ul>
+            </div>
         </div>
         <div class="collections">
             <div class="head">我的收藏夹<i>数量</i></div>

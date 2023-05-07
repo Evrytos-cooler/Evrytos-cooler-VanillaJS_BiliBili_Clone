@@ -27,7 +27,9 @@ body {
 /* 头像 */
 .avata {
     background-position: center center;
-    background-size: contain;
+    background-size: cover;
+    background-repeat: no-repeat;
+
 }
 
 header {
@@ -39,8 +41,7 @@ header {
 
 /* 内容部分 */
 .content {
-    padding-top: 64px;
-
+    padding-top: 90px;
 }
 
 /* left */
@@ -52,7 +53,7 @@ header {
 }
 
 .content .left .title {
-    font-size: 38px;
+    font-size: 26px;
     margin: 5px 0;
 }
 
@@ -60,7 +61,20 @@ header {
     font-size: 20px;
     margin-bottom: 40px;
     color: #9499a0;
+}
 
+.content .left .info span {
+    padding-right: 10px;
+    font-size: 15px;
+}
+
+.content .left .info span i {
+    padding-right: 5px;
+}
+
+.content .left .info span:nth-last-child(1) i {
+    color: #fd676f;
+    font-weight: 700;
 }
 
 .content .left .video {
@@ -92,6 +106,7 @@ header {
 
 .content .left .sendBarrage .condition {
     margin: 0 20px;
+    height: 46px;
     font-size: 18px;
     margin-right: 20px;
     color: #61666d;
@@ -209,22 +224,7 @@ header {
     margin-top: 20px;
 }
 
-/* 评论模块 */
-.comments .head {
-    display: flex;
-    flex-flow: row nowrap;
-    height: 100px;
-    line-height: 100px;
-}
 
-.comments .head p {
-    margin: 0 50px 0 10px;
-}
-
-.comments .sendComments {
-    display: flex;
-    flex-flow: row nowrap;
-}
 
 /* right */
 .content .right {
@@ -253,6 +253,7 @@ header {
     width: 80%;
     aspect-ratio: 1;
     border-radius: 90px;
+    background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
 }
@@ -314,6 +315,45 @@ header {
 }
 
 /* 评论模块 */
+/* 评论模块 */
+.comments .head {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100px;
+    line-height: 100px;
+}
+
+.comments .head h1 {
+    font-size: 20px;
+}
+
+.comments .head p {
+    margin: 0 50px 0 10px;
+    color: #9499a0;
+}
+
+.comments .head .sorting button {
+    padding: 0 10px;
+    border: none;
+    background-color: #fff;
+    color: #9499a0;
+}
+
+.comments .head .sorting button:hover {
+    color: #00aeec;
+}
+
+.comments .head .sorting button:nth-child(1) {
+    border-right: 1px solid #61666d;
+    padding-right: 15px;
+}
+
+.comments .sendComments {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 50px;
+}
+
 .content .left .comments .sendComments {
     position: relative;
     display: flex;
@@ -326,55 +366,46 @@ header {
 .content .left .comments .sendComments .avata {
     position: absolute;
     left: -70px;
-    background-color: red;
+    background-color: #ccc;
     width: 50px;
     height: 50px;
-    margin: 10px;
+    margin: 0 10px 10px 10px;
     border-radius: 100%;
 }
 
-.content .left .comments .sendComments input {
-    width: 80%;
+.comments .sendComments #comments {
+    flex: 1 80%;
     height: 50px;
-    margin-top: 10px;
-}
-
-.content .left .comments .sendComments .commentSend {
-    height: 50px;
-    width: 80px;
-    margin: 10px 0 0 10px;
-}
-
-/* 回复评论模块 */
-/* 评论模块 */
-.content .left .comments .sendReply {
-    position: relative;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f2f3;
+    padding-left: 10px;
+    outline: none;
 }
 
 
-.content .left .comments .sendReply .avata {
-    position: absolute;
-    left: -70px;
-    background-color: red;
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-    border-radius: 100%;
+.comments .sendComments #comments:hover {
+    background-color: #fff;
+    border: 1px #ccc solid;
 }
 
-.content .left .comments .sendReply input {
-    width: 80%;
-    height: 50px;
-    margin-top: 10px;
+.comments .sendComments #comments:focus {
+    background-color: #fff;
+    border: 1px #ccc solid;
 }
 
-.content .left .comments .sendReply .commentSend {
+.comments .sendComments .commentSend {
+    flex: 0 80px;
     height: 50px;
-    width: 80px;
-    margin: 10px 0 0 10px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0 0 10px;
+    color: #fff;
+    background-color: #7fd6f5;
+}
+
+.comments .sendComments .commentSend:hover {
+    background-color: #00aeec;
 }
 
 /* comment 单条评论 */
@@ -382,7 +413,10 @@ header {
     position: relative;
     margin-left: 70px;
     margin-top: 30px;
+}
 
+.content .left .comments .commentsList>.comment {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.504);
 }
 
 .content .left .comments .commentsList .comment .avata {
@@ -392,26 +426,53 @@ header {
     width: 50px;
     background-color: #fff;
     margin: 10px;
+    margin-top: 0;
     border-radius: 100%;
 }
 
-.content .left .comments .commentsList .comment .name {
-    color: red;
-    font-size: 20px;
-    margin: 10px 0 20px 0;
+/* 回复的头像会小一点 */
+.content .left .comments .commentsList .comment .comment .avata {
+    height: 40px;
+    width: 40px;
+    margin: 15px;
+
 }
 
-.content .left .comments .commentsList .comment .detailInfo {
+.content .left .comments .commentsList .comment .name {
+    color: #fb7c9d;
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0px 0 20px 0;
+}
+
+.content .left .comments .commentsList .comment .detailInfo i {
     font-style: normal;
     color: #ccc;
 }
 
-.content .left .comments .commentsList .comment .detailInfo .sub {
-    margin: 0 20px;
+.content .left .comments .commentsList .comment .detailInfo .iconfont {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.content .left .comments .commentsList .comment .detailInfo .iconfont:hover {
+    color: #00aeec;
+}
+
+.content .left .comments .commentsList .comment .detailInfo .iconfont.dis {
+    font-size: 14px;
 }
 
 .content .left .comments .commentsList .comment .detailInfo button {
-    margin: 20px;
+    border: none;
+    margin: 10px;
+    background-color: #fff;
+    color: #9499a0;
+    cursor: pointer;
+}
+
+.content .left .comments .commentsList .comment .detailInfo button:hover {
+    color: #00aeec;
 }
 
 /* reply */
@@ -433,7 +494,7 @@ header {
 }
 
 .content .left .comments .commentsList .comment .reComment .name {
-    color: red;
+    color: #fb7c9d;
     font-size: 20px;
     margin: 10px 0 20px 0;
 }
@@ -449,6 +510,37 @@ header {
 
 .content .left .comments .commentsList .comment .reComment .detailInfo button {
     margin: 20px;
+}
+
+/* 回复评论模块 */
+.content .left .comments .sendReply {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+
+.content .left .comments .sendReply .avata {
+    position: absolute;
+    left: -70px;
+    background-color: #ccc;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 100%;
+}
+
+.content .left .comments .sendReply input {
+    width: 80%;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.content .left .comments .sendReply .commentSend {
+    height: 50px;
+    width: 80px;
+    margin: 10px 0 0 10px;
 }
 
 /* 弹幕列表 */
@@ -599,6 +691,8 @@ header {
     height: 30px;
     line-height: 30px;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .content .right .videoList .playingVideo {
@@ -761,4 +855,69 @@ video::-webkit-media-controls {
         transform: translate(-3000px);
         display: none;
     }
+}
+
+
+/* 更多视频 */
+.content .right .more {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.content .right .more section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.content .right .more section .video {
+    position: relative;
+    aspect-ratio: 16/9;
+    flex: 0 40%;
+    background-color: #ccc;
+}
+
+.content .right .more section .video::after {
+    content: "01:23";
+    color: #fff;
+    display: block;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 0 3px;
+    background-color: rgba(0, 0, 0, 0.209);
+    transition: all 0.2s;
+    opacity: 1;
+}
+
+.content .right .more section .video:hover:after {
+    opacity: 0;
+}
+
+
+.content .right .more section .videoInfo {
+    flex: 0 58%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+}
+
+.content .right .more section .videoInfo .title {
+    font-size: 14px;
+    height: 2.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.content .right .more section .videoInfo .uname,
+.content .right .more section .videoInfo .detail {
+    flex: 0 20%;
+    font-size: 12px;
+    padding: 2px 0;
+    color: #9499a0;
 }

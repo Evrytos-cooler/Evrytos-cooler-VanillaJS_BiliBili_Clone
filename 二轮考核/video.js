@@ -215,6 +215,9 @@ const sendBarrage = document.querySelector('.content .left .sendBarrage #barrage
 barrageInput.addEventListener('focus', () => {
     pOp(videoObj.src, true, true)
 })
+barrageInput.addEventListener('blur', () => {
+    pOp(videoObj.src, false)
+})
 sendBarrage.addEventListener('click', () => {
     pOp(videoObj.src, true, false)
 })
@@ -533,7 +536,7 @@ async function addComment(target, father, isReply = false, btn) {
         // 添加评论
         if (content.trim()) {
             const date = new Date()
-            const time = date.toLocaleString()
+            const time = date.toLocaleString().replace(/\//g, '-')
             target.value = ''
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
@@ -543,8 +546,8 @@ async function addComment(target, father, isReply = false, btn) {
         </span>
         <div class="detailInfo">
         <i class="time">${time}</i>
-        <i class="sub">good</i>
-        <i class="dis">bad</i>
+        <i class="sub iconfont">&#xec7f;</i>
+        <i class="dis iconfont">&#xe603;</i>
         <button>回复</button>
         <button>删除</button>
         </div>
@@ -591,7 +594,7 @@ async function addComment(target, father, isReply = false, btn) {
             }
 
             const date = new Date()
-            const time = date.toLocaleString()
+            const time = date.toLocaleString().replace(/\//g, '-')
             target.value = ''
             const newComment = document.createElement('section')
             newComment.classList.add('comment')
@@ -601,8 +604,8 @@ async function addComment(target, father, isReply = false, btn) {
         </span>
         <div class="detailInfo">
         <i class="time">${time}</i>
-        <i class="sub">good</i>
-        <i class="dis">bad</i>
+        <i class="sub iconfont">&#xec7f;</i>
+        <i class="dis iconfont">&#xe603;</i>
         <button>回复</button>
         <button>删除</button>
         </div>
@@ -677,7 +680,6 @@ async function replying(target, isReply = false, fatherBtn) {
             isOnReply = true
             const btn = newReply.childNodes[5]
             btn.addEventListener('click', () => {
-                //n是第几个评论的意思，是对应评论的id，值唯一
                 addComment(newReply.childNodes[3], target.parentNode.children[4], true, fatherBtn)
                 target.parentNode.removeChild(newReply)
                 isOnReply = false
@@ -708,8 +710,8 @@ async function refreshComments(i) {
         </span>
         <div class="detailInfo">
         <i class="time">${comment.time}</i>
-        <i class="sub">good</i>
-        <i class="dis">bad</i>
+        <i class="sub iconfont">&#xec7f;</i>
+        <i class="dis iconfont">&#xe603;</i>
         <button>回复</button>
         </div>
         <div class="reply">`
@@ -726,8 +728,8 @@ async function refreshComments(i) {
                 </span>
                 <div class="detailInfo">
                 <i class="time">${reply.time}</i>
-                <i class="sub">good</i>
-                <i class="dis">bad</i>
+                <i class="sub iconfont">&#xec7f;</i>
+        <i class="dis iconfont">&#xe603;</i>
                 <button>回复</button>
                 </div>
                 <div class="reply">`
