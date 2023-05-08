@@ -98,61 +98,74 @@ header .headNav form .input:hover {
     background-color: #fff;
 }
 
-.menuBar ul {
+.menuBar ul,
+.hiddenMenu ul {
     display: flex;
     flex-flow: row nowrap;
 }
 
-.menuBar ul.option {
+.menuBar ul.option,
+.hiddenMenu ul.option {
     flex: 1 40%;
 }
 
-.menuBar ul.option li {
+.menuBar ul.option li,
+.hiddenMenu ul.option li {
     margin-left: 18px;
 }
 
-.menuBar ul.option li:hover {
+.menuBar ul.option li:hover,
+.hiddenMenu ul.option li:hover {
     color: #02b5da;
 }
 
-.menuBar ul.option li .iconfont {
+.menuBar ul.option li .iconfont,
+.hiddenMenu ul.option li .iconfont {
     font-size: 20px;
     margin-right: 5px;
 }
 
-.menuBar ul.option li:nth-of-type(1) .iconfont {
+.menuBar ul.option li:nth-of-type(1) .iconfont,
+.hiddenMenu ul.option li:nth-of-type(1) .iconfont {
     font-size: 18px;
     color: #00c091;
 }
 
-.menuBar ul.option li:nth-of-type(2) .iconfont {
+.menuBar ul.option li:nth-of-type(2) .iconfont,
+.hiddenMenu ul.option li:nth-of-type(2) .iconfont {
     font-size: 22px;
     color: #fb7299;
 }
 
-.menuBar ul.option li:nth-of-type(3) .iconfont {
+.menuBar ul.option li:nth-of-type(3) .iconfont,
+.hiddenMenu ul.option li:nth-of-type(3) .iconfont {
     color: #02b5da;
 }
 
-.menuBar ul.option li:nth-of-type(4) .iconfont {
+.menuBar ul.option li:nth-of-type(4) .iconfont,
+.hiddenMenu ul.option li:nth-of-type(4) .iconfont {
     color: #23c9ed;
 }
 
-.menuBar ul.option li:nth-of-type(5) .iconfont {
+.menuBar ul.option li:nth-of-type(5) .iconfont,
+.hiddenMenu ul.option li:nth-of-type(5) .iconfont {
     font-size: 22px;
     color: #f3a034;
 }
 
-.menuBar ul.option li:nth-of-type(6) .iconfont {
+.menuBar ul.option li:nth-of-type(6) .iconfont,
+.hiddenMenu ul.option li:nth-of-type(6) .iconfont {
     color: #ff5d47;
 }
 
-.menuBar ul.option li:nth-of-type(7) .iconfont {
+.menuBar ul.option li:nth-of-type(7) .iconfont,
+.hiddenMenu ul.option li:nth-of-type(7) .iconfont {
     font-size: 22px;
     color: #23c9ed;
 }
 
-.menuBar .input {
+.menuBar .input,
+.hiddenMenu .input {
     position: relative;
     flex: 1 10%;
     height: 30px;
@@ -162,7 +175,8 @@ header .headNav form .input:hover {
     margin-right: 150px;
 }
 
-.menuBar .input input {
+.menuBar .input input,
+.hiddenMenu .input input {
     height: 100%;
     outline: none;
     background-color: transparent;
@@ -170,11 +184,13 @@ header .headNav form .input:hover {
     padding-left: 10px;
 }
 
-.menuBar .input input::placeholder {
+.menuBar .input input::placeholder,
+.hiddenMenu .input input::placeholder {
     color: rgb(174, 174, 174);
 }
 
-.menuBar .input i {
+.menuBar .input i,
+.hiddenMenu .input i {
     position: absolute;
     right: 10px;
     top: 3px;
@@ -182,7 +198,8 @@ header .headNav form .input:hover {
     font-size: 18px;
 }
 
-.menuBar .dataView ul {
+.menuBar .dataView ul,
+.hiddenMenu .dataView ul {
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-end;
@@ -190,7 +207,8 @@ header .headNav form .input:hover {
     margin-right: 10px;
 }
 
-.menuBar .dataView ul li {
+.menuBar .dataView ul li,
+.hiddenMenu .dataView ul li {
     height: 66px;
     line-height: 20px;
     display: flex;
@@ -200,29 +218,37 @@ header .headNav form .input:hover {
     margin-right: 22px;
 }
 
-.menuBar .dataView ul li span {
+.menuBar .dataView ul li span,
+.hiddenMenu .dataView ul li span {
     flex: 0 20px;
     font-size: 15px;
 }
 
-.menuBar .dataView ul li span:first-child {
+.menuBar .dataView ul li span:first-child,
+.hiddenMenu .dataView ul li span:first-child {
     color: rgb(117, 117, 117);
 }
 
 /* 隐藏选择栏 */
 .hiddenMenu {
     position: fixed;
+    height: 66px;
+    line-height: 66px;
     top: -80px;
     left: 50%;
     min-width: 800px;
     transform: translateX(-50%);
     z-index: 100;
-    background-color: blue;
-
+    background-color: #fff;
     display: flex;
     flex-flow: row nowrap;
     justify-content: end;
-    transition: all 0.5s;
+    align-items: center;
+    transition: top 0.5s;
+}
+
+.hiddenMenu .name:hover {
+    color: #00a1d6;
 }
 
 .hiddenMenu ul li {
@@ -231,13 +257,14 @@ header .headNav form .input:hover {
 
 .hiddenMenu .hiddenAvata {
     display: block;
-    height: 50px;
-    width: 50px;
+    height: 24px;
+    width: 24px;
     background-position: center center;
     background-size: cover;
     overflow: hidden;
     border-radius: 100%;
     margin: 10px;
+    margin-left: 20px;
 }
 
 /* 左右两栏 */
