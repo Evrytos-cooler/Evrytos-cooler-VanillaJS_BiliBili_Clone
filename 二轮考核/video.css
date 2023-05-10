@@ -176,18 +176,45 @@ header {
 }
 
 .content .left .subcribe .subLeft {
+    width: 50%;
+    height: 100%;
     float: left;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content .left .subcribe .subLeft button svg {
+    position: relative;
+    z-index: 20;
+}
+
+.content .left .subcribe .subLeft button:nth-of-type(1) svg {
+    height: 26px;
+    width: 26px;
 }
 
 .content .left .subcribe .subLeft button {
-    width: 100px;
-    margin-right: 50px;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 60px;
+    height: 30px;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.content .left .subcribe .subLeft button:hover {
+    color: #00aeec;
 }
 
 .content .left .subcribe .subLeft button.done {
-    background-color: red;
+    color: #00aeec;
 }
 
 .content .left .subcribe .subRight {
@@ -200,6 +227,7 @@ header {
     padding-left: 20px;
     cursor: pointer;
     transition: all 0.25s;
+
 }
 
 .content .left .subcribe .subRight div:hover .iconfont,
@@ -218,6 +246,287 @@ header {
     width: 100px;
     margin-left: 20px;
 }
+
+/* 三连成功爆炸射线 */
+.content .left .subcribe .subLeft button .shine {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    /* background-color: #fff; */
+    top: 2px;
+    left: 3px;
+}
+
+.content .left .subcribe .subLeft button .shine span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 5px;
+    width: 2px;
+    transform: rotate(calc(var(--i) *22.5deg)) translateY(0px);
+    background-color: #00aeec;
+    opacity: 0;
+    /* animation: .5s oddBoom linear infinite; */
+}
+
+.content .left .subcribe .subLeft button.boom:nth-of-type(1) svg {
+    animation: expending1 .5s ease 1;
+}
+
+.content .left .subcribe .subLeft button.boom:nth-of-type(n+2) svg {
+    animation: expending .5s ease 1;
+}
+
+.content .left .subcribe .subLeft button.boom .shine span:nth-child(even) {
+    animation: .5s evenBoom linear 1;
+}
+
+.content .left .subcribe .subLeft button.boom .shine span:nth-child(odd) {
+    animation: .5s oddBoom linear 1;
+}
+
+/* 一个变大的小圆*/
+.content .left .subcribe .subLeft button.boom .shine::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 56%;
+    transform: translate(-50%, -40%);
+    height: 30px;
+    width: 30px;
+    background-color: #00adec27;
+    border-radius: 50%;
+    opacity: 0;
+    animation: 0.5s decoration linear 1;
+}
+
+@keyframes expending1 {
+    0% {
+        height: 26px;
+        width: 26px;
+        transform: translateX(0px);
+    }
+
+    50% {
+        height: 35px;
+        width: 35px;
+        transform: translateX(-3px);
+
+    }
+
+    100% {
+        height: 26px;
+        width: 26px;
+        transform: translateX(0px);
+
+    }
+}
+
+@keyframes expending {
+    0% {
+        height: 28px;
+        width: 28px;
+        transform: translateX(0px);
+    }
+
+    50% {
+        height: 35px;
+        width: 35px;
+        transform: translateX(-3px);
+    }
+
+    100% {
+        height: 28px;
+        width: 28px;
+        transform: translateX(0px);
+    }
+}
+
+@keyframes decoration {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(1)
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -40%) scale(1.5)
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(2)
+    }
+}
+
+/* 爆炸射线动画 */
+@keyframes oddBoom {
+    0% {
+        opacity: 0;
+        height: 5px;
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(0px);
+    }
+
+    50% {
+        opacity: 1;
+        height: 8px;
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(10px);
+    }
+
+    90% {
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(25px);
+        opacity: 1;
+
+    }
+
+    100% {
+        height: 3px;
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(25px);
+        opacity: 0;
+    }
+
+}
+
+@keyframes evenBoom {
+    0% {
+        opacity: 0;
+        height: 5px;
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(0px);
+    }
+
+    50% {
+        opacity: 1;
+        height: 5px;
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(10px);
+    }
+
+    90% {
+        height: 8px;
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(25px);
+        opacity: 1;
+
+    }
+
+    100% {
+        height: 3px;
+        transform: rotate(calc(var(--i) *22.5deg)) translateY(25px);
+        opacity: 0;
+    }
+
+}
+
+
+/* 三连进度条 */
+.content .left .subcribe .subLeft button i {
+    position: absolute;
+    left: -5.5px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid #00aeec;
+    transform: rotate(45deg);
+    clip-path: polygon(0% 0%,
+            0% 0%,
+            0% 0%,
+            0% 0%,
+            0% 0%,
+            50% 50%);
+}
+
+.content .left .subcribe .subLeft button.subcribe.loading svg {
+    animation: shake 0.2s infinite;
+}
+
+.content .left .subcribe .subLeft button.coins.loading i {
+    animation: loading 2.5s cubic-bezier(0.25, 0.46, 0.75, 0.55) 1;
+}
+
+.content .left .subcribe .subLeft button.favorite.loading i {
+    animation: loading 2.5s cubic-bezier(0.25, 0.46, 0.75, 0.55) 1;
+
+}
+
+
+
+
+/* 三连动画 */
+@keyframes shake {
+    0% {
+        transform: translate(5%, 5%);
+    }
+
+    25% {
+        transform: translate(0%, 5%);
+    }
+
+    50% {
+        transform: translate(5%, 0%);
+    }
+
+    75% {
+        transform: translate(0%, 0%);
+    }
+
+    100% {
+        transform: translate(5%, 5%);
+    }
+}
+
+@keyframes loading {
+    0% {
+        clip-path: polygon(0% 0%,
+                0% 0%,
+                0% 0%,
+                0% 0%,
+                0% 0%,
+                50% 50%);
+    }
+
+    25% {
+        clip-path: polygon(0% 0%,
+                100% 0%,
+                100% 0%,
+                100% 0%,
+                100% 0%,
+                50% 50%);
+    }
+
+    50% {
+        clip-path: polygon(0% 0%,
+                100% 0%,
+                100% 100%,
+                100% 100%,
+                100% 100%,
+                50% 50%);
+    }
+
+    75% {
+        clip-path: polygon(0% 0%,
+                100% 0%,
+                100% 100%,
+                0% 100%,
+                0% 100%,
+                50% 50%);
+    }
+
+    98% {
+        opacity: 1;
+    }
+
+    100% {
+        clip-path: polygon(0% 0%,
+                100% 0%,
+                100% 100%,
+                0% 100%,
+                0% 0%,
+                50% 50%);
+        opacity: 0;
+
+    }
+}
+
 
 /* 简介 */
 .content .left .details {
@@ -632,6 +941,51 @@ header {
     border-radius: 5px;
     padding-left: 10px;
     text-align: center;
+}
+
+
+/* 自动连播按钮 */
+.content .right .videoList .listHead .top label {
+    font-size: 14px;
+    color: #9499a0;
+    cursor: pointer;
+    height: 25px;
+    line-height: 25px;
+}
+
+.content .right .videoList .listHead .top label i {
+    position: relative;
+    display: inline-block;
+    height: 20px;
+    width: 30px;
+    margin: 0px 0 -4px 10px;
+    border-radius: 10px;
+    background-color: #00aeec;
+}
+
+.content .right .videoList .listHead .top label.off i {
+    background-color: #9499a0;
+}
+
+.content .right .videoList .listHead .top label i::after {
+    content: "";
+    width: 17px;
+    height: 17px;
+    border-radius: 100%;
+    background-color: #fff;
+    position: absolute;
+    right: 2px;
+    top: 1px;
+    transition: all 0.2s;
+}
+
+.content .right .videoList .listHead .top label.off i::after {
+    content: "";
+    right: 12px;
+}
+
+.content .right .videoList .listHead .top input[type="checkbox"] {
+    visibility: hidden;
 }
 
 /* 播放列表 */

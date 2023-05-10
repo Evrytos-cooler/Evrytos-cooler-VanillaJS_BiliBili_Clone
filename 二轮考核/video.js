@@ -478,24 +478,27 @@ window.addEventListener('mousemove', (mouse) => {
 
 })
 
-//视频播放完之后连播
+//视频播放完之后连播//或者结束
 videoObj.src.addEventListener('ended', () => {
-    if (i === response.videos.length - 1) {
-        //这里显示播放完成的界面
-        return;
-    }
-    else {
-        i++
+    if (isAutoContinue) {
         if (i === response.videos.length - 1) {
-            //改变按键颜色
+            //这里显示播放完成的界面
+            return;
         }
+        else {
+            i++
+            if (i === response.videos.length - 1) {
+                //改变按键颜色
+            }
+        }
+        upInfo(i)
+        refreshVideo(i)
+        refreshVideoList(i)
+        barClear()
+        barSending(i)
+        refreshComments(i)
     }
-    upInfo(i)
-    refreshVideo(i)
-    refreshVideoList(i)
-    barClear()
-    barSending(i)
-    refreshComments(i)
+
 })
 
 
@@ -530,7 +533,6 @@ async function addComment(target, father, isReply = false, btn) {
     let content = target.value
     const uname = localStorage.getItem('loginUser')
     const avataUrl = await getAvata(uname)
-    console.log(avataUrl)
 
     if (!isReply) {
         // 添加评论
@@ -799,7 +801,71 @@ const videoObserver = new IntersectionObserver((entries) => {
 videoObserver.observe(control)
 
 // 收藏模块
-// const favoriteBtn = document.querySelector('.content .left .subcribe .subLeft .favorite')前置？
+const subcribeBtn = document.querySelector('.content .left .subcribe .subLeft .subcribe')
+const coinsBtn = document.querySelector('.content .left .subcribe .subLeft .coins')
+const shareBtn = document.querySelector('.content .left .subcribe .subLeft .share')
+// 点赞，有长按功能
+let isLong = false
+let animationTimer = null
+subcribeBtn.addEventListener('mousedown', () => {
+    if (!(favoriteBtn.classList.contains('done') && subcribeBtn.classList.contains('done') && coinsBtn.classList.contains('done'))) {
+        mousedown_start_time = new Date().getTime()
+        animationTimer = setTimeout(() => {
+            subcribeBtn.classList.add('loading')
+            coinsBtn.classList.add('loading')
+            favoriteBtn.classList.add('loading')
+            favoriteBtn.addEventListener('animationend', () => {
+                subcribeBtn.classList.add('boom')
+                coinsBtn.classList.add('boom')
+                favoriteBtn.classList.add('boom')
+                favoriteBtn.addEventListener('animationend', () => {
+                    subcribeBtn.classList.remove('boom')
+                    coinsBtn.classList.remove('boom')
+                    favoriteBtn.classList.remove('boom')
+                    if (!subcribeBtn.classList.contains('done')) {
+                        subcribeBtn.classList.add('done')
+                    }
+                    if (!coinsBtn.classList.contains('done')) {
+                        coinsBtn.click()
+                    }
+                    if (!favoriteBtn.classList.contains('done')) {
+                        favoriteBtn.click()
+                    }
+                })
+            })
+
+        }, 500);
+    }
+
+})
+subcribeBtn.addEventListener('mouseleave', () => {
+    subcribeBtn.classList.remove('loading')
+    coinsBtn.classList.remove('loading')
+    favoriteBtn.classList.remove('loading')
+    clearTimeout(animationTimer)
+})
+subcribeBtn.addEventListener('mouseup', () => {
+    mousedown_end_time = new Date().getTime()
+    if (mousedown_end_time - mousedown_start_time < 500) {
+        subcribeBtn.classList.toggle('done')
+    }
+    else {
+        subcribeBtn.classList.remove('loading')
+        coinsBtn.classList.remove('loading')
+        favoriteBtn.classList.remove('loading')
+        clearTimeout(animationTimer)
+    }
+
+})
+// 分享
+shareBtn.addEventListener('click', () => {
+    shareBtn.classList.toggle('done')
+})
+// 投币
+coinsBtn.addEventListener('click', () => {
+    coinsBtn.classList.toggle('done')
+})
+// 收藏
 favoriteBtn.addEventListener('click', (e) => {
     let list = JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))
     if (list === null) {
@@ -807,14 +873,13 @@ favoriteBtn.addEventListener('click', (e) => {
     }
     //首先拿出了原来的数据
 
-    if (e.target.classList.contains('done'))//如果已经点击过了
+    if (favoriteBtn.classList.contains('done'))//如果已经点击过了
     {
-        e.target.classList.remove('done')
+        favoriteBtn.classList.remove('done')
         if (list.length === 1) {
             list = new Array
         } else {
             list = list.splice(list.indexOf(list.find((target) => {
-                console.log(target.uuid === response.videos[i].uuid)
                 return target.uuid === response.videos[i].uuid
             })), 1)
         }
@@ -824,7 +889,7 @@ favoriteBtn.addEventListener('click', (e) => {
     else {    //添加数据
         list.push(response.videos[i])
         //已经收藏
-        e.target.classList.add('done')
+        favoriteBtn.classList.add('done')
     }
 
     //保存数据
@@ -844,3 +909,21 @@ function deleteComment(btn) {
     })), 1);
     localStorage.setItem(response.videos[i].title + ' comments', JSON.stringify(commentObj))
 }
+
+
+
+// 自动连播按钮
+const autoContinue = document.querySelector('.content .right .videoList .listHead .top input[type="checkbox"]')
+const label = document.querySelector('.content .right .videoList .listHead .top label')
+let isAutoContinue = true
+autoContinue.addEventListener('click', () => {
+    if (autoContinue.checked) {
+        label.classList.remove('off')
+        isAutoContinue = true
+        //开启自动连播
+    }
+    else {
+        label.classList.add('off')
+        isAutoContinue = false
+    }
+})
