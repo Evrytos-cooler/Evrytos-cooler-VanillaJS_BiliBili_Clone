@@ -21,18 +21,34 @@ function refreshVideo(n) {
             }
         })
     }
-
 }
 refreshVideo(i)
 
+const watermark = document.querySelector('.content .left .video .watermark')
+function refreshWatermark(n) {
+    const video = document.querySelector('.content .left video')
+    video.addEventListener('loadedmetadata', () => {
+        if (video.videoWidth > 0 && video.videoWidth < 1000) {
+            watermark.classList.add('short')
+        }
+        else {
+            watermark.classList.remove('short')
+        }
+        watermark.querySelector('.up').innerText = response.videos[n].author
+    })
 
-// 渲染up主模块
+}
+refreshWatermark(i)
+
+// 渲染up主模块,顺便渲染视频里面加关注的头像和水印
+const insideAvata = document.querySelector('.content .left .video .control #follow .avata')
 const upAvata = document.querySelector('.content .right .upInfo .infoLeft .avata')
 const upName = document.querySelector('.content .right .upInfo .infoRight .name')
 const upDescription = document.querySelector('.content .right .upInfo .infoRight .description')
 
 function upInfo(n) {
     upAvata.style.backgroundImage = `url(${response.videos[n].authorAvatarSrc})`
+    insideAvata.style.backgroundImage = `url(${response.videos[n].authorAvatarSrc})`
     upName.innerText = response.videos[n].author
 }
 upInfo(i)
@@ -95,6 +111,7 @@ function barAddToList(barObjs) {
 
 
 // 绑定视频控件
+const playIcon = document.querySelector('.content .left .video .play')
 const control = document.querySelector('.content .left .video .control')
 const videoObj = new Object()
 videoObj.body = document.querySelector('.content .left .video')
@@ -118,24 +135,29 @@ videoObj.full = document.querySelector('#full')
 
 
 // 播放暂停
-function pOp(src, force = false, isToPasue = true) {//false表示要主动控制而不是通过检测视频状态
+function pOp(src, force = false, isToPasue = true) {
+    //false表示要主动控制而不是通过检测视频状态
     if (force) {
         if (isToPasue) {
             src.pause()
+            playIcon.style.opacity = '1'
             barPause(true)
         }
         else {
             src.play()
+            playIcon.style.opacity = '0'
             barPause(false)
         }
     }
     else {
         if (src.paused) {
             src.play()
+            playIcon.style.opacity = '0'
             barPause(false)
         }
         else if (!src.paused) {
             src.pause()
+            playIcon.style.opacity = '1'
             barPause(true)
         }
     }
@@ -386,8 +408,9 @@ videoObj.previous.addEventListener('click', () => {
             //改变按键颜色
         }
     }
-    upInfo(i)
     refreshVideo(i)
+    upInfo(i)
+    refreshWatermark(i)
     refreshVideoList(i)
     barClear()
     barSending(i)
@@ -406,8 +429,9 @@ videoObj.next.addEventListener('click', () => {
             //改变按键颜色
         }
     }
-    upInfo(i)
     refreshVideo(i)
+    upInfo(i)
+    refreshWatermark(i)
     refreshVideoList(i)
     barClear()
     barSending(i)
@@ -433,8 +457,9 @@ response.videos.forEach((video, index) => {
 const videoList = document.querySelector('.content .right .videoList ul')
 videoList.addEventListener('click', (e) => {
     i = titleToIndex.indexOf(e.target.innerText)
-    upInfo(i)
     refreshVideo(i)
+    upInfo(i)
+    refreshWatermark(i)
     refreshVideoList(i)
     barClear()
     barSending(i)
@@ -491,8 +516,9 @@ videoObj.src.addEventListener('ended', () => {
                 //改变按键颜色
             }
         }
-        upInfo(i)
         refreshVideo(i)
+        upInfo(i)
+        refreshWatermark(i)
         refreshVideoList(i)
         barClear()
         barSending(i)
@@ -792,9 +818,11 @@ async function getAvata(uname) {
 const videoObserver = new IntersectionObserver((entries) => {
     const entry = entries[0]
     if (entry.intersectionRatio < 0.7) {
-        videoObj.src.pause()
+        pOp(videoObj.src, true, true)
     }
-    else { videoObj.src.play() }
+    else {
+        pOp(videoObj.src, true, false)
+    }
 }, {
     threshold: 0.7
 })

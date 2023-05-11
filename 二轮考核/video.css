@@ -36,7 +36,7 @@ header {
     position: fixed;
     width: 100%;
     max-width: 2560px;
-    z-index: 2;
+    z-index: 200;
 }
 
 /* 内容部分 */
@@ -1056,9 +1056,22 @@ header {
 /* 视频水印 */
 .content .left .video .watermark {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    left: 10px;
     color: rgba(255, 255, 255, 0.409);
+}
+
+.content .left .video .watermark.short {
+    left: 340px;
+}
+
+.content .left .video .watermark .up {
+    font-style: normal;
+}
+
+.content .left .video .watermark .iconfont {
+    font-size: 30px;
+    margin-left: 10px;
 }
 
 /* 视频控件 */
@@ -1090,13 +1103,37 @@ video::-webkit-media-controls {
     position: absolute;
     top: 30px;
     left: 10px;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    color: rgba(255, 255, 255, 0.693);
+    background-color: rgba(0, 0, 0, 0.276);
+    font-size: 12px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: left;
+    align-items: center;
+}
+
+.content .left .video .control #follow .avata {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    border-radius: 100%;
+    margin: 0 4px;
 }
 
 .content .left .video .control #report {
     position: absolute;
-    top: 30px;
+    top: 20px;
     right: 10px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.696);
 }
+
 
 
 
@@ -1107,6 +1144,9 @@ video::-webkit-media-controls {
     flex-flow: row nowrap;
     justify-content: space-between;
     width: 100%;
+    height: 55px;
+    color: rgba(255, 255, 255, 0.696);
+
 }
 
 /* 未hover进度条 */
@@ -1114,8 +1154,8 @@ video::-webkit-media-controls {
     position: absolute;
     bottom: 0px;
     width: 100%;
-    height: 2px;
-    background-color: #fff;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.444);
     transition: all 0.5s;
 }
 
@@ -1127,41 +1167,97 @@ video::-webkit-media-controls {
     position: absolute;
     top: -2px;
     width: 100%;
-    height: 2px;
-    background-color: #fff;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.471);
 }
 
 .content .left .video .progressBar1 div {
     position: absolute;
     left: 0;
-    height: 2px;
-    background-color: rgb(255, 118, 118);
+    height: 3px;
+    background-color: #00aeec;
 }
 
 .content .left .video .control #progressBar div {
     position: absolute;
     left: 0;
-    height: 2px;
-    background-color: rgb(255, 118, 118);
+    height: 3px;
+    background-color: #00aeec;
 }
 
 
 .content .left .video .control .left {
+    flex: 0 0 50%;
     display: flex;
     flex-flow: row nowrap;
+    align-items: center;
+    justify-content: left;
+}
+
+.content .left .video .control .left div {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.content .left .video .control .left #timer {
+    vertical-align: middle;
+    text-align: center;
+    height: 55px;
+    line-height: 19px;
+    cursor: text;
 }
 
 .content .left .video .control .right {
+    flex: 0 0 50%;
     display: flex;
     flex-flow: row nowrap;
+    align-items: center;
+    justify-content: right;
 
 }
 
-.content .left .video .control .play {
+.content .left .video .control .right div:nth-of-type(n+3) {
+    transition: 0.2s all ease;
+}
+
+.content .left .video .control .right div:nth-of-type(n+3):hover {
+    transform: scale(1.1);
+}
+
+.content .left .video .control .right div i {
+    height: 20px;
+    width: 20px;
+}
+
+.content .left .video .control .right div {
+    width: 36px;
+    height: 22px;
+    margin-right: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.content .left .video .control .right #clarity {
+    width: 90px;
+}
+
+.content .left .video .control .right #speed {
+    width: 40px;
+}
+
+
+.content .left .video .play {
     position: absolute;
-    right: 50px;
-    bottom: 100px;
+    right: 30px;
+    bottom: 60px;
+    color: rgba(255, 255, 255, 0.693);
+    transition: all 0.5s;
 }
+
+.content .left .video .play i {
+    font-size: 80px;
+}
+
 
 /* 弹幕效果 */
 .content .left .video .runningBarrage {
@@ -1169,7 +1265,7 @@ video::-webkit-media-controls {
     width: 500px;
     top: 0;
     right: -500px;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.545);
     opacity: 0.8;
 }
 

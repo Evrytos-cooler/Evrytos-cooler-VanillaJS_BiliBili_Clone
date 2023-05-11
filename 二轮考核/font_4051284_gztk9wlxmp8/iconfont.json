@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2480666",
+      "name": "内部反馈",
+      "font_class": "neibufankui",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
       "icon_id": "1269",
       "name": "加",
       "font_class": "jia",

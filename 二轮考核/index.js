@@ -107,7 +107,7 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                     `<div class='video' muted="true"><video src="${src}"></video>
                     <div class='runningBarrage'></div>
                     <div class='laterView iconfont'>&#xe8a3;</div>
-                    <div class='videoCard'>
+                    <div class='videoCard' >
                      <p><i class='iconfont'>&#xe70a;</i>2</p>
                      <p><i class='iconfont'>&#xe665;</i>2</p>
                      <p>时长</p>
@@ -115,8 +115,10 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                     </div>
                 <p class="videoTitle">${title}</p>
                 <p class="author"><i class='iconfont'>&#xe666;</i>${author}</p>`
+
                 entry.target.classList.remove('loading')
                 entry.target.classList.add('ready')
+
                 observer.unobserve(entry.target)
                 replaceUrl(entry.target.firstElementChild, 'video.html?' + "src=" + `${JSON.stringify(response)}` + '&current=' + `${i}`)
                 mouseenterPlay(entry.target.firstElementChild.firstElementChild)
