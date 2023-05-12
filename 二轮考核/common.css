@@ -261,3 +261,54 @@ header .headNav.fixed .rightNav li {
         transform: translateY(0);
     }
 }
+
+/* hover头像 */
+header .headNav .rightNav li {
+    position: relative;
+}
+
+header .headNav .rightNav li .avata {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+header .headNav .rightNav li .avata.active {
+    transform: scale(1.5) translate(-10px, 20px);
+}
+
+header .headNav .rightNav li .hidden {
+    display: block;
+    position: absolute;
+    left: -83px;
+    height: 100px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.237) 1px 1px 5px;
+    background-color: #fff;
+    z-index: -1;
+    opacity: 0;
+    transition: 0.2s all;
+    transform: translate(20px, -70px) scale(0.1);
+}
+
+header .headNav .rightNav li .hidden.active {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+header .headNav .rightNav li .hidden button {
+    height: 55px;
+    width: 150px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fb7299;
+    color: #fff;
+    font-size: 20px;
+}
+
+header .headNav .rightNav li .hidden button i {
+    font-size: 25px;
+    font-weight: 700;
+    padding-right: 2px;
+}

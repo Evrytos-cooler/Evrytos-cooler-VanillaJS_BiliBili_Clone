@@ -63,3 +63,24 @@ search.addEventListener('blur', () => {
     searchFocus = false
 })
 
+
+
+// hover头像，头像方法，登出按键
+const funcAvata = document.querySelector('header .headNav .rightNav li .avata')
+funcAvata.addEventListener('mouseenter', () => {
+    funcAvata.classList.add("active")
+    funcHidden.classList.add("active")
+
+})
+
+const funcHidden = document.querySelector('header .headNav .rightNav li .hidden')
+funcHidden.addEventListener('mouseleave', () => {
+    funcAvata.classList.remove("active")
+    funcHidden.classList.remove("active")
+})
+
+
+const logOutBtn = document.querySelector('header .headNav .rightNav li .hidden button')
+logOutBtn.addEventListener("click", () => {
+    logOut()
+})

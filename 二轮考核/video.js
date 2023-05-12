@@ -366,6 +366,8 @@ function barPause(isToPasue = true) {
 const barBtn = document.querySelector('.content .left .sendBarrage #barrageToggle')
 barBtn.addEventListener('click', (e) => {
     runningBarrage.classList.toggle('close')
+    barBtn.querySelector('.barOn').classList.toggle("active")
+    barBtn.querySelector('.barOff').classList.toggle("active")
 })
 
 //视频列表

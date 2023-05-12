@@ -103,6 +103,20 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                 const describe = response.videos[i].describe
                 const uuid = response.videos[i].uuid
                 const authorAvatarSrc = response.videos[i].authorAvatarSrc
+
+                //     const newVideo = document.createElement('div')
+                //     newVideo.innerHTML = `<div class='video' muted="true"><video src="${src}"></video>
+                //     <div class='runningBarrage'></div>
+                //     <div class='laterView iconfont'>&#xe8a3;</div>
+                //     <div class='videoCard' >
+                //      <p><i class='iconfont'>&#xe70a;</i>2</p>
+                //      <p><i class='iconfont'>&#xe665;</i>2</p>
+                //      <p>时长</p>
+                //     </div>
+                //     </div>
+                // <p class="videoTitle">${title}</p>
+                // <p class="author"><i class='iconfont'>&#xe666;</i>${author}</p>`
+
                 entry.target.innerHTML =
                     `<div class='video' muted="true"><video src="${src}"></video>
                     <div class='runningBarrage'></div>

@@ -85,6 +85,13 @@ header #logo {
     border-radius: 7px;
     margin: 5px 3px;
     background-color: #f6f7f8;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.centerNav .partition ul li:hover {
+    background-color: #c2c2c2;
+
 }
 
 /* 右边 */
