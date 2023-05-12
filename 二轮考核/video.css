@@ -1216,11 +1216,11 @@ video::-webkit-media-controls {
 
 }
 
-.content .left .video .control .right div:nth-of-type(n+3) {
+.content .left .video .control .right div:nth-of-type(n+2) {
     transition: 0.2s all ease;
 }
 
-.content .left .video .control .right div:nth-of-type(n+3):hover {
+.content .left .video .control .right div:nth-of-type(n+2):hover {
     transform: scale(1.1);
 }
 
@@ -1242,10 +1242,92 @@ video::-webkit-media-controls {
 }
 
 .content .left .video .control .right #speed {
+    position: relative;
     width: 40px;
 }
 
+/* 控制声音 */
+.content .left .video .control .right #volume {
+    position: relative;
+    text-align: center;
+    font-size: 12px;
+}
 
+.content .left .video .control .right #volume .volumeHidden {
+    display: none;
+    position: absolute;
+    width: 36px;
+    height: 150px;
+    bottom: 0px;
+    margin: 0;
+}
+
+
+.content .left .video .control .right #volume .volumeHidden .volumeControl {
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.685);
+    width: 36px;
+    height: 110px;
+    padding-top: 5px;
+}
+
+.content .left .video .control .right #volume .volumeHidden .volumeControl .volumeBar {
+    position: absolute;
+    width: 2px;
+    height: 70px;
+    background-color: #fff;
+    left: 17px;
+    bottom: 10px;
+}
+
+.content .left .video .control .right #volume .volumeHidden .volumeControl .volumeCurrent {
+    position: absolute;
+    width: 2px;
+    height: 70px;
+    background-color: #00aeec;
+    left: 17px;
+    bottom: 10px;
+}
+
+.content .left .video .control .right #volume:hover .volumeHidden .volumeControl .volumeCurrent {
+    transform: scale(1);
+}
+
+/* 控制倍速 */
+.content .left .video .control .right #speed .speedHidden {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    height: 270px;
+    width: 70px;
+    left: -20px;
+    margin: 0;
+}
+
+.content .left .video .control .right #speed .speedHidden .speedControl {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.611);
+    height: auto;
+    width: 70px;
+}
+
+.content .left .video .control .right #speed .speedHidden .speedControl ul li {
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+}
+
+.content .left .video .control .right #speed .speedHidden .speedControl ul li.active {
+    color: #00aeec;
+}
+
+.content .left .video .control .right #speed .speedHidden .speedControl ul li:hover {
+    background-color: rgba(239, 238, 238, 0.172);
+
+}
+
+/* 小电视图标 */
 .content .left .video .play {
     position: absolute;
     right: 30px;

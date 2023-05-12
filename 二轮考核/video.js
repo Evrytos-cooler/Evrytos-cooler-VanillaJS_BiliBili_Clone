@@ -113,6 +113,7 @@ function barAddToList(barObjs) {
 // 绑定视频控件
 const playIcon = document.querySelector('.content .left .video .play')
 const control = document.querySelector('.content .left .video .control')
+const popBtn = document.querySelector('.content .left .video .control #worktable .left #playAndPause')
 const videoObj = new Object()
 videoObj.body = document.querySelector('.content .left .video')
 videoObj.src = document.querySelector('.content .left .video video')
@@ -141,11 +142,16 @@ function pOp(src, force = false, isToPasue = true) {
         if (isToPasue) {
             src.pause()
             playIcon.style.opacity = '1'
+            popBtn.querySelector('.onPlay').style.display = 'none'
+            popBtn.querySelector('.onPause').style.display = 'block'
+
             barPause(true)
         }
         else {
             src.play()
             playIcon.style.opacity = '0'
+            popBtn.querySelector('.onPlay').style.display = 'block'
+            popBtn.querySelector('.onPause').style.display = 'none'
             barPause(false)
         }
     }
@@ -153,11 +159,15 @@ function pOp(src, force = false, isToPasue = true) {
         if (src.paused) {
             src.play()
             playIcon.style.opacity = '0'
+            popBtn.querySelector('.onPlay').style.display = 'block'
+            popBtn.querySelector('.onPause').style.display = 'none'
             barPause(false)
         }
         else if (!src.paused) {
             src.pause()
             playIcon.style.opacity = '1'
+            popBtn.querySelector('.onPlay').style.display = 'none'
+            popBtn.querySelector('.onPause').style.display = 'block'
             barPause(true)
         }
     }
@@ -954,4 +964,115 @@ autoContinue.addEventListener('click', () => {
         label.classList.add('off')
         isAutoContinue = false
     }
+})
+
+
+// 调试用
+control.style.opacity = 1;
+
+
+// 音量hover效果：
+const volume = document.querySelector('.content .left .video .control .right #volume')
+const volumeHidden = document.querySelector('.content .left .video .control .right #volume .volumeHidden')
+const volumeControl = document.querySelector('.content .left .video .control .right #volume .volumeControl')
+const volumeCurrent = volumeControl.querySelector('.volumeCurrent')
+const volumeBar = volumeControl.querySelector('.volumeBar')
+const volumeNumber = volumeControl.querySelector('.number')
+
+volume.addEventListener("mouseenter", () => {
+    volumeHidden.style.display = 'block'
+})
+volumeHidden.addEventListener("mouseleave", () => {
+    volumeHidden.style.display = 'none'
+})
+
+// 控制音量
+volume.addEventListener('click', (e) => {
+    pOp(videoObj.src)
+    if (volumeNumber.innerText === '0') {
+        videoObj.src.volume = 1
+        volumeCurrent.style.height = volumeBar.clientHeight + 'px'
+        volumeNumber.innerText = 100
+    }
+    else {
+        videoObj.src.volume = 0
+        volumeCurrent.style.height = '0px'
+        volumeNumber.innerText = 0
+    }
+
+})
+let isMouseOnvolume = false
+volumeControl.addEventListener('click', (e) => {
+    pOp(videoObj.src)
+
+    if ((Math.floor(((volumeBar.getBoundingClientRect().bottom - e.clientY) / volumeBar.clientHeight) * 100) / 100) < 0) {
+        videoObj.src.volume = 0
+        volumeCurrent.style.height = '0px'
+        volumeNumber.innerText = 0
+    }
+    else if ((volumeBar.getBoundingClientRect().bottom - e.clientY) > volumeBar.clientHeight) {
+        volumeCurrent.style.height = volumeBar.clientHeight + 'px'
+        videoObj.src.volume = 1
+        volumeNumber.innerText = 100
+
+    }
+    else {
+        videoObj.src.volume = (Math.floor(((volumeBar.getBoundingClientRect().bottom - e.clientY) / volumeBar.clientHeight) * 100) / 100)
+        volumeCurrent.style.height = (volumeBar.getBoundingClientRect().bottom - e.clientY) + 'px'
+        volumeNumber.innerText = Math.floor(((volumeBar.getBoundingClientRect().bottom - e.clientY) / volumeBar.clientHeight) * 100)
+
+    }
+})
+
+volumeControl.addEventListener('mousedown', () => {
+    isMouseOnvolume = true
+})
+
+volumeControl.addEventListener('mousemove', (e) => {
+    if (isMouseOnvolume) {
+        if ((Math.floor(((volumeBar.getBoundingClientRect().bottom - e.clientY) / volumeBar.clientHeight) * 100) / 100) < 0) {
+            videoObj.src.volume = 0
+            volumeCurrent.style.height = '0px'
+            volumeNumber.innerText = 0
+        }
+        else if ((volumeBar.getBoundingClientRect().bottom - e.clientY) > volumeBar.clientHeight) {
+            volumeCurrent.style.height = volumeBar.clientHeight + 'px'
+            videoObj.src.volume = 1
+            volumeNumber.innerText = 100
+
+        }
+        else {
+            videoObj.src.volume = (Math.floor(((volumeBar.getBoundingClientRect().bottom - e.clientY) / volumeBar.clientHeight) * 100) / 100)
+            volumeCurrent.style.height = (volumeBar.getBoundingClientRect().bottom - e.clientY) + 'px'
+            volumeNumber.innerText = Math.floor(((volumeBar.getBoundingClientRect().bottom - e.clientY) / volumeBar.clientHeight) * 100)
+
+        }
+    }
+})
+volumeControl.addEventListener('mouseup', () => {
+    isMouseOnvolume = false
+})
+
+// 倍速播放
+const speedBtn = document.querySelector('.content .left .video .control #worktable .right #speed')
+const speedHidden = speedBtn.querySelector('.speedHidden')
+const speedUl = speedBtn.querySelector('.speedHidden ul')
+speedBtn.addEventListener("mouseenter", () => {
+    speedHidden.style.display = 'block'
+})
+
+speedHidden.addEventListener("mouseleave", () => {
+    speedHidden.style.display = 'none'
+})
+
+speedUl.addEventListener("click", (e) => {
+    pOp(videoObj.src)
+    Array.from(speedUl.children).forEach(child => {
+        if (child.classList.contains('active')) {
+            child.classList.remove('active')
+            return;
+        }
+    })
+    e.target.classList.add('active')
+    videoObj.src.playbackRate = parseFloat(e.target.innerText)
 })
