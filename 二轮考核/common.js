@@ -1,3 +1,4 @@
+
 const headerAvata = document.querySelector('header .headNav .rightNav li .avata');
 (async () => {
     headerAvata.style = `background-image: url(${await getAvata(localStorage.getItem("loginUser"))})`
@@ -79,9 +80,24 @@ funcHidden.addEventListener('mouseleave', () => {
     funcHidden.classList.remove("active")
 })
 
+funcAvata.addEventListener('mouseleave', (e) => {
+    if (e.clientY - 45 < funcAvata.offsetTop) {
+        funcAvata.classList.remove("active")
+        funcHidden.classList.remove("active")
+    }
 
+
+
+})
 const logOutBtn = document.querySelector('header .headNav .rightNav li .hidden button')
 logOutBtn.addEventListener("click", () => {
-    logOut()
+    if (login) { logOut() }
     location.reload()
+})
+
+funcAvata.addEventListener("click", () => {
+    if (!login) {
+        location.reload()
+    }
+
 })

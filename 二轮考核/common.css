@@ -273,7 +273,18 @@ header .headNav .rightNav li .avata {
 }
 
 header .headNav .rightNav li .avata.active {
-    transform: scale(1.5) translate(-10px, 20px);
+    transform: scale(1.5) translate(-10px, 10px);
+}
+
+header .headNav .rightNav li .avata.logout::after {
+    content: "登录";
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    line-height: 38px;
+    color: #fff;
+    background-color: #00aeec;
 }
 
 header .headNav .rightNav li .hidden {
@@ -316,4 +327,13 @@ header .headNav .rightNav li .hidden button i {
     font-size: 25px;
     font-weight: 700;
     padding-right: 2px;
+}
+
+header .headNav .rightNav li .hidden button.logout {
+    background-color: #00aeec;
+}
+
+header .headNav .rightNav li .hidden button.logout:hover {
+    background-color: #00adec7e;
+
 }

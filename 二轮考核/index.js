@@ -1,3 +1,15 @@
+window.onload = function () {
+    login = JSON.parse(localStorage.getItem('login'))
+    if (login) {
+        //登录状态
+    }
+    else {
+        //未登录状态
+        document.querySelector('header .headNav .rightNav li .aMask .avata').classList.add('logout')
+        document.querySelector('header .headNav .rightNav li .aMask .hidden button').classList.add('logout')
+        document.querySelector('header .headNav .rightNav li .aMask .hidden button').innerHTML = `登录`
+    }
+}
 //头部导航栏行为
 const headNav = document.querySelector('header .headNav')
 const leftNav = headNav.querySelector('.leftNav')

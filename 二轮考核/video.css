@@ -54,6 +54,20 @@ header .headNav .rightNav li .hidden.active {
     z-index: 0;
 }
 
+
+/* logout */
+header .headNav .rightNav li .avata.logout::after {
+    content: "登录";
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    line-height: 38px;
+    color: #fff;
+    border: 1px #00aeec solid;
+    background-color: #00aeec;
+}
+
 /* 内容部分 */
 .content {
     padding-top: 90px;
@@ -164,6 +178,28 @@ header .headNav .rightNav li .hidden.active {
     background-color: #f1f2f3;
 }
 
+.content .left .sendBarrage .barInput #barrage.logout::placeholder {
+    color: transparent;
+}
+
+.content .left .sendBarrage .barInput .hidden {
+    display: none;
+}
+
+.content .left .sendBarrage .barInput.logout .hidden {
+    display: block;
+    position: absolute;
+    left: 50px;
+    color: rgb(82, 82, 82);
+}
+
+.content .left .sendBarrage .barInput.logout .hidden i {
+    font-style: normal;
+    color: #00aeec;
+    padding: 0 4px;
+    cursor: pointer;
+}
+
 .content .left .sendBarrage .barInput #barrageSend {
     width: 70px;
     border: none;
@@ -171,6 +207,11 @@ header .headNav .rightNav li .hidden.active {
     background-color: #00aeec;
     font-size: 12px;
     cursor: pointer;
+}
+
+.content .left .sendBarrage .barInput #barrageSend.logout {
+    background-color: rgba(204, 204, 204, 0.534);
+    color: #6b6f76;
 }
 
 /* 前后图标 */
@@ -709,7 +750,18 @@ header .headNav .rightNav li .hidden.active {
     border-radius: 100%;
 }
 
+.content .left .comments .sendComments.logout .avata::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    border: 1px solid #e5e9ef;
+    background-color: #e5e9ef;
+}
+
 .comments .sendComments #comments {
+    position: relative;
     flex: 1 80%;
     height: 50px;
     border: none;
@@ -742,6 +794,37 @@ header .headNav .rightNav li .hidden.active {
 
 .comments .sendComments .commentSend:hover {
     background-color: #00aeec;
+}
+
+.comments .sendComments .hidden {
+    display: none;
+}
+
+/* logout */
+.content .left .comments .sendComments.logout input::placeholder {
+    color: transparent;
+}
+
+.content .left .comments .sendComments.logout button {
+    background-color: #f1f2f3;
+    color: #9499a0;
+}
+
+.comments .sendComments.logout .hidden {
+    display: block;
+    position: absolute;
+    top: 13px;
+    left: 40%;
+    color: #9499a0;
+}
+
+.content .left .comments .sendComments.logout .hidden button {
+    background-color: #00aeec;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 5px;
+    margin: 0 5px;
 }
 
 /* comment 单条评论 */
@@ -1280,6 +1363,7 @@ video::-webkit-media-controls {
     font-size: 12px;
 }
 
+
 .content .left .video .control .right #volume .volumeHidden {
     display: none;
     position: absolute;
@@ -1308,6 +1392,10 @@ video::-webkit-media-controls {
     bottom: 10px;
 }
 
+.content .left .video .control .right #volume .volumeHidden .volumeControl .volumeBar:hover {
+    transform: scale(1);
+}
+
 .content .left .video .control .right #volume .volumeHidden .volumeControl .volumeCurrent {
     position: absolute;
     width: 2px;
@@ -1317,8 +1405,21 @@ video::-webkit-media-controls {
     bottom: 10px;
 }
 
+.content .left .video .control .right #volume .volumeHidden .volumeControl .number {
+    user-select: none;
+}
+
 .content .left .video .control .right #volume:hover .volumeHidden .volumeControl .volumeCurrent {
     transform: scale(1);
+}
+
+/* 补丁? */
+.content .left .video .control .right #fixing {
+    position: absolute;
+    right: 230px;
+    width: 30px;
+    height: 15px;
+    background-color: transparent
 }
 
 /* 控制倍速 */

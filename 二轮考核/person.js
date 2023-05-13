@@ -13,10 +13,8 @@ barUname.innerHTML = localStorage.getItem('loginUser')
 
 function refreshCollection(videoList) {//传入待渲染数据的数组
     const collectList = document.querySelector('.myClt.content .collections .collectionList')
+    collectList.innerHTML = ``
     videoList.forEach((videoTarget, index) => {
-        if (index === 0) {
-            document.querySelector('.myClt .collections .default .box').querySelector('.video video').setAttribute('src', `${videoTarget.videoSrc}`)
-        }
         const newCollection = document.createElement('div')
         newCollection.classList.add('collection')
         newCollection.innerHTML = `
@@ -51,6 +49,10 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
     });
 }
 refreshCollection(JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)))//传入初始数组
+
+// 加载默认收藏夹
+document.querySelector('.myClt .collections .default .box').querySelector('.video video').setAttribute('src', `${JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))[0].videoSrc}`)
+
 
 function refreshDetailInfo(videoList) {
     const person = document.querySelector('.collections .default .detailInfo div p i#person')
@@ -351,7 +353,6 @@ const hiddenMenu = document.querySelector('.hiddenMenu');
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 200) {
-        console.log(window.scrollY)
         hiddenMenu.style.top = '0';
     }
     else {
@@ -417,5 +418,26 @@ playAll.addEventListener("click", () => {
 const searchBox = document.querySelector('.content .collections .head .input input')
 const searchBtn = document.querySelector('.content .collections .head .input .search')
 searchBtn.addEventListener('click', () => {
+    //获取数据
+    const name = localStorage.getItem('loginUser')
+    const videoList = JSON.parse(localStorage.getItem(`${name}Info`))
+    const value = searchBox.value
+    let filteredVideoList = videoList.filter((videoTarget) => {
+        if (videoTarget.title.includes(value)) return true
+        if (videoTarget.describe.includes(value)) return true
 
+        if (videoTarget.title.includes(value.toUpperCase())) return true
+        if (videoTarget.describe.includes(value.toUpperCase())) return true
+
+        if (videoTarget.title.includes(value.toLowerCase())) return true
+        if (videoTarget.describe.includes(value.toLowerCase())) return true
+
+        if (videoTarget.title.includes(value[0].toUpperCase() + value.slice(1))) return true
+        if (videoTarget.describe.includes(value[0].toUpperCase() + value.slice(1))) return true
+
+        if (videoTarget.title.includes(value[0].toLowerCase() + value.slice(1))) return true
+        if (videoTarget.describe.includes(value[0].toLowerCase() + value.slice(1))) return true
+        else return false
+    })
+    refreshCollection(filteredVideoList)
 })

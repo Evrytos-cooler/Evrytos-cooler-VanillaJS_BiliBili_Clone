@@ -1,3 +1,33 @@
+window.onload = function () {
+    login = JSON.parse(localStorage.getItem('login'))
+    if (login) {
+        //登录状态
+    }
+    else {
+        //未登录状态
+        document.querySelector('header .headNav .rightNav li  .avata').classList.add('logout')
+        document.querySelector('header .headNav .rightNav li  .hidden button').classList.add('logout')
+        document.querySelector('header .headNav .rightNav li  .hidden button').innerHTML = `登录`
+        document.querySelector('.content .left .sendBarrage .barInput #barrage').classList.add('logout')
+        document.querySelector('.content .left .sendBarrage .barInput #barrageSend').classList.add('logout')
+        document.querySelector('.content .left .sendBarrage .barInput ').classList.add('logout')
+        document.querySelector('.content .left .sendBarrage .barInput #barrage').nextElementSibling.classList.add('logout')
+        document.querySelector('.content .left .sendBarrage .barInput #barrage').disabled = true
+        document.querySelector('.content .left .comments .sendComments').classList.add('logout')
+        document.querySelector('.content .left .comments .sendComments input').disabled = true
+        // 登录/注册按钮绑定
+        document.querySelectorAll('.content .left .sendBarrage .barInput .hidden i').forEach(e => {
+            e.addEventListener('click', () => {
+                location.reload()
+            })
+        })
+
+        document.querySelector('.content .left .comments .sendComments .hidden button').addEventListener('click', () => {
+            location.reload()
+
+        })
+    }
+}
 //获取视频参数
 const urlParams = new URLSearchParams(window.location.search);
 const response = JSON.parse(urlParams.get('src'));
@@ -974,7 +1004,8 @@ control.style.opacity = 1;
 
 
 // 音量hover效果：
-const volume = document.querySelector('.content .left .video .control .right #volume')
+const volume = document.querySelector('.content .left .video .control .right #volume .iconfont svg')
+
 const volumeHidden = document.querySelector('.content .left .video .control .right #volume .volumeHidden')
 const volumeControl = document.querySelector('.content .left .video .control .right #volume .volumeControl')
 const volumeCurrent = volumeControl.querySelector('.volumeCurrent')
@@ -987,6 +1018,7 @@ volume.addEventListener("mouseenter", () => {
 volumeHidden.addEventListener("mouseleave", () => {
     volumeHidden.style.display = 'none'
 })
+
 
 // 控制音量
 volume.addEventListener('click', (e) => {
