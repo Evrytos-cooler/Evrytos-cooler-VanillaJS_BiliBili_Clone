@@ -226,20 +226,31 @@
         <div class="collections">
             <div class="default">
                 <div class="box">
-                    <video src="https://frontend.exam.aliyun.topviewclub.cn/videos/video10.mp4"></video>
-                    <div class="description">
-                        <p>Aerial view of a blue sea with big clouds</p>
-                        <p>Gabriella</p>
+                    <div class="video">
+                        <video src="${videoTarget.videoSrc}"></video>
                     </div>
+                    <i class="iconfont">&#xe695;</i>
                 </div>
                 <div class="detailInfo">
-                    <p>创建者</p>
-                    <p>多少个内容</p>
-                    <p>公开吗</p>
-                    <button>播放全部视频</button>
+                    <p>默认收藏夹</p>
+                    <div>
+                        <p>创建者：<i id="person"></i></p>
+                        <p><i id="number"></i>个内容&nbsp;&nbsp;·&nbsp;&nbsp;公开</p>
+                    </div>
+                    <button><i class="iconfont">&#xea82;</i>播放全部视频</button>
                 </div>
             </div>
-            <div class="head">我的收藏夹<i>数量</i></div>
+            <div class="head">
+                <div>批量操作</div>
+                <div>全部分区<i class="iconfont">&#xe62a;</i></div>
+                <div>最近收藏<i class="iconfont">&#xe62a;</i></div>
+                <div class="input">
+                    <div>当前<i class="iconfont">&#xe62a;</i></div>
+                    <input type="text" placeholder="输入关键词">
+                    <i class="iconfont search">&#xe8d6;
+                    </i>
+                </div>
+            </div>
             <div class="collectionList">
             </div>
         </div>
@@ -251,18 +262,28 @@
                 <div class="name">我的创建<i class="iconfont">&#xe62a;</i></div>
                 <div class="addList"><i class="iconfont">&#xe604;</i>添加收藏夹</div>
                 <ul>
-                    <li draggable="true">
+                    <li draggable="true" class="active">
                         <i class="iconfont">&#xe695;</i>
                         默认收藏夹
                     </li>
-                    <li draggable="true" class="active"><i class="iconfont">&#xe695;</i>1</li>
+                    <li draggable="true"><i class="iconfont">&#xe695;</i>1</li>
                     <li draggable="true"><i class="iconfont">&#xe695;</i>2</li>
                     <li draggable="true"><i class="iconfont">&#xe695;</i>3</li>
                 </ul>
             </div>
         </div>
         <div class="collections">
-            <div class="head">我的收藏夹<i>数量</i></div>
+            <div class="head">
+                <div>批量操作</div>
+                <div>全部分区<i class="iconfont">&#xe62a;</i></div>
+                <div>最近收藏<i class="iconfont">&#xe62a;</i></div>
+                <div class="input">
+                    <div>当前<i class="iconfont">&#xe62a;</i></div>
+                    <input type="text" placeholder="输入关键词">
+                    <i class="iconfont search">&#xe8d6;
+                    </i>
+                </div>
+            </div>
             <div class="collectionList">
             </div>
         </div>

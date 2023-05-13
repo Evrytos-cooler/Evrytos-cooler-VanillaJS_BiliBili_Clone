@@ -211,7 +211,7 @@ header .headNav .rightNav li .hidden.active {
     align-items: center;
 }
 
-.content .left .subcribe .subLeft button svg {
+.content .left .subcribe .subLeft button {
     color: #61666d;
     position: relative;
     z-index: 20;

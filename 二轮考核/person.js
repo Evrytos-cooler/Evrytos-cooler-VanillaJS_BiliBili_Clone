@@ -13,7 +13,10 @@ barUname.innerHTML = localStorage.getItem('loginUser')
 
 function refreshCollection(videoList) {//传入待渲染数据的数组
     const collectList = document.querySelector('.myClt.content .collections .collectionList')
-    videoList.forEach(videoTarget => {
+    videoList.forEach((videoTarget, index) => {
+        if (index === 0) {
+            document.querySelector('.myClt .collections .default .box').querySelector('.video video').setAttribute('src', `${videoTarget.videoSrc}`)
+        }
         const newCollection = document.createElement('div')
         newCollection.classList.add('collection')
         newCollection.innerHTML = `
@@ -49,6 +52,15 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
 }
 refreshCollection(JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)))//传入初始数组
 
+function refreshDetailInfo(videoList) {
+    const person = document.querySelector('.collections .default .detailInfo div p i#person')
+    person.innerText = localStorage.getItem('loginUser');
+    const number = document.querySelector(".collections .default .detailInfo #number")
+    number.innerText = videoList.length
+}
+//传入数据
+refreshDetailInfo(JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)))
+
 
 // 更换头像
 const changeAvataBtn = document.querySelector('.headImg .personalInfo .avata')
@@ -80,7 +92,7 @@ changeAvataBtn.addEventListener('click', async () => {
 // 模拟ajax部分刷新
 const myClt = document.querySelector('.myClt.content ')
 const myVideo = document.querySelector('.myVideo.content ')
-const CltBtn = document.querySelector('.menuBar .option li:nth-of-type(4)')
+const CltBtn = document.querySelector('.menuBar .option li:nth-of-type(5)')
 const VideoBtn = document.querySelector('.menuBar .option li:nth-of-type(3)')
 CltBtn.addEventListener('click', (e) => {
     myClt.style.display = 'flex'
@@ -118,9 +130,11 @@ submmitBtn.addEventListener('click', async (e) => {
 
 
             //关闭按钮
-            box.innerHTML = `        <div class="close">关闭</div>
-            <div class="title"><input type="text" placeholder="请输入标题"></div>
-            <div class="describe"><input type="text" placeholder="请输入简介"></div><button>投稿</button>`
+            box.innerHTML = `        <div class="close iconfont">&#xed1e;
+            </div>
+            <div id="title">欢迎up主 ^_^</div>
+            <div class="title"><p>给你的视频起个名字吧</p><input type="text" placeholder="请输入标题"></div>
+            <div class="describe"><p>给你的视频写个简介吧</p><input type="text" placeholder="请输入简介"></div><button>投稿</button>`
             box.querySelector('.close').addEventListener('click', () => {
                 document.querySelector('body').removeChild(box)
                 document.querySelector('body').removeChild(mask)
@@ -128,6 +142,8 @@ submmitBtn.addEventListener('click', async (e) => {
             //提交按钮
             box.querySelector('button').addEventListener('click', () => {
                 //获取数据
+                document.querySelector('body').removeChild(box)
+                document.querySelector('body').removeChild(mask)
                 const title = box.querySelector('.title input').value
                 const describe = box.querySelector('.describe input').value
                 const author = localStorage.getItem('loginUser')
@@ -371,6 +387,16 @@ editUl.addEventListener('click', (e) => {
     e.target.classList.add('active')
 })
 
+const _editUl = document.querySelector('.content.myVideo .edit .myCreating ul')
+const _editLi = _editUl.querySelectorAll('li')
+
+_editUl.addEventListener('click', (e) => {
+    _editLi.forEach(target => {
+        target.classList.remove('active')
+    })
+    e.target.classList.add('active')
+})
+
 function formation(time) {
     let M = Math.floor(time / 60)
     M = (M < 10) ? '0' + M : M
@@ -379,3 +405,17 @@ function formation(time) {
     const formationTime = M + ':' + S
     return formationTime
 }
+
+
+// 播放所有视频按键
+const playAll = document.querySelector('.collections .default .detailInfo button')
+playAll.addEventListener("click", () => {
+    document.querySelector('.collection .video').click()
+})
+
+// 模糊搜索功能
+const searchBox = document.querySelector('.content .collections .head .input input')
+const searchBtn = document.querySelector('.content .collections .head .input .search')
+searchBtn.addEventListener('click', () => {
+
+})

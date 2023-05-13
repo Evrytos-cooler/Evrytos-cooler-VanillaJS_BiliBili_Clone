@@ -1,12 +1,26 @@
 .signInBox {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: space-around;
     position: fixed;
-    width: 500px;
-    height: 400px;
-    left: calc(50% - 250px);
-    top: calc(50% - 200px);
+    width: 815px;
+    height: 430px;
+    text-align: center;
+    left: calc(50% - 407px);
+    top: calc(50% - 215px);
     background-color: #fff;
+    border-radius: 10px;
+    background-color: #fff;
+    background-image: url('https://s1.hdslb.com/bfs/seed/jinkela/short/mini-login-v2/img/22_open.4ea5f239.png'), url('https://s1.hdslb.com/bfs/seed/jinkela/short/mini-login-v2/img/33_open.f7d7f655.png');
+    background-repeat: no-repeat;
+    background-position: left bottom, right bottom;
+    background-size: 20%;
+    z-index: 1000;
+}
+
+
+.signInBox.eyeClose {
+    background-image: url('https://s1.hdslb.com/bfs/seed/jinkela/short/mini-login-v2/img/22_close.9382a5a8.png'), url('https://s1.hdslb.com/bfs/seed/jinkela/short/mini-login-v2/img/33_close.a8c18fc8.png');
 }
 
 .signInMask {
@@ -21,13 +35,64 @@
     display: flex;
     flex-flow: row nowrap;
     margin: 0 auto;
+    font-size: 20px;
+    color: rgba(107, 107, 107, 0.909);
+
+}
+
+.signInBox .option div {
+    margin: 0 5px;
 }
 
 .signInBox .input {
+    position: relative;
     display: flex;
     flex-flow: column nowrap;
     width: 60%;
     margin: 0 auto;
+}
+
+.signInBox .input #pwd {
+    position: relative;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    line-height: 44px;
+}
+
+.signInBox .input #uname {
+    position: relative;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    line-height: 44px;
+    border-bottom: none;
+}
+
+.signInBox .input input#pwd {
+    height: 44px;
+}
+
+.signInBox .input input#uname {
+    height: 44px;
+}
+
+/* 输入框睁眼闭眼和忘记密码 */
+.signInBox .input #pwd p {
+    color: #00aeec;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.signInBox .input #pwd i {
+    position: absolute;
+    right: 110px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.signInBox .input #pwd i:hover {
+    color: #00aeec;
 }
 
 .signInBox .input div {
@@ -54,6 +119,7 @@
 
 .signInBox .btn {
     width: 60%;
+    height: 40px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -62,11 +128,82 @@
 
 
 .signInBox .btn button {
-    flex-grow: 1;
+    flex: 0 49%;
+    cursor: pointer;
+}
+
+.signInBox .btn button:nth-of-type(1) {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.signInBox .btn button:nth-of-type(1):hover {
+    border: 1px solid rgb(70, 70, 70);
+}
+
+.signInBox .btn button:nth-of-type(2):hover {
+    background-color: #00adec8c;
+}
+
+.signInBox .btn button:nth-of-type(2) {
+    background-color: #00aeec;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: #fff;
 }
 
 .signInBox .close {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 20px;
+    top: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.signInBox .other {
+    width: 60%;
+    line-height: 38px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin: 0 auto;
+    color: rgba(107, 107, 107, 0.652);
+}
+
+.signInBox .other div {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.signInBox .other .iconfont {
+    font-size: 25px;
+    margin-right: 8px;
+}
+
+.signInBox .other div:nth-of-type(1) .iconfont {
+    color: #57bb40;
+}
+
+.signInBox .other div:nth-of-type(2) .iconfont {
+    color: #db4437;
+}
+
+.signInBox .other div:nth-of-type(3) .iconfont {
+    color: #4ca2e5;
+}
+
+.signInBox .other p {
+    flex: 0 100%;
+}
+
+
+.signInBox .copyRight {
+    color: rgba(107, 107, 107, 0.652);
+    font-size: 12px;
+}
+
+.signInBox .copyRight i {
+    font-style: normal;
+    color: #0aa5d7;
 }

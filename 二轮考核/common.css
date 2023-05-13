@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'iconfont';
-    src: url('font_4051284_gztk9wlxmp8/iconfont.woff2') format('woff2'),
-        url('font_4051284_gztk9wlxmp8/iconfont.woff') format('woff'),
-        url('font_4051284_gztk9wlxmp8/iconfont.ttf') format('truetype');
+    src: url('font_4051284_dgync8ldbo/iconfont.woff2') format('woff2'),
+        url('font_4051284_dgync8ldbo/iconfont.woff') format('woff'),
+        url('font_4051284_dgync8ldbo/iconfont.ttf') format('truetype');
 }
 
 .iconfont {
@@ -305,6 +305,11 @@ header .headNav .rightNav li .hidden button {
     background-color: #fb7299;
     color: #fff;
     font-size: 20px;
+    cursor: pointer;
+}
+
+header .headNav .rightNav li .hidden button:hover {
+    background-color: #fb7299b5;
 }
 
 header .headNav .rightNav li .hidden button i {

@@ -22,19 +22,27 @@ function signInBox() {
 
     <div class="input">
     <div id="uname">账号<input type="text" name='uname' id='uname' placeholder="请输入账号"></div>
-    <div id="pwd">密码<input type="password" name="pwd" id="pwd" placeholder="请输入密码"></div>
+    <div id="pwd">密码<input type="password" name="pwd" id="pwd" placeholder="请输入密码"><i class='iconfont'>&#xe901;
+    </i><p>忘记密码？</p></div>
     </div>
 
     <div class="btn">
     <button>注册</button>
     <button>登录</button>
     </div>
+    <i class='iconfont close'>&#xed1e;</i>
+    <div class='other'>
+    <p>其他方式登录</p>
+    <div class='wx'> <i class='iconfont'>&#xe631;</i><p>微信登录</p></div>
+    <div class='wb'> <i class='iconfont'>&#xe65a;</i><p>微博登录</p></div>
+    <div class='qq'> <i class='iconfont'>&#xe614;</i><p>QQ登录</p></div>
+    </div>
+    <div class='copyRight'><p>未注册过哔哩哔哩的手机号，我们也不会帮你自动注册账号</p><p>登录或者注册完成即代表你同意<i>用户协议</i>和<i>隐私政策</i></p></div>
+    
+    
     `
     document.querySelector('body').appendChild(box)
-    const close = document.createElement('div')
-    close.innerText = 'X'
-    close.classList.add('close', 'iconfont')
-    box.appendChild(close)
+    const close = box.querySelector('.close')
     close.addEventListener('click', () => {
         removeBox()
     })
@@ -133,6 +141,9 @@ function success(user) {
     // 登录成功的话要显示登录当前的人的信息，在发弹幕或者评论收藏的时候要用到
     localStorage.setItem('loginUser', user)
     //刷新页面，加载那些登陆后才能显示的东西
+    location.reload()
+    close.click()
+
 
 }
 
@@ -141,3 +152,33 @@ function logOut() {
     localStorage.removeItem('loginUser')
 }
 // logOut()
+
+// 输入密码的时候捂脸,点击眼睛切换可视状态
+const eye = document.querySelector('.signInBox .input #pwd i')
+const pwdInput = document.querySelector('.signInBox .input input#pwd')
+const sBox = document.querySelector('.signInBox')
+let isEyeopen = false
+
+eye.addEventListener('click', () => {
+    if (isEyeopen) {
+        eye.innerHTML = '&#xe901;'
+        isEyeopen = false
+        pwdInput.setAttribute('type', 'password')
+
+    }
+    else {
+        eye.innerHTML = '&#xe605;'
+        isEyeopen = true
+        pwdInput.setAttribute('type', 'text')
+
+    }
+})
+
+
+pwdInput.addEventListener("focus", () => {
+    sBox.classList.toggle('eyeClose')
+})
+
+pwdInput.addEventListener("blur", () => {
+    sBox.classList.toggle('eyeClose')
+})

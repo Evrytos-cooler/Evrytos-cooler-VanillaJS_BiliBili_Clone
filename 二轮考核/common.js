@@ -83,4 +83,5 @@ funcHidden.addEventListener('mouseleave', () => {
 const logOutBtn = document.querySelector('header .headNav .rightNav li .hidden button')
 logOutBtn.addEventListener("click", () => {
     logOut()
+    location.reload()
 })
