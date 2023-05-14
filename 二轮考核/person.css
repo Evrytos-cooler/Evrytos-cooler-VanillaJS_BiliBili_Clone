@@ -270,7 +270,6 @@ header .headNav .rightNav li .hidden.active {
     line-height: 66px;
     top: -80px;
     left: 50%;
-    min-width: 800px;
     transform: translateX(-50%);
     z-index: 100;
     background-color: #fff;

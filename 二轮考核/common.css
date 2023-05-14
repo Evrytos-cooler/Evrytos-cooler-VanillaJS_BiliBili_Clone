@@ -147,6 +147,10 @@ header .headNav .rightNav li a button {
     border: none;
     background-color: #fb7299;
     color: #fff;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
 }
 
 header .headNav .rightNav li a button:hover {
@@ -197,6 +201,7 @@ header .headNav form i {
 /* 弹出头部导航栏 */
 header .headNav.fixed {
     position: fixed;
+    min-width: 1228px;
     max-width: 2560px;
     background-color: #fff;
     box-shadow: 0px 2px 5px rgba(204, 204, 204, 0.492);

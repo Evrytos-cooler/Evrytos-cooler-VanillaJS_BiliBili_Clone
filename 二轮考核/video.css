@@ -1114,14 +1114,14 @@ header .headNav .rightNav li .avata.logout::after {
 }
 
 .content .right .videoList .listHead {
-    display: flex;
+    /* display: flex; */
     flex-flow: column nowrap;
     justify-content: space-between;
-    height: 69px;
+    /* height: 69px; */
+    width: 100%;
 }
 
 .content .right .videoList .listHead .top {
-    flex: 1 auto;
     display: flex;
     align-items: center;
     flex-flow: row nowrap;

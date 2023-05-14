@@ -1,0 +1,36 @@
+header .headNav .rightNav li span {
+    display: none;
+}
+
+header .headNav .rightNav li a button {
+    width: 40px;
+}
+
+header .headNav .rightNav li a button p {
+    display: none;
+}
+
+header .headNav .leftNav li {
+    margin-left: 15px;
+}
+
+header .headNav.fixed .leftNav li:nth-last-child(1) {
+    display: none;
+}
+
+header .subHidden .subHiddenBox .section {
+    flex: 0 30%;
+}
+
+.content .ready {
+    width: 23%;
+}
+
+.menuBar .input {
+    flex: 0 10%;
+    margin-right: 100px;
+}
+
+.hiddenMenu .input {
+    margin-right: 50px;
+}
