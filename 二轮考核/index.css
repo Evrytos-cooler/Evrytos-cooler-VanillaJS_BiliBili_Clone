@@ -16,6 +16,97 @@ header #logo {
     z-index: 100;
 }
 
+/* fixed的分区导航 */
+header .subHidden {
+    position: fixed;
+    top: 64px;
+    height: 56px;
+    line-height: 56px;
+    background-color: #fff;
+    width: 100%;
+    z-index: 1001;
+    box-shadow: 0px 2px 3px #ccc;
+    max-width: 2560px;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+header .subHidden.fixed {
+    opacity: 1;
+}
+
+header .subHidden .subHiddenBox {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: left;
+    width: 85%;
+    margin: 0 auto;
+    color: #737373b2;
+}
+
+header .subHidden .subHiddenBox .section {
+    flex: 0 20%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+header .subHidden .subHiddenBox svg {
+    stroke: #737373b2;
+    stroke-width: 1;
+    width: 17px;
+    height: 17px;
+    margin: 0 5px 0 15px;
+}
+
+header .subHidden .subHiddenBox section:nth-of-type(3) a {
+    padding-right: 20px;
+    margin-right: 20px;
+    border-right: 1px #ccc solid;
+}
+
+header .subHidden .subHiddenBox svg circle {
+    stroke: #737373b2;
+    stroke-width: 2;
+}
+
+header .subHidden .subHiddenBox svg path {
+    stroke: #737373b2;
+    stroke-width: 2;
+}
+
+header .subHidden .subHiddenBox .partition {
+    flex: 1 80%;
+    display: flex;
+    align-items: center;
+}
+
+header .subHidden .subHiddenBox .partition ul {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+header .subHidden .subHiddenBox ul li {
+    display: inline;
+    flex: 1 auto;
+    margin: 0 5px;
+    background-color: #f6f7f8;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+header .subHidden .subHiddenBox ul li:hover {
+    background-color: #b7b7b78a;
+
+}
+
+
 /* 中间分区导航 */
 /* 中部导航栏（动态开头的那个)*/
 .centerNav {

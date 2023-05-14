@@ -115,6 +115,7 @@ header .headNav .rightNav li .hidden.active {
 
 .menuBar ul,
 .hiddenMenu ul {
+    position: relative;
     display: flex;
     flex-flow: row nowrap;
 }
@@ -124,9 +125,27 @@ header .headNav .rightNav li .hidden.active {
     flex: 1 40%;
 }
 
+.menuBar ul.option .decoration {
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: 1px;
+}
+
+.menuBar ul.option .decoration div {
+    position: absolute;
+    width: 79px;
+    height: 3px;
+    left: 356px;
+    background-color: #02b5da;
+    transition: all 0.2s ease-in-out;
+}
+
 .menuBar ul.option li,
 .hiddenMenu ul.option li {
-    margin-left: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
 }
 
 .menuBar ul.option li:hover,

@@ -441,3 +441,36 @@ searchBtn.addEventListener('click', () => {
     })
     refreshCollection(filteredVideoList)
 })
+
+
+// option栏选择效果
+const decorationLine = document.querySelector('.menuBar ul.option .decoration div')
+const option = document.querySelectorAll('.menuBar .option li')
+option.forEach((li, index) => {
+    if (index != 7) {
+        let offsetW
+        let offsetL
+        let isClicked = false
+        li.addEventListener('click', (e) => {
+            decorationLine.style.width = li.offsetWidth + 'px'
+            decorationLine.style.left = li.offsetLeft + 'px'
+            isClicked = true
+        })
+        li.addEventListener('mouseenter', () => {
+            isClicked === false
+            offsetW = decorationLine.style.width
+            offsetL = decorationLine.style.left
+            decorationLine.style.width = li.offsetWidth + 'px'
+            decorationLine.style.left = li.offsetLeft + 'px'
+        })
+        li.addEventListener('mouseleave', () => {
+            if (isClicked === false) {
+                //回到原来的地方
+                decorationLine.style.width = offsetW
+                decorationLine.style.left = offsetL
+            }
+            isClicked = false
+        })
+    }
+
+})

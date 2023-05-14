@@ -13,6 +13,7 @@ window.onload = function () {
 //头部导航栏行为
 const headNav = document.querySelector('header .headNav')
 const leftNav = headNav.querySelector('.leftNav')
+const subHidden = document.querySelector('header .subHidden')
 //这里要节流但是有点问题
 let active = true
 window.addEventListener("scroll", () => {
@@ -23,6 +24,14 @@ window.addEventListener("scroll", () => {
     else {
         headNav.classList.remove('fixed')
         leftNav.querySelector('li').style.display = 'none'
+    }
+
+    if (window.scrollY > 250) {
+        subHidden.classList.add('fixed')
+    }
+    else {
+        subHidden.classList.remove('fixed')
+
     }
 })
 //实现无限加载
