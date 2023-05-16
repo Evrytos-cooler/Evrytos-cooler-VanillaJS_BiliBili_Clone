@@ -337,6 +337,10 @@ header .subHidden .subHiddenBox ul li:hover {
     opacity: 1;
 }
 
+.ready>div:hover .laterWaterMask {
+    opacity: 1;
+}
+
 /* 视频时长 videoCard */
 .ready>div .videoCard {
     position: absolute;
@@ -377,6 +381,28 @@ header .subHidden .subHiddenBox ul li:hover {
     transition: all 0.3s;
 }
 
+.ready .video .laterWaterMask {
+    display: flex;
+    flex-flow: row nowrap;
+    color: #f1f2f3;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+
+.ready .video .laterWaterMask.short {
+    flex-flow: column nowrap;
+    left: 35%;
+}
+
+.ready .video .laterWaterMask p {
+    font-size: 12px;
+    padding-right: 2px;
+    font-weight: 700;
+}
 
 .ready .videoTitle {
     margin-top: 12px;

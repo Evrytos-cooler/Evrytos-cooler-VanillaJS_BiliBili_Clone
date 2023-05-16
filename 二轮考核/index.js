@@ -142,6 +142,7 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                     `<div class='video' muted="true"><video src="${src}"></video>
                     <div class='runningBarrage'></div>
                     <div class='laterView iconfont'>&#xe8a3;</div>
+                    <div class='laterWaterMask'><p>${author}</p><i class='iconfont'>&#xe600;</i></div>
                     <div class='videoCard' >
                      <p><i class='iconfont'>&#xe70a;</i>2</p>
                      <p><i class='iconfont'>&#xe665;</i>2</p>
@@ -160,6 +161,10 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                 // 显示视频的时间
                 entry.target.querySelector('.video').querySelector("video").addEventListener('loadedmetadata', (e) => {
                     entry.target.querySelector('.video .videoCard p:nth-of-type(3)').innerText = formation(e.target.duration)
+                    if (entry.target.querySelector('video').videoWidth < 1000) {
+                        entry.target.querySelector('.ready .video .laterWaterMask').classList.add("short")
+                    }
+
                 })
                 i = (i === 9) ? 0 : i + 1
                 // 加载完之后把类名改ready，并取消观察,添加点击跳转事件,添加悬停播放事件
