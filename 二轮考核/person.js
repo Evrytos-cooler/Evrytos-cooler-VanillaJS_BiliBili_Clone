@@ -14,6 +14,9 @@ barUname.innerHTML = localStorage.getItem('loginUser')
 function refreshCollection(videoList) {//传入待渲染数据的数组
     const collectList = document.querySelector('.myClt.content .collections .collectionList')
     collectList.innerHTML = ``
+    if (videoList === null) {
+        return
+    }
     videoList.forEach((videoTarget, index) => {
         const newCollection = document.createElement('div')
         newCollection.classList.add('collection')
@@ -51,10 +54,14 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
 refreshCollection(JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)))//传入初始数组
 
 // 加载默认收藏夹
-document.querySelector('.myClt .collections .default .box').querySelector('.video video').setAttribute('src', `${JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))[0].videoSrc}`)
+if (JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)) !== null) {
+    document.querySelector('.myClt .collections .default .box').querySelector('.video video').setAttribute('src', `${JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))[0].videoSrc}`)
+}
+
 
 
 function refreshDetailInfo(videoList) {
+    if (videoList === null) return
     const person = document.querySelector('.collections .default .detailInfo div p i#person')
     person.innerText = localStorage.getItem('loginUser');
     const number = document.querySelector(".collections .default .detailInfo #number")

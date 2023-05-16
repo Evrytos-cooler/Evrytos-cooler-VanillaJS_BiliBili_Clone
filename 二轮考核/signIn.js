@@ -1,6 +1,7 @@
 //触发条件是点击了需要登录的按钮，所以这些按钮都需要绑定事件并判断登录与否，登录状态由localStorage显示
-// localStorage.setItem('login', 'false')//默认是不登陆的
-
+if (localStorage.getItem('login') === null) {
+    localStorage.setItem('login', 'false')
+}
 function User(uname, pwd) {
     this.uname = uname
     this.pwd = pwd
