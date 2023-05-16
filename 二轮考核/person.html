@@ -224,10 +224,13 @@
                 <div class="name">我的创建<i class="iconfont">&#xe62a;</i></div>
                 <div class="addList"><i class="iconfont">&#xe604;</i>添加收藏夹</div>
                 <ul>
-                    <li draggable="true" class="active"><i class="iconfont">&#xe695;</i>默认收藏夹</li>
-                    <li draggable="true"><i class="iconfont">&#xe695;</i>1</li>
-                    <li draggable="true"><i class="iconfont">&#xe695;</i>2</li>
-                    <li draggable="true"><i class="iconfont">&#xe695;</i>3</li>
+                    <li draggable="true" class="li active"><i class="iconfont">&#xe695;</i>默认收藏夹</li>
+                    <li draggable="true" class="li"><i class="iconfont">&#xe695;</i>1<i class='iconfont remove'
+                            class="li">&#xed1e;</i></li>
+                    <li draggable="true" class="li"><i class="iconfont">&#xe695;</i>2<i
+                            class='iconfont remove'>&#xed1e;</i></li>
+                    <li draggable="true" class="li"><i class="iconfont">&#xe695;</i>3<i
+                            class='iconfont remove'>&#xed1e;</i></li>
                 </ul>
             </div>
         </div>
@@ -274,9 +277,12 @@
                         <i class="iconfont">&#xe695;</i>
                         默认收藏夹
                     </li>
-                    <li draggable="true"><i class="iconfont">&#xe695;</i>1</li>
-                    <li draggable="true"><i class="iconfont">&#xe695;</i>2</li>
-                    <li draggable="true"><i class="iconfont">&#xe695;</i>3</li>
+                    <li draggable="true" class="li"><i class="iconfont">&#xe695;</i>1<i
+                            class='iconfont remove'>&#xed1e;</i></li>
+                    <li draggable="true" class="li"><i class="iconfont">&#xe695;</i>2<i
+                            class='iconfont remove'>&#xed1e;</i></li>
+                    <li draggable="true" class="li"><i class="iconfont">&#xe695;</i>3<i
+                            class='iconfont remove'>&#xed1e;</i></li>
                 </ul>
             </div>
         </div>
@@ -296,13 +302,19 @@
             </div>
         </div>
     </div>
-    <!-- <div class="inputTitleMask"></div>
-    <div class="inputTitle">
-        <div class="close">关闭</div>
-        <div class="title"><input type="text" placeholder="请输入标题"></div>
-        <div class="describe"><input type="text" placeholder="请输入简介"></div>
-        <button>投稿</button>
-    </div> -->
+
+    <section class="InfoBox">
+        <i class="close iconfont">&#xed1e;</i>
+        <h1>创建收藏夹</h1>
+        <div class="input">
+            <p>请输入收藏夹名称</p><input type="text">
+        </div>
+        <label for="private">是否公开<input type="checkbox" name='private'></label>
+        <button>点击创建</button>
+    </section>
+    <section class="InfoBoxMask">
+
+    </section>
 </body>
 <script src="./signIn.js"></script>
 <script src="./common.js"></script>

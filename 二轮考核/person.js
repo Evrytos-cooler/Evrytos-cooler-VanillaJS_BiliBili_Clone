@@ -371,7 +371,7 @@ window.addEventListener('scroll', () => {
 //收藏栏编辑样式
 const editExpend = document.querySelector('.content .edit .myCreating .name i')
 const edit = document.querySelector('.content .edit .myCreating')
-let editHeight = edit.clientHeight + 5 + 'px'
+let editHeight = edit.clientHeight + 'px'
 edit.style.height = editHeight
 
 editExpend.addEventListener('click', () => {
@@ -384,21 +384,40 @@ editExpend.addEventListener('click', () => {
     editExpend.classList.toggle('fold')
 })
 
-//点击变色效果
-const editUl = document.querySelector('.content .edit .myCreating ul')
-const editLi = editUl.querySelectorAll('li')
+const _editExpend = document.querySelector('.myVideo.content .edit .myCreating .name i')
+const _edit = document.querySelector('.myVideo.content .edit .myCreating')
+let _editHeight = 272 + 'px'
+_edit.style.height = _editHeight
 
+_editExpend.addEventListener('click', () => {
+    if (_editExpend.classList.contains('fold')) {
+        _edit.style.height = _editHeight
+    }
+    else {
+        _edit.style.height = '60px'
+    }
+    _editExpend.classList.toggle('fold')
+})
+
+//点击变色效果
+
+let editUl = document.querySelector('.content .edit .myCreating ul')
+let editLi = editUl.querySelectorAll('li')
 editUl.addEventListener('click', (e) => {
+    editUl = document.querySelector('.content .edit .myCreating ul')
+    editLi = editUl.querySelectorAll('li')
     editLi.forEach(target => {
         target.classList.remove('active')
     })
     e.target.classList.add('active')
 })
 
-const _editUl = document.querySelector('.content.myVideo .edit .myCreating ul')
-const _editLi = _editUl.querySelectorAll('li')
+let _editUl = document.querySelector('.content.myVideo .edit .myCreating ul')
+let _editLi = _editUl.querySelectorAll('li')
 
 _editUl.addEventListener('click', (e) => {
+    _editUl = document.querySelector('.content.myVideo .edit .myCreating ul')
+    _editLi = _editUl.querySelectorAll('li')
     _editLi.forEach(target => {
         target.classList.remove('active')
     })
@@ -432,18 +451,23 @@ searchBtn.addEventListener('click', () => {
     let filteredVideoList = videoList.filter((videoTarget) => {
         if (videoTarget.title.includes(value)) return true
         if (videoTarget.describe.includes(value)) return true
+        if (videoTarget.author.includes(value)) return true
 
         if (videoTarget.title.includes(value.toUpperCase())) return true
         if (videoTarget.describe.includes(value.toUpperCase())) return true
+        if (videoTarget.author.includes(value.toUpperCase())) return true
 
         if (videoTarget.title.includes(value.toLowerCase())) return true
         if (videoTarget.describe.includes(value.toLowerCase())) return true
+        if (videoTarget.author.includes(value.toLowerCase())) return true
 
         if (videoTarget.title.includes(value[0].toUpperCase() + value.slice(1))) return true
         if (videoTarget.describe.includes(value[0].toUpperCase() + value.slice(1))) return true
+        if (videoTarget.author.includes(value[0].toUpperCase() + value.slice(1))) return true
 
         if (videoTarget.title.includes(value[0].toLowerCase() + value.slice(1))) return true
         if (videoTarget.describe.includes(value[0].toLowerCase() + value.slice(1))) return true
+        if (videoTarget.author.includes(value[0].toLowerCase() + value.slice(1))) return true
         else return false
     })
     refreshCollection(filteredVideoList)
@@ -481,3 +505,90 @@ option.forEach((li, index) => {
     }
 
 })
+
+
+// 添加收藏夹
+const addFLBtn = document.querySelectorAll('.content .edit .myCreating .addList')
+const InfoBox = document.querySelector('.InfoBox')
+const InfoMask = document.querySelector('.InfoBoxMask')
+let clickTarget = null
+addFLBtn.forEach((btn, index) => {
+    btn.addEventListener('click', (e) => {
+        //获取名字和状态
+        InfoBox.classList.add('active')
+        InfoMask.classList.add('active')
+        InfoBox.querySelector('input').value = ''
+        clickTarget = e.target
+    })
+})
+
+
+InfoBox.querySelector('.close').addEventListener("click", () => {
+    InfoBox.classList.remove('active')
+    InfoMask.classList.remove('active')
+})
+
+InfoBox.querySelector('button').addEventListener("click", () => {
+    let name = null
+    name = InfoBox.querySelector('input').value
+    if (name === '') name = '新建收藏夹'
+    InfoBox.querySelector('input').value = ''
+    const _new = document.querySelector('li')
+    _new.innerHTML = `<i class='iconfont'>&#xe695;</i><i class='iconfont remove'>&#xed1e;</i>${name}`
+    _new.setAttribute('draggable', 'true')
+    _new.classList.add('li')
+
+    InfoBox.classList.remove('active')
+    InfoMask.classList.remove('active')
+
+    const lList = clickTarget.nextElementSibling || clickTarget.parentNode.nextElementSibling
+    lList.appendChild(_new)
+
+    lList.parentNode.style.height = lList.parentNode.clientHeight + 41 + 'px'
+
+    if (lList.parentNode.parentNode.parentNode.classList.contains('myVideo')) {
+        _editHeight = lList.parentNode.clientHeight + 46 + 'px'
+    }
+    else {
+        editHeight = lList.parentNode.clientHeight + 46 + 'px'
+    }
+    delList()
+    return
+})
+
+// 删除函数，添加时调用
+function delList() {
+    let targetLi = document.querySelectorAll('.content.myClt .edit .myCreating ul li')
+    targetLi.forEach((target, index) => {
+        if (index !== 0) {
+            function callbackFun(e) {
+                e.stopPropagation()
+                // console.log(e.target.parentNode.parentNode, e.target.parentNode)
+                e.target.parentNode.parentNode.parentNode.style.height = e.target.parentNode.parentNode.parentNode.clientHeight - 41 + 'px'
+                editHeight = e.target.parentNode.parentNode.parentNode.clientHeight - 46 + 'px'
+
+                e.target.parentNode.parentNode.removeChild(e.target.parentNode)
+            }
+            target.querySelector('.remove').removeEventListener("click", callbackFun)
+            target.querySelector('.remove').addEventListener("click", callbackFun)
+        }
+    })
+
+    // 对另一个界面如法炮制
+    let _targetLi = document.querySelectorAll('.content.myVideo .edit .myCreating ul li')
+    _targetLi.forEach((target, index) => {
+        if (index !== 0) {
+            function _callbackFun(e) {
+                e.stopPropagation()
+                // console.log(e.target.parentNode.parentNode, e.target.parentNode)
+                e.target.parentNode.parentNode.parentNode.style.height = e.target.parentNode.parentNode.parentNode.clientHeight - 41 + 'px'
+                editHeight = e.target.parentNode.parentNode.parentNode.clientHeight - 46 + 'px'
+
+                e.target.parentNode.parentNode.removeChild(e.target.parentNode)
+            }
+            target.querySelector('.remove').removeEventListener("click", _callbackFun)
+            target.querySelector('.remove').addEventListener("click", _callbackFun)
+        }
+    })
+}
+delList()
