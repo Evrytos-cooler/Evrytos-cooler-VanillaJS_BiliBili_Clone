@@ -101,7 +101,7 @@ function signInBox() {
 
         //获取旧的数据
         if (!JSON.parse(localStorage.getItem('UserList'))) {
-            console.log('用户名或密码错误,')
+            alert('用户名或密码错误,')
         }
         else {
             UserList = JSON.parse(localStorage.getItem('UserList'))

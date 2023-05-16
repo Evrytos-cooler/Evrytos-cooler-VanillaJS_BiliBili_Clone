@@ -574,7 +574,7 @@ videoObj.src.addEventListener('ended', () => {
 
 const commentsList = document.querySelector('.content .left .comments .commentsList')
 const writeComment = document.querySelector('.content .left .comments .sendComments #comments')
-const sendComment = document.querySelector('.content .left .comments .sendComments button')
+const sendComment = document.querySelector('.content .left .comments .sendComments button.commentSend')
 const commentAvata = document.querySelector('.content .left .comments .sendComments .avata');
 
 (async () => {
