@@ -97,6 +97,10 @@ header .headNav .rightNav li .avata.logout::after {
     font-size: 15px;
 }
 
+.content .left .info span p {
+    display: inline;
+}
+
 .content .left .info span i {
     padding-right: 5px;
 }
@@ -1104,7 +1108,7 @@ header .headNav .rightNav li .avata.logout::after {
     padding-top: 10px;
     background-color: #f1f2f3;
     border-radius: 8px;
-    height: 250px;
+    height: 260px;
 }
 
 .content .right .videoList ul {
@@ -1301,6 +1305,7 @@ video::-webkit-media-controls {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    user-select: none;
     justify-content: left;
 }
 
@@ -1315,6 +1320,7 @@ video::-webkit-media-controls {
     height: 55px;
     line-height: 19px;
     cursor: text;
+    user-select: none;
 }
 
 .content .left .video .control .right {
@@ -1323,6 +1329,7 @@ video::-webkit-media-controls {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: right;
+    user-select: none;
 
 }
 
@@ -1493,7 +1500,10 @@ video::-webkit-media-controls {
 }
 
 .content .left .video .runningBarrage p.special {
-    background-color: rgba(233, 185, 220, 0.4);
+    background-color: rgba(233, 185, 220, 0.589);
+    border-radius: 5px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.753);
 }
 
 @keyframes barrageMoving {

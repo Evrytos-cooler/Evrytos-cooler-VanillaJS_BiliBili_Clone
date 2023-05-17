@@ -34,3 +34,7 @@ header .subHidden .subHiddenBox .section {
 .hiddenMenu .input {
     margin-right: 50px;
 }
+
+.rightCenterNav ul li p {
+    display: none;
+}

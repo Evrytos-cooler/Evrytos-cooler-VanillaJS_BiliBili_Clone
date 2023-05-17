@@ -18,13 +18,18 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
         return
     }
     videoList.forEach((videoTarget, index) => {
+        videoCondition = JSON.parse(localStorage.getItem(`${videoTarget.title} condition`))
+        if (videoCondition === null) {
+            videoCondition = new Condition(0, 0, 0)
+            localStorage.setItem(`${videoTarget.title} condition`, JSON.stringify(videoCondition))
+        }
         const newCollection = document.createElement('div')
         newCollection.classList.add('collection')
         newCollection.innerHTML = `
     <div class="video">
     <video src="${videoTarget.videoSrc}"></video>
     <div class="mask">
-    <p>播放: 20.2万</p>
+    <p>播放: ${videoCondition.viewAmount}</p>
     <p>收藏: 10万</p>
     <p>UP主: ${videoTarget.author}</p>
     <p>投稿: 5-1 </p>
@@ -189,16 +194,23 @@ function MyVideo(author, authorAvatarSrc, describe, title, videoSrc) {
 // 显示投稿的功能,必须有服务端的支持才能显示
 function displayMyVideo(videoList) {//传入待渲染数据的数组
     if (videoList === null) return
+
+
     const collectList = document.querySelector('.myVideo.content .collections .collectionList')
     collectList.innerHTML = ''
     videoList.forEach(videoTarget => {
+        videoCondition = JSON.parse(localStorage.getItem(`${videoTarget.title} condition`))
+        if (videoCondition === null) {
+            videoCondition = new Condition(0, 0, 0)
+            localStorage.setItem(`${videoTarget.title} condition`, JSON.stringify(videoCondition))
+        }
         const newCollection = document.createElement('div')
         newCollection.classList.add('collection')
         newCollection.innerHTML = `
     <div class="video" time-data="${videoTarget.duration}">
     <video src="${videoTarget.videoSrc}"></video>
     <div class="mask">
-    <p>播放: 20.2万</p>
+    <p>播放: ${videoCondition.viewAmount}</p>
     <p>收藏: 10万</p>
     <p>UP主: ${videoTarget.author}</p>
     <p>投稿: 5-1 </p>
@@ -210,6 +222,7 @@ function displayMyVideo(videoList) {//传入待渲染数据的数组
     </div>
     `
         collectList.appendChild(newCollection)
+        collectList.parentNode.classList.remove('nodata')
         //清理缓存
         // newCollection.querySelector('.video video').onload = () => {
         //     URL.revokeObjectURL(videoTarget.videoSrc)
@@ -592,3 +605,10 @@ function delList() {
     })
 }
 delList()
+
+// 弹幕数量,评论数量，点赞和播放数量
+function Condition(subAmount, viewAmount, barAmount) {
+    this.subAmount = subAmount
+    this.viewAmount = viewAmount
+    this.barAmount = barAmount
+}

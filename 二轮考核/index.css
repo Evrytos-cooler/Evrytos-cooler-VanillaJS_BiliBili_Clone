@@ -158,7 +158,7 @@ header .subHidden .subHiddenBox ul li:hover {
 
 .centerNav .partition {
     display: flex;
-    flex: 1 67%;
+    flex: 1 65%;
     flex-flow: column nowrap;
     justify-content: space-around;
 }
@@ -196,6 +196,10 @@ header .subHidden .subHiddenBox ul li:hover {
     justify-content: space-between;
     border-left: 1px #ccc solid;
     color: #61666d;
+}
+
+.rightCenterNav ul li p {
+    display: inline;
 }
 
 .centerNav .rightCenterNav ul {
@@ -379,6 +383,11 @@ header .subHidden .subHiddenBox ul li:hover {
 .ready>div:hover .videoCard {
     opacity: 0;
     transition: all 0.3s;
+}
+
+.ready>div .videoCard .viewData,
+.ready>div .videoCard .barData {
+    font-style: normal;
 }
 
 .ready .video .laterWaterMask {

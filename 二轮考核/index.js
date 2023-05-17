@@ -144,8 +144,8 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                     <div class='laterView iconfont'>&#xe8a3;</div>
                     <div class='laterWaterMask'><p>${author}</p><i class='iconfont'>&#xe600;</i></div>
                     <div class='videoCard' >
-                     <p><i class='iconfont'>&#xe70a;</i>2</p>
-                     <p><i class='iconfont'>&#xe665;</i>2</p>
+                     <p><i class='iconfont'>&#xe70a;</i><i class='viewData'>0</i></p>
+                     <p><i class='iconfont'>&#xe665;</i><i class='barData'>0</i></p>
                      <p>时长</p>
                     </div>
                     </div>
@@ -158,6 +158,7 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                 observer.unobserve(entry.target)
                 replaceUrl(entry.target.firstElementChild, 'video.html?' + "src=" + `${JSON.stringify(response)}` + '&current=' + `${i}`)
                 mouseenterPlay(entry.target.firstElementChild.firstElementChild)
+
                 // 显示视频的时间
                 entry.target.querySelector('.video').querySelector("video").addEventListener('loadedmetadata', (e) => {
                     entry.target.querySelector('.video .videoCard p:nth-of-type(3)').innerText = formation(e.target.duration)
@@ -166,6 +167,17 @@ async function askForVideo(sections) {//参数是要请求加载的视频列表
                     }
 
                 })
+
+                // 获取并显示视频condition
+                videoCondition = JSON.parse(localStorage.getItem(`${title} condition`))
+                if (videoCondition === null) {
+                    videoCondition = new Condition(0, 0, 0)
+                    localStorage.setItem(`${title} condition`, JSON.stringify(videoCondition))
+                }
+                entry.target.querySelector('.video .videoCard .viewData').innerText = videoCondition.viewAmount
+                entry.target.querySelector('.video .videoCard .barData').innerText = videoCondition.barAmount
+
+
                 i = (i === 9) ? 0 : i + 1
                 // 加载完之后把类名改ready，并取消观察,添加点击跳转事件,添加悬停播放事件
             })
@@ -255,3 +267,9 @@ function formation(time) {
     return formationTime
 }
 
+// 弹幕数量,评论数量，点赞和播放数量
+function Condition(subAmount, viewAmount, barAmount) {
+    this.subAmount = subAmount
+    this.viewAmount = viewAmount
+    this.barAmount = barAmount
+}

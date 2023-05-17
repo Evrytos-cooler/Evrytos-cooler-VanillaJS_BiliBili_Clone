@@ -622,6 +622,14 @@ header .headNav .rightNav li .hidden.active {
     display: none;
 }
 
+.myVideo.content .nodata {
+    height: 500px;
+    background-image: url(https://s1.hdslb.com/bfs/static/jinkela/space/assets/nodata02.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 25%;
+}
+
 /* 投稿模态框 */
 .inputTitle {
     position: fixed;

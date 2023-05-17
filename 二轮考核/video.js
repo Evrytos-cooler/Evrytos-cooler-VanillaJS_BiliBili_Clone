@@ -308,6 +308,8 @@ sendBarrage.addEventListener('click', () => {
         setTimeout(() => {
             creatBarrage(content, true)
         }, 500);
+        // 更新condition数据
+        refreshCondition(i)
     }
 })
 
@@ -456,6 +458,7 @@ videoObj.previous.addEventListener('click', () => {
     refreshVideoList(i)
     barClear()
     barSending(i)
+    refreshCondition(i)
     refreshComments(i)
 
 })
@@ -477,6 +480,7 @@ videoObj.next.addEventListener('click', () => {
     refreshVideoList(i)
     barClear()
     barSending(i)
+    refreshCondition(i)
     refreshComments(i)
 })
 
@@ -506,6 +510,7 @@ videoList.addEventListener('click', (e) => {
     barClear()
     barSending(i)
     refreshComments(i)
+    refreshCondition(i)
 })
 
 //进度获取进度条
@@ -565,6 +570,7 @@ videoObj.src.addEventListener('ended', () => {
         barClear()
         barSending(i)
         refreshComments(i)
+        refreshCondition(i)
     }
 
 })
@@ -894,6 +900,9 @@ subcribeBtn.addEventListener('mousedown', () => {
                     favoriteBtn.classList.remove('boom')
                     if (!subcribeBtn.classList.contains('done')) {
                         subcribeBtn.classList.add('done')
+                        videoCondition.subAmount += 1
+                        localStorage.setItem(`${response.videos[i].title} condition`, JSON.stringify(videoCondition))
+                        refreshCondition(i)
                     }
                     if (!coinsBtn.classList.contains('done')) {
                         coinsBtn.click()
@@ -918,6 +927,17 @@ subcribeBtn.addEventListener('mouseup', () => {
     mousedown_end_time = new Date().getTime()
     if (mousedown_end_time - mousedown_start_time < 500) {
         subcribeBtn.classList.toggle('done')
+        if (subcribeBtn.classList.contains('done')) {
+            videoCondition.subAmount += 1
+            localStorage.setItem(`${response.videos[i].title} condition`, JSON.stringify(videoCondition))
+            refreshCondition(i)
+        }
+        else {
+            videoCondition.subAmount -= 1
+            localStorage.setItem(`${response.videos[i].title} condition`, JSON.stringify(videoCondition))
+            refreshCondition(i)
+        }
+        clearTimeout(animationTimer)
     }
     else {
         subcribeBtn.classList.remove('loading')
@@ -1110,3 +1130,43 @@ speedUl.addEventListener("click", (e) => {
     e.target.classList.add('active')
     videoObj.src.playbackRate = parseFloat(e.target.innerText)
 })
+
+// 弹幕数量,评论数量，点赞和播放数量
+function Condition(subAmount, viewAmount, barAmount) {
+    this.subAmount = subAmount
+    this.viewAmount = viewAmount
+    this.barAmount = barAmount
+}
+
+
+
+function refreshCondition(n) {
+    // 初始化保存状态,每次打开视频都会获得一个 videoCondition
+    const title = document.querySelector('.content .left .title').innerHTML
+    videoCondition = JSON.parse(localStorage.getItem(`${title} condition`))
+    if (videoCondition === null) {
+        videoCondition = new Condition(0, 0, 0)
+        localStorage.setItem(`${response.videos[n].title} condition`, JSON.stringify(videoCondition))
+    }
+
+    // 点赞数量
+    let subAmount = videoCondition.subAmount
+    const subConditionDom = document.querySelector('.content .left .subcribe .subLeft .subcribe .data')
+    subConditionDom.innerHTML = subAmount
+    // 播放数量
+    let playAmount = videoCondition.viewAmount + 1
+    videoCondition.viewAmount = playAmount
+    const viewConditionBar = document.querySelector('.content .left .info .playAmount .data')
+    viewConditionBar.innerHTML = playAmount
+    // 弹幕数量
+    const barConditionDom = document.querySelector('.content .left .sendBarrage .condition')
+    const _barConditionDom = document.querySelector('.content .left .info .barAmount .data')
+    const barAmount = document.querySelector(".content .right .barrageList ul").children.length - 1
+    barConditionDom.innerHTML = `1人在看，${barAmount}条弹幕已经装填`
+    _barConditionDom.innerHTML = barAmount
+
+    //上传更新状态
+    videoCondition.barAmount = barAmount
+    localStorage.setItem(`${response.videos[i].title} condition`, JSON.stringify(videoCondition))
+}
+refreshCondition(i)
