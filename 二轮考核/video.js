@@ -673,8 +673,8 @@ async function addComment(target, father, isReply = false, btn) {
     // 添加回复
     else {
         if (content.trim()) {
-            if (btn.parentNode.parentNode.querySelector(".name").innerText != father.parentNode.querySelector(".name").innerText) {
-                content = '@' + btn.parentNode.parentNode.querySelector('.name').innerText + ' ' + content
+            if (btn.parentNode.parentNode.querySelector(".name").innerText !== father.parentNode.querySelector(".name").innerText) {
+                content = `<p style='color:#00aeec;display:inline;'>回复@${btn.parentNode.parentNode.querySelector('.name').innerText}</p>` + ' ' + content
             }
 
             const date = new Date()
@@ -716,7 +716,7 @@ async function addComment(target, father, isReply = false, btn) {
             //添加删除函数
             newComment.children[3].children[4].addEventListener('click', (e) => {
 
-                deleteComment(e.target)
+                deleteComment(e.target, true)
             })
 
 
@@ -851,7 +851,7 @@ async function refreshComments(i) {
                     _newComment.querySelector('.detailInfo').appendChild(del)
                     del.addEventListener('click', (e) => {
                         //调用添加函数
-                        deleteComment(e.target)
+                        deleteComment(e.target, true)
                     })
                 }
 
@@ -1025,17 +1025,39 @@ favoriteBtn.addEventListener('click', (e) => {
 })
 
 
-function deleteComment(btn) {
-    //在dom中删除
-    btn.parentNode.parentNode.parentNode.removeChild(btn.parentNode.parentNode)
-    //在localstorage中删除
-    const commentObj = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
-    commentObj.splice(commentObj.indexOf(commentObj.find(comment => {
-        const result = (btn.parentNode.parentNode.children[1].innerText === comment.uname) &&
-            (btn.parentNode.children[0].innerText === comment.time)
-        return result
-    })), 1);
-    localStorage.setItem(response.videos[i].title + ' comments', JSON.stringify(commentObj))
+function deleteComment(btn, reply = false) {
+    if (!reply) {
+        //在dom中删除
+        btn.parentNode.parentNode.parentNode.removeChild(btn.parentNode.parentNode)
+        //在localstorage中删除
+        const commentObj = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
+        commentObj.splice(commentObj.indexOf(commentObj.find(comment => {
+            const result = (btn.parentNode.parentNode.children[1].innerText === comment.uname) &&
+                (btn.parentNode.children[0].innerText === comment.time)
+            return result
+        })), 1);
+        localStorage.setItem(response.videos[i].title + ' comments', JSON.stringify(commentObj))
+    }
+    else {
+
+        //在localstorage中删除
+        const commentObj = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
+        //找到对应的评论
+        commentObj.forEach(Mother => {
+            if (btn.parentElement.parentElement.parentElement.querySelector('.detailInfo').querySelector('.time').innerText === Mother.time) {
+                Mother.reply.splice(Mother.reply.indexOf(Mother.reply.find(comment => {
+                    const result = (btn.parentNode.parentNode.children[1].innerText === comment.uname) &&
+                        (btn.parentNode.children[0].innerText === comment.time)
+                    return result
+                })), 1);
+            }
+
+        })
+        localStorage.setItem(response.videos[i].title + ' comments', JSON.stringify(commentObj))
+        //在dom中删除
+        btn.parentNode.parentNode.parentNode.removeChild(btn.parentNode.parentNode)
+    }
+
 }
 
 

@@ -1606,3 +1606,9 @@ video::-webkit-media-controls {
     padding: 2px 0;
     color: #9499a0;
 }
+
+.comment span {
+    display: block;
+    width: 100%;
+    overflow-wrap: break-word;
+}
