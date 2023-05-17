@@ -630,6 +630,14 @@ header .headNav .rightNav li .hidden.active {
     background-size: 25%;
 }
 
+.myClt.content .nodata {
+    height: 600px;
+    background-image: url(https://s1.hdslb.com/bfs/static/jinkela/space/assets/nodata02.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 25%;
+}
+
 /* 投稿模态框 */
 .inputTitle {
     position: fixed;

@@ -1,3 +1,9 @@
+// 退出登录了就快走
+const logoutBtn = document.querySelector('.headNav .rightNav li .avata .hidden button')
+logoutBtn.addEventListener('click', () => {
+    localStorage.setItem('login', 'false')
+    window.location.replace('index.html')
+})
 //个人信息
 const barUname = document.querySelector('.headImg .personalInfo .info .uname')
 const barAvata = document.querySelector('.headImg .personalInfo .avata')
@@ -44,6 +50,7 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
     `
 
         collectList.appendChild(newCollection)
+        collectList.parentNode.classList.remove('nodata')
         //获取视频的时间
         newCollection.querySelector('.video video').addEventListener('loadedmetadata', (e) => {
             newCollection.querySelector('.video').setAttribute('time-data', formation(e.target.duration))

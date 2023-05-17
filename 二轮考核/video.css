@@ -838,6 +838,11 @@ header .headNav .rightNav li .avata.logout::after {
     margin-top: 30px;
 }
 
+.comment .detailInfo i.iconfont.done {
+    color: #00aeec !important;
+    font-weight: 700;
+}
+
 .content .left .comments .commentsList>.comment {
     border-bottom: 1px solid rgba(204, 204, 204, 0.504);
 }
@@ -955,15 +960,25 @@ header .headNav .rightNav li .avata.logout::after {
 }
 
 .content .left .comments .sendReply input {
+    flex: 1 auto;
     width: 80%;
     height: 50px;
-    margin-top: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f2f3;
+    padding-left: 10px;
+    outline: none;
 }
 
 .content .left .comments .sendReply .commentSend {
     height: 50px;
     width: 80px;
     margin: 10px 0 0 10px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #7fd6f5;
 }
 
 /* 弹幕列表 */

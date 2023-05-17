@@ -634,13 +634,21 @@ async function addComment(target, father, isReply = false, btn) {
                 //调用添加函数
                 replying(newComment, false, e.target)
             })
-            //绑定删除事件
 
-            newComment.children[3].children[4].addEventListener('click', (e) => {
-                //调用添加函数
-                deleteComment(e.target)
+            newComment.children[3].children[1].addEventListener('click', (e) => {
+                //调用点赞
+                e.target.classList.toggle('done')
+            })
+            newComment.children[3].children[2].addEventListener('click', (e) => {
+                //调用踩
+                e.target.classList.toggle('done')
             })
 
+            //绑定删除事件
+            newComment.children[3].children[4].addEventListener('click', (e) => {
+                //调用删除
+                deleteComment(e.target)
+            })
 
             // 保存评论
             //如果真的产生了评论，那么就保存,这里是评论不是回复
@@ -694,11 +702,23 @@ async function addComment(target, father, isReply = false, btn) {
                 replying(newComment.parentNode, true, e.target)
             })
 
+
+            newComment.children[3].children[1].addEventListener('click', (e) => {
+                //调用点赞
+                e.target.classList.toggle('done')
+            })
+            newComment.children[3].children[2].addEventListener('click', (e) => {
+                //调用踩
+                e.target.classList.toggle('done')
+            })
+
+
             //添加删除函数
             newComment.children[3].children[4].addEventListener('click', (e) => {
-                //调用添加函数
+
                 deleteComment(e.target)
             })
+
 
             //保存评论
             list = JSON.parse(localStorage.getItem(response.videos[i].title + ' comments'))
@@ -816,6 +836,15 @@ async function refreshComments(i) {
                     replying(_newComment, true, e.target)
                 })
 
+                _newComment.children[3].children[1].addEventListener('click', (e) => {
+                    //调用点赞
+                    e.target.classList.toggle('done')
+                })
+                _newComment.children[3].children[2].addEventListener('click', (e) => {
+                    //调用踩
+                    e.target.classList.toggle('done')
+                })
+
                 if (reply.uname === localStorage.getItem('loginUser')) {
                     const del = document.createElement('button')
                     del.innerText = "删除"
@@ -832,6 +861,15 @@ async function refreshComments(i) {
             newComment.childNodes[6].childNodes[7].addEventListener('click', (e) => {
                 //调用添加函数
                 replying(newComment, false, e.target)
+            })
+
+            newComment.children[3].children[1].addEventListener('click', (e) => {
+                //调用点赞
+                e.target.classList.toggle('done')
+            })
+            newComment.children[3].children[2].addEventListener('click', (e) => {
+                //调用踩
+                e.target.classList.toggle('done')
             })
 
             // 如果当前登录的是发送评论的本人，那么就可以删除
