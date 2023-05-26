@@ -107,9 +107,15 @@ function signInBox() {
             UserList = JSON.parse(localStorage.getItem('UserList'))
         }
 
-        const key = UserList.find(item => {
+        let key = UserList.find(item => {
             return item.uname === user.uname
-        }).pwd
+        })
+        if (key != undefined) {
+            key = key.pwd
+        }
+        else {
+            console.log('未注册')
+        }
         if (key === user.pwd) {//密码可以加密
             success(user.uname)
         }

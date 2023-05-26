@@ -66,7 +66,7 @@ function refreshCollection(videoList) {//传入待渲染数据的数组
 refreshCollection(JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)))//传入初始数组
 
 // 加载默认收藏夹
-if (JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`)) !== null) {
+if (JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))[0] !== undefined) {
     document.querySelector('.myClt .collections .default .box').querySelector('.video video').setAttribute('src', `${JSON.parse(localStorage.getItem(`${localStorage.getItem('loginUser')}Info`))[0].videoSrc}`)
 }
 
